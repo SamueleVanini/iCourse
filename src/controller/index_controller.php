@@ -19,7 +19,7 @@ class InformazioniCorsi extends Config
     
     public function getInformazioni()
     {
-        $query = "SELECT ? FROM ?";
+        $query = "SELECT * FROM corsi";
         $result = $this->con->query($query);
         if($result === false)
         {
@@ -32,4 +32,3 @@ class InformazioniCorsi extends Config
 
 $info = new InformazioniCorsi();
 $info->getInformazioni();
-
