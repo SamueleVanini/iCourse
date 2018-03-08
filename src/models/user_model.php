@@ -1,6 +1,6 @@
 <?php
 
-include_once("../utils/db.php");
+include_once("../utils/db_utils.php");
 
 class User
 {

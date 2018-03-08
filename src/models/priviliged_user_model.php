@@ -1,6 +1,6 @@
 <?php
 
-include_once("../utils/db.php");
+include_once("../utils/db_utils.php");
 include_once("role.php");
 include_once("user.php");
 
@@ -8,6 +8,7 @@ class PrivilegedUser extends User
 {
     private $roles;
 
+    /** Costruttore per la creazione dell'utente */
     public function __construct($username, $password)
     {
         parent::__construct($username, $password);

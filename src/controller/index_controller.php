@@ -1,34 +1,29 @@
 <?php
 
-require_once("config.php");
+include("../utils/db_utils.php");
 
-class InformazioniCorsi extends Config
+class InformazioniCorsi
 {
-    private $con;
+    private static $db;
     
-    public function __construct() 
+    public static function initDb()
     {
-        parent::load();
-        $this->con = new mysqli($this->DB_HOST, $this->DB_USERNAME, $this->DB_PASSWD, $this->DB_NAME);
-        echo "";
-        if($this->con->connect_error)
-        {
-            die("Connect Error: ".  $this->con->connect_error);
-        }
+        self::$db = new Db();
     }
-    
-    public function getInformazioni()
+    public function getAll()
     {
         $query = "SELECT * FROM corsi";
-        $result = $this->con->query($query);
+        $result = self::$db->runQuery($sql);
         if($result === false)
         {
             printf("Error query for course infmation: %s\n", $this->con->error);
         }
-        $this->con->close();
+        /**
+         * TODO Modificare in modo che ritorni i dati in formato json 
+         */
         return $result;
     }
 }
 
 $info = new InformazioniCorsi();
-$info->getInformazioni();
+$info->getAll();
