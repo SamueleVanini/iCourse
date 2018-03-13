@@ -1,0 +1,1 @@
+insert into Eventi values(default, /*DESCRIZIONE*/, /*NOME CORSO*/);

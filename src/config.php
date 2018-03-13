@@ -16,11 +16,11 @@ class Config
 
     public function load()
     {
-        $str = file_get_contents("../config.json");
+        $str = file_get_contents("../../config.json");
         $config = json_decode($str, true);
-        $this->DB_HOST     = $config["DB_HOST_TEST"];
-        $this->DB_NAME     = $config["DB_NAME_TEST"];
-        $this->DB_USERNAME = $config["DB_USERNAME_TEST"];
-        $this->DB_PASSWD   = $config["DB_PASSWD_TEST"];
+        $this->DB_HOST     = $config["DB_HOST"];
+        $this->DB_NAME     = $config["DB_NAME"];
+        $this->DB_USERNAME = $config["DB_USERNAME"];
+        $this->DB_PASSWD   = $config["DB_PASSWD"];
     }
 }

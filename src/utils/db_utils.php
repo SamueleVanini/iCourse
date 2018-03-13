@@ -1,17 +1,17 @@
 <?php
 
-require_once("config.php");
+require_once("../config.php");
 
 class Db extends Config
 {
-    private $conn;
+    protected $conn;
     public $error_list = array();
 
     /** Costruttore, crea la connessione al database */
     public function __construct()
     {
         parent::load();
-        $this->con = new mysqli($this->DB_HOST, $this->DB_USERNAME, $this->DB_PASSWD, $this->DB_NAME);
+        $this->conn = new mysqli($this->DB_HOST, $this->DB_USERNAME, $this->DB_PASSWD, $this->DB_NAME);
         if($this->conn->connect_error)
             die("Connessione fallita: " . $this->conn->connect_error);
     }
