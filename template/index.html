@@ -38,27 +38,26 @@
 		<!-- CONTENUTO PAGINA -->
 		
 		<div class="col-md-1"></div>
-    	<div class="container col-md-10" id="prova">
+    	<div class="container col-md-10" id="tabella_corsi">
 	        <script>
 			    var callback_get = function(err, response){
 					if(err){
 						console.log("Errore: " + err);	
 					}else{
-						console.log(response);
 						response = JSON.parse(response);
-						box = "<div class=\"card card-new col-md-3\">\n<img class=\"card-img-top\" src=\"img/matematica.jpg\" alt=\"Card image cap\">\n <div class=\"card-body\">\n<h5 class=\"card-title\">";
-						box += response[0].Nome + "</h5> <p class=\"card-text\">"+response[0].Descrizione;
-						box += "</p><a href=\"#\" class=\"btn btn-primary\">Vai all'attività</a>\n</div>\n</div><div class=\"col-md-1 separatore\"></div>";
-							
-						for($i = 0; $i < 7; $i++){	
-							document.getElementById('prova').innerHTML = box;
-						}
+						var box = "";
+						for(course in response) {
+								box += "<div class=\"card card-new col-md-3\">\n<img class=\"card-img-top\" src=\"img/matematica.jpg\" alt=\"Card image cap\">\n <div class=\"card-body\">\n<h5 class=\"card-title\">";
+								box += response[course].Nome + "</h5> <p class=\"card-text\">"+response[course].Descrizione;
+								box += "</p><a href=\"#\" class=\"btn btn-primary\">Vai all'attività</a>\n</div>\n</div><div class=\"col-md-1 separatore\"></div>";
+								
+						}		
+						document.getElementById('tabella_corsi').innerHTML = box;
 					}//if-else
 			   	}//callback_get
 				
 				var request = new Request("../src/controller/index_controller.php", "POST", [{name: "test", value: 10}, {name: "test2", value: 100}], callback_get); //inizialize the Request object
 				request.send(); //send the request
-	
 	        </script>
     	</div>
     	
