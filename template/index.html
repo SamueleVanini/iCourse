@@ -5,7 +5,8 @@
     	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
     	<link rel="stylesheet" href="../assets/bootstrap.min.css" type="text/css">
 		<link rel="stylesheet" href="../assets/style.css" type="text/css">
-  	</head>
+		<script src="../assets/request.js"></script>
+	</head>
   	<body>
 		  
 		<!-- LOGIN -->
@@ -43,6 +44,7 @@
 					if(err){
 						console.log("Errore: " + err);	
 					}//if
+					console.log(response);
 			   	}//callback_get
 			   
 				$box = "<div class=\"card card-new col-md-3\">\n<img class=\"card-img-top\" src=\"img/matematica.jpg\" alt=\"Card image cap\">\n <div class=\"card-body\">\n<h5 class=\"card-title\">";
@@ -54,8 +56,8 @@
 					document.write($box);
 				}
 				
-				var request = new Request("test_post.php", "POST", [{name: "test", value: 10}, {name: "test2", value: 100}], callback_get); //inizialize the Request object
-				//request.send(); //send the request
+				var request = new Request("../src/controller/index_controller.php", "POST", [{name: "test", value: 10}, {name: "test2", value: 100}], callback_get); //inizialize the Request object
+				request.send(); //send the request
 	
 	        </script>
     	</div>
