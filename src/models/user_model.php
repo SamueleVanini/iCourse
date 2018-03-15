@@ -5,36 +5,48 @@ include_once("../utils/db_utils.php");
 class User
 {
     protected $user_id;
+    protected $user_matricola;
     protected $username;
-    protected $password;
     protected static $db;
     private $course_list = [];
     private $class = [];
 
-
-    public function __construct($username, $password)
+    /**
+    * @param $username username dell'utente
+    * @param $matricola matricola dell'utente
+    * @param $password password dell'utente
+    */
+    public function __construct($username, $matricola, $password)
     {
         self::$db = new Db();
-        $sql = "SELECT * FROM users WHERE username = '$username' and password = '$password'";
+        $sql = "SELECT * FROM Utenze WHERE";
+        if(isset($matricola))
+            $sql+="username = '$username'";
+        else
+            $sql+="matricola = '$matricola'";
+        $sql+="and password = '$password'";
         $result = self::$db->runQuery($sql);
         $result = $result->fetch_all(MYSQLI_ASSOC);
         if(!empty($result))
         {
             
-            $this->user_id = $result[0]["user_id"];
+            $this->user_id = $result[0]["Id_Utente"];
+            $this->user_matricola = $result[0]["Matricola"];
             $this->username = $username;
-            $this->password = $password;
         }
         else
         {
             self::$db->error_list[] = "Login error, le tue credenziali non sono valide";
-        }
-    }
+        } //if-else
+    } //__construct
     
+    /** 
+    * @return lista degli errori per l'utente $this
+    */
     public function getErrorList()
     {
         return self::$db->error_list;
-    }
+    } //getErrorList
 
     /**
      * Recupera la lista dei corsi di un utente
