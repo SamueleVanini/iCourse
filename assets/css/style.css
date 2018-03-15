@@ -4,8 +4,6 @@
 	background-color:#E4F3F2 !important;
 	float:left;
 	margin-bottom:20px;
-}
-
-.separatore{
-	float:left; 
+	margin-right:20px;
+	/*margin-left:20px;*/
 }

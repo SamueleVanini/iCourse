@@ -1,3 +1,8 @@
+/*
+ * Powered by Davide Baraldo (https://github.com/backview)
+ * GitHub: https://github.com/backview/ajaxrequest
+ * */
+
 // Constructor
 function Request(page, method, parameters, callback) {
   this.page = page;
@@ -5,7 +10,6 @@ function Request(page, method, parameters, callback) {
   this.parameters = parameters;
   this.callback = callback;
 }
-
 // class methods
 Request.prototype.send = function() {
 	var xhttp = new XMLHttpRequest();
