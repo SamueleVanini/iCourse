@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="../assets/css/bootstrap.min.css" type="text/css">
 		<link rel="stylesheet" href="../assets/css/style.css" type="text/css">
 	    <link href="../assets/css/album.css" rel="stylesheet">
+	    <script src="../assets/js/request.js"></script>
     </head>
     <body>
 	    <header>
@@ -65,22 +66,22 @@
 	        	<div class="container" id="tabella_corsi">
 					<script>
 						var card1 = "<div class=\"col-md-4\"><div class=\"card mb-4 box-shadow\"><img class=\"card-img-top\" data-src=\"holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail\" alt=\"Card image cap\"><div class=\"card-body\"><h4 class=\"card-text\">";
-						var card2 = "<p class=\"card-text\" id=\"contenuto\">";
+						var card2 = "</h4><p class=\"card-text\" id=\"contenuto\">";
 						var card3 = "</p><div class=\"d-flex justify-content-between align-items-center\"><div class=\"btn-group\"><button type=\"button\" class=\"btn btn-sm btn-outline-secondary\">Vai all'attività</button></div><small class=\"text-muted\">";
 						var card4 = "</small></div></div></div></div>";
 					    var callback_get = function(err, response){
-							
 							if(err){
 								console.log("Errore: " + err);	
 							}else{
 								response = JSON.parse(response);
 								var box = "";
+								var i = 0;
 								box += "<div class=\"row\">";
 								for(course in response) {
 									box += card1;
-									box += response[course].Nome;
+									box += response[i].Nome;
 									box += card2;
-									box += response[course].Descrizione;
+									box += response[i].Descrizione;
 									box += card3;
 									box += "Data";
 									box += card4;
@@ -90,7 +91,7 @@
 							}//if-else
 					   	}//callback_get
 						
-						var request = new Request("../src/controller/index_controller.php", "POST", "", callback_get); //inizialize the Request object
+						var request = new Request("../src/controller/index_controller.php", "POST", [], callback_get); //inizialize the Request object
 						request.send(); //send the request
 		        	</script>
 	        	</div>
@@ -113,6 +114,5 @@
 	    <script src="../assets/js/popper.min.js"></script>
 	    <script src="../assets/js/bootstrap.min.js"></script>
 	    <script src="../assets/js/holder.min.js"></script>
-    
     </body>
 </html>
