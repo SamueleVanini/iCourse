@@ -1,6 +1,7 @@
 <?php
 
-include_once("../utils/db_utils.php");
+$var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/utils/db_utils.php";
+require_once($var);
 
 class User
 {
@@ -13,18 +14,12 @@ class User
 
     /**
     * @param $username username dell'utente
-    * @param $matricola matricola dell'utente
     * @param $password password dell'utente
     */
-    public function __construct($username, $matricola, $password)
+    public function __construct($username, $password)
     {
         self::$db = new Db();
-        $sql = "SELECT * FROM Utenze WHERE";
-        if(isset($matricola))
-            $sql+="username = '$username'";
-        else
-            $sql+="matricola = '$matricola'";
-        $sql+="and password = '$password'";
+        $sql = "SELECT * FROM Utenze WHERE (Username = '$username' or Matricola = '$username') and password = '$password'";
         $result = self::$db->runQuery($sql);
         $result = $result->fetch_all(MYSQLI_ASSOC);
         if(!empty($result))

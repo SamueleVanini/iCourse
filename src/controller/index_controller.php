@@ -1,6 +1,7 @@
 <?php
 
-require_once("../utils/db_utils.php");
+$var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/utils/db_utils.php";
+require_once($var);
 
 class InformazioniCorsi
 {

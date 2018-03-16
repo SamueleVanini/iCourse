@@ -1,6 +1,7 @@
 <?php
 
-require_once("../config.php");
+$var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/config.php";
+require_once($var);
 
 class Db extends Config
 {
@@ -23,7 +24,7 @@ class Db extends Config
     public function runQuery($sql)
     {
         if(!$result=$this->conn->query($sql))
-            die("Errore nell'esecuzione della query");
+            return false;
         else
             return $result;
     } //runQuery

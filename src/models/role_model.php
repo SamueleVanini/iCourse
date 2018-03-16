@@ -1,6 +1,7 @@
 <?php
 
-include_once("../utils/db.phps");
+$var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/utils/db_utils.php";
+require_once($var);
 
 class Role
 {
