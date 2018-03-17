@@ -21,14 +21,14 @@ class Role
     {
         $role = new Role();
         $db = new Db();
-        $sql = "SELECT p.perm_desc, p.perm_id
-                FROM role_perm as r_p JOIN permissions as p ON r_p.perm_id = p.perm_id
-                WHERE r_p.role_id = $role_id";
+        $sql = "SELECT p.Nome, p.IdPermesso
+                FROM RuoloPermesso as r_p JOIN Permesso as p ON r_p.IdPermesso = p.IdPermesso
+                WHERE r_p.IdRuolo = $role_id";
         $result = $db->runQuery($sql);
 
         while($row = $result->fetch_assoc())
         {
-            $role->permissions[$row["perm_id"]] = array(true, $row["perm_desc"]);
+            $role->permissions[$row["IdPermesso"]] = array(true, $row["Nome"]);
         }
         return $role;
     }

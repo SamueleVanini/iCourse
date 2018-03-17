@@ -15,8 +15,6 @@ class PrivilegedUser extends User
     {
         parent::__construct($username, $password);
         self::initRoles();
-        $_SESSION["logged"] = true;
-        $_SESSION["user"] = serialized($this);
     }
 
     /**
@@ -24,15 +22,15 @@ class PrivilegedUser extends User
      */
     public function initRoles() {
         $this->roles = array();
-        $sql = "SELECT u_r.role_id, r.role_name 
-                FROM user_role as u_r JOIN roles as r ON u_r.role_id = r.role_id
-                WHERE u_r.user_id = '$this->user_id'";
+        $sql = "SELECT u_r.IdRuolo, r.Nome
+                FROM RuoloUtente as u_r JOIN Ruolo as r ON u_r.IdRuolo = r.IdRuolo
+                WHERE u_r.IdUtente = '$this->user_id'";
         $result = self::$db->runQuery($sql);
         if($result != false)
         {
             while($row = $result->fetch_assoc())
             {
-                $this->roles[$row["role_name"]] = Role::getRolePerms($row["role_id"]);
+                $this->roles[$row["Nome"]] = Role::getRolePerms($row["IdRuolo"]);
             }
         }
     }
@@ -42,7 +40,7 @@ class PrivilegedUser extends User
      * @return TRUE/FALSE true: l'utente ha il permesso / false: l'utente non ha il permesso
      */
     public function hasPrivilege($perm) {
-        if(!isempy($this->roles))
+        if(!empty($this->roles))
         {
             foreach ($this->roles as $role) {
                 if ($role->hasPerm($perm)) {

@@ -25,7 +25,7 @@ class User
         if(!empty($result))
         {
             
-            $this->user_id = $result[0]["Id_Utente"];
+            $this->user_id = $result[0]["IdUtente"];
             $this->user_matricola = $result[0]["Matricola"];
             $this->username = $username;
         }
