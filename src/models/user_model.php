@@ -24,7 +24,7 @@ class User
         if(isset($username)) //if che gestisce i valori nulli di $username o $matricola
             $sql+="Username = '$username'";
         else
-            $sql+="Matricola = '$matricola'"
+            $sql+="Matricola = '$matricola'";
         $sql+= "and password = '$password'";
         $result = self::$db->runQuery($sql);
         $result = $result->fetch_all(MYSQLI_ASSOC);
