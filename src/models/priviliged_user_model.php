@@ -11,11 +11,11 @@ class PrivilegedUser extends User
     private $roles;
 
     /** Costruttore per la creazione dell'utente */
-    public function __construct($username, $matricola, $password)
-    { 
-        parent::__construct($username, $matricola, $password);
+    public function __construct($username, $password)
+    {
+        parent::__construct($username, $password);
         self::initRoles();
-    } //__construct
+    }
 
     /**
      * Metodo per inizializzare i permessi di un ruolo
