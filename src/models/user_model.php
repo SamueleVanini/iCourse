@@ -14,12 +14,18 @@ class User
 
     /**
     * @param $username username dell'utente
+    * @param $matricola matricola dell'utente
     * @param $password password dell'utente
     */
-    public function __construct($username, $password)
+    public function __construct($username, $matricola, $password)
     {
         self::$db = new Db();
-        $sql = "SELECT * FROM Utenze WHERE (Username = '$username' or Matricola = '$username') and password = '$password'";
+        $sql="SELECT * FROM Utenze WHERE";
+        if(isset($username)) //if che gestisce i valori nulli di $username o $matricola
+            $sql+="Username = '$username'";
+        else
+            $sql+="Matricola = '$matricola'";
+        $sql+= "and password = '$password'";
         $result = self::$db->runQuery($sql);
         $result = $result->fetch_all(MYSQLI_ASSOC);
         if(!empty($result))
