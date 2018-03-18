@@ -27,12 +27,13 @@ class User
             
             $this->user_id = $result[0]["IdUtente"];
             $this->user_matricola = $result[0]["Matricola"];
-            $this->username = $username;
+            $this->username = $result[0]["Username"];
         }
         else
         {
             self::$db->error_list[] = "Login error, le tue credenziali non sono valide";
         } //if-else
+        $result->close(); //libera la risorsa risultati
     } //__construct
     
     /** 
