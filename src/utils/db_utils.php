@@ -1,6 +1,7 @@
 <?php
 
-$var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/config.php";
+//$var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/config.php";
+$var = $_SERVER['DOCUMENT_ROOT']."/Scuola/iCourse/iCourse/src/config.php";
 require_once($var);
 
 class Db extends Config
