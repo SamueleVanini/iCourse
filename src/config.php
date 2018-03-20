@@ -7,7 +7,6 @@ class Config
     protected $DB_USERNAME;
     protected $DB_PASSWD;
     protected $BOT_TOKEN;
-    protected $BOT_CHANNEL;
 
     //funzione che carica le informazioni del file JSON
     public function load()
@@ -21,16 +20,11 @@ class Config
         $this->DB_USERNAME = $config["DB_USERNAME"];
         $this->DB_PASSWD   = $config["DB_PASSWD"];
         $this->BOT_TOKEN   = $config["BOT_TOKEN"];
-        $this->BOT_CHANNEL = $config["BOT_CHANNEL"];
         
     } //load
     
     /* metodi di get */
     function getBotToken(){
         return $this->BOT_TOKEN;
-    } //getBotToken
-    
-    function getBotChannel(){
-        return $this->BOT_CHANNEL;
     } //getBotToken
 } //Config
