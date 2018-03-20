@@ -13,7 +13,7 @@ class Role
     }
 
     /**
-     * Funzione che ritorna uno specifico ruolo con i suoi permessi
+     * Funzione che ritorna uno specifico ruolo con le sue permissioni
      * @param $role_id id del ruolo
      * @return role object
      */
