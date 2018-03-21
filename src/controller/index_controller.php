@@ -27,3 +27,4 @@ class InformazioniCorsi
 $info = new InformazioniCorsi();
 $info->initDb();
 echo $info->getAll();
+?>

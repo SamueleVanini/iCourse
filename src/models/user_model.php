@@ -74,3 +74,4 @@ class User
      */
     public function remove_class() {}
 }
+?>

@@ -11,7 +11,7 @@ class UserControllerBase
 
     public function __construct()
     {
-        session_destroy();
+        //session_destroy();
         if(isset($_SESSION["user"]))
         {
             $this->user = unserialize($_SESSION["user"]);
@@ -52,10 +52,14 @@ $user = new UserControllerBase();
 $user->checkError();
 if(!$user->getUser()->hasPrivilege(13))
 {
-    header("Refresh: 3; url = ".$path3, true, 301);
-    echo "Non hai i privilegi per accedere a questa pagina, redirect in 3 secondi...";
+    
+    header("Refresh: 3; url = http://localhost/iCourse/template/index.html", true, 301);
+    echo "Non hai i privilegi per accedere a q  uesta pagina, redirect in 3 secondi...";
+    exit;
 }
 else
 {
-    header("Location: ".$path2);
+    header("Location: http://localhost/iCourse/template/student_home.php");
+    exit;
 }
+?>

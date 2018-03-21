@@ -23,7 +23,8 @@ class Db extends Config
      */
     public function runQuery($sql)
     {
-        if(!$result=$this->conn->query($sql))
+        $result=$this->conn->query($sql);
+        if($result === null)
             return false;
         else
             return $result;
@@ -36,3 +37,4 @@ class Db extends Config
     } //closeConnection
     
 } //Db
+?>

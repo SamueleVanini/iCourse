@@ -22,9 +22,7 @@ class PrivilegedUser extends User
      */
     public function initRoles() {
         $this->roles = array();
-        $sql = "SELECT u_r.IdRuolo, r.Nome
-                FROM RuoloUtente as u_r JOIN Ruolo as r ON u_r.IdRuolo = r.IdRuolo
-                WHERE u_r.IdUtente = '$this->user_id'";
+        $sql = "SELECT u_r.IdRuolo, r.Nome FROM RuoloUtente as u_r JOIN Ruoli as r ON u_r.IdRuolo = r.IdRuolo WHERE u_r.IdUtente = $this->user_id";
         $result = self::$db->runQuery($sql);
         if($result != false)
         {
@@ -51,3 +49,4 @@ class PrivilegedUser extends User
         return false;
     }
 }
+?>

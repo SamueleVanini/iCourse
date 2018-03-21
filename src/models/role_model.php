@@ -21,9 +21,7 @@ class Role
     {
         $role = new Role();
         $db = new Db();
-        $sql = "SELECT p.Nome, p.IdPermesso
-                FROM RuoloPermesso as r_p JOIN Permesso as p ON r_p.IdPermesso = p.IdPermesso
-                WHERE r_p.IdRuolo = $role_id";
+        $sql = "SELECT p.Nome, p.IdPermesso FROM RuoloPermesso as r_p JOIN Permessi as p ON r_p.IdPermesso = p.IdPermesso WHERE r_p.IdRuolo = $role_id";
         $result = $db->runQuery($sql);
 
         while($row = $result->fetch_assoc())
@@ -42,3 +40,4 @@ class Role
         return isset($this->permissions[$permissions]);
     }
 }
+?>

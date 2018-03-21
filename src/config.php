@@ -27,3 +27,4 @@ class Config
         return $this->BOT_TOKEN;
     } //getBotToken
 } //Config
+?>
