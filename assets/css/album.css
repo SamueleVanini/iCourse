@@ -49,3 +49,69 @@ footer p {
 	border-color: #343a40 !important;
 }
 
+.side-box{
+	padding: 0 30px 0 30px;
+	margin-bottom:20px;
+}
+
+.contenuto-dashboard{
+	margin-top: 40px;
+    height: 40em;
+}
+
+.side-box-header{
+	background-color: #343a40 !important;
+	color:white;
+	border-color: #343a40 !important;
+}
+
+.card-style{
+	border-color: #343a40 !important;
+}
+
+#calendar{
+	width: 100%;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+.fc-prev-button{
+    background-color: #343a40 !important;
+    border-color: black !important;
+}
+
+.fc-next-button{
+    background-color: #343a40 !important;
+    border-color: black !important;
+}
+
+.fc-today-button{
+    background-color: #343a40 !important;
+    border-color: black !important;
+}
+
+.fc-month-button{
+    background-color: #343a40 !important;
+    border-color: black !important;
+}
+
+.fc-agendaWeek-button{
+    background-color: #343a40 !important;
+    border-color: black !important;
+}
+
+.fc-agendaDay-button{
+    background-color: #343a40 !important;
+    border-color: black !important;
+}
+
+.fc-listMonth-button{
+    background-color: #343a40 !important;
+    border-color: black !important;
+}
+
+@media(max-width:374px){
+    .btn-group{
+        float: left;
+    }
+}
