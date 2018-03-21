@@ -11,7 +11,7 @@ class UserControllerBase
 
     public function __construct()
     {
-        //session_destroy();
+        unset($_SESSION["user"]);
         if(isset($_SESSION["user"]))
         {
             $this->user = unserialize($_SESSION["user"]);
@@ -60,6 +60,6 @@ if(!$user->getUser()->hasPrivilege(13))
 else
 {
     header("Location: http://localhost/iCourse/template/student_home.php");
-    exit;
+    //exit;
 }
 ?>
