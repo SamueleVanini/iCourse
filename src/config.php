@@ -11,8 +11,7 @@ class Config
     //funzione che carica le informazioni del file JSON
     public function load()
     {
-        //$var = $_SERVER['DOCUMENT_ROOT']."/iCourse/config.json";
-        $var = $_SERVER['DOCUMENT_ROOT']."/Scuola/iCourse/iCourse/config.json";
+        $var = $_SERVER['DOCUMENT_ROOT']."/iCourse/config.json";
         $str = file_get_contents($var);
         $config = json_decode($str, true);
         $this->DB_HOST     = $config["DB_HOST"];
