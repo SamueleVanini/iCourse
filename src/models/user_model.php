@@ -21,13 +21,13 @@ class User
         self::$db = new Db();
         $sql = "SELECT * FROM Utenze WHERE (Username = '$username' or Matricola = '$username') and password = '$password'";
         $result = self::$db->runQuery($sql);
-        $result = $result->fetch_all(MYSQLI_ASSOC);
+        $result_array = $result->fetch_all(MYSQLI_ASSOC);
         if(!empty($result))
         {
             
-            $this->user_id = $result[0]["IdUtente"];
-            $this->user_matricola = $result[0]["Matricola"];
-            $this->username = $result[0]["Username"];
+            $this->user_id = $result_array[0]["IdUtente"];
+            $this->user_matricola = $result_array[0]["Matricola"];
+            $this->username = $result_array[0]["Username"];
         }
         else
         {
