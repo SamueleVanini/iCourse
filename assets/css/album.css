@@ -111,7 +111,9 @@ footer p {
 }
 
 @media(max-width:374px){
-    .btn-group{
-        float: left;
+    .fc-right{
+		margin-top: 5px;
+		margin-bottom: 5px;
+        float: left !important;
     }
 }
