@@ -35,6 +35,14 @@ class User
         } //if-else
         $result->close(); //libera la risorsa risultati
     } //__construct
+
+    /**
+     * @return user_id username dell'utente loggato
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
     
     /** 
     * @return lista degli errori per l'utente $this

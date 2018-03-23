@@ -1,10 +1,10 @@
 <?php
 
+session_start();
 $var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/utils/db_utils.php";
 require_once($var);
 require_once("role_model.php");
 require_once("user_model.php");
-session_start();
 
 class PrivilegedUser extends User
 {
