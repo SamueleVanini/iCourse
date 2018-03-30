@@ -22,18 +22,18 @@ class User
         $sql = "SELECT * FROM Utenze WHERE (Username = '$username' or Matricola = '$username') and password = '$password'";
         $result = self::$db->runQuery($sql);
         $result_array = $result->fetch_all(MYSQLI_ASSOC);
-        if(!empty($result))
+        if($result->num_rows != 0)
         {
             
             $this->user_id = $result_array[0]["IdUtente"];
             $this->user_matricola = $result_array[0]["Matricola"];
             $this->username = $result_array[0]["Username"];
+            $result->close(); //libera la risorsa risultati
         }
         else
         {
             self::$db->error_list[] = "Login error, le tue credenziali non sono valide";
         } //if-else
-        $result->close(); //libera la risorsa risultati
     } //__construct
 
     /**

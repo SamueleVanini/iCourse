@@ -21,7 +21,7 @@ class UserControllerBase
             if(isset($_POST["matricola"]) && isset($_POST["password"]))
             {
                 $this->user = new PrivilegedUser($_POST["matricola"], $_POST["password"]);
-                if(!($this->user === NULL))
+                if(!($this->user->getUserId() === null))
                 {
                     $_SESSION["logged"] = true;
                     $a = serialize($this->user);
@@ -39,22 +39,30 @@ class UserControllerBase
     public function checkError()
     {
         $errors = $this->user->getErrorList();
-        if($errors === NULL)
+        if($errors != NULL)
         {
-            echo $errors;
+            foreach($errors as $error)
+            {
+                echo $error;
+            }
+            return true;
         }
+        return false;
     }
 
 }
 
 $user = new UserControllerBase();
 
-$user->checkError();
-if(!$user->getUser()->hasPrivilege(13))
+if($user->checkError())
+{
+    header("Refresh: 3; url = http://localhost/iCourse/template/index.html", true, 301);
+}
+elseif(!$user->getUser()->hasPrivilege(13))
 {
     
     header("Refresh: 3; url = http://localhost/iCourse/template/index.html", true, 301);
-    echo "Non hai i privilegi per accedere a q  uesta pagina, redirect in 3 secondi...";
+    echo "Non hai i privilegi per accedere a questa pagina, redirect in 3 secondi...";
     exit;
 }
 else

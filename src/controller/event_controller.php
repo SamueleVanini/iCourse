@@ -8,4 +8,5 @@ require_once($var2);
 $events_searcher = new EventsSearcher();
 $user = unserialize($_SESSION["user"]);
 $events = $events_searcher->searchUserEvents($user);
+echo $events;
 ?>
