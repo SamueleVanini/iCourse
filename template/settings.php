@@ -1,4 +1,15 @@
-<!doctype html>
+<?php
+
+$var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/controller/session_controller.php";
+require_once($var);
+
+if(!checkSession())
+{
+    header("Refresh: 3; url = /iCourse/template", true, 301);
+    echo "Devi eseguire il login per accedere a questa pagina, redirect in 3 secondi...";
+}
+else
+{?>
 <html lang="en">
     <head>
 	    <meta charset="utf-8">
@@ -6,10 +17,13 @@
 	    <meta name="description" content="">
 	    <meta name="author" content="">
 	    <link rel="icon" href="../../../../favicon.ico">
-	
+
 	    <title> iCourse </title>
-	    
+
 	    <!-- CSS -->
+        <script src='../assets/js/jquery.min.js'></script>
+        <script src='../assets/js/moment.min.js'></script>
+		<script src='../assets/js/fullcalendar.js'></script>
 		<link rel="stylesheet" href="../assets/css/bootstrap.min.css" type="text/css">
 		<link rel="stylesheet" href="../assets/css/style.css" type="text/css">
 	    <link href="../assets/css/album.css" rel="stylesheet">
@@ -17,13 +31,13 @@
 	    <script src="../assets/js/request.js"></script>
     </head>
     <body>
-	    <header>
+			<header>
 	        <div class="collapse bg-dark" id="navbarHeader">
 			    <div class="container"> </div>
 			</div>
 			<div class="navbar navbar-dark bg-dark box-shadow">
 				<div class="container d-flex justify-content-between">
-				    <a href="#" class="navbar-brand d-flex align-items-center">
+				    <a href="/iCourse/template" class="navbar-brand d-flex align-items-center">
 						<svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
 							<path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
 							<path d="M0 0h24v24H0z" fill="none"/>
@@ -39,12 +53,25 @@
 				</div>
 				<div class="login">
 					<div class="collapse" id="login">
-						<div class="card card-body cardLogin">
+							<?php
+							$var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/controller/session_controller.php";
+							require_once($var);
+							if(checkSession())
+							{?>
+								<a href="/iCourse/template/student_home.php" class="navbar-brand d-flex align-items-right">Home</a>
+								<a href="/iCourse/template/settings.php" class="navbar-brand d-flex align-items-right">Impostazioni</a>
+								<br>
+								<form action="/iCourse/src/logout.php">
+									<button class="btn btn-danger">Logout</button>
+								</form>
+							<?php }
+							else
+							{?>
+							<div class="card card-body cardLogin">
 							<form method="POST" action="../src/controller/user_controller.php"> <!-- File da contattare per il login -->
 								<div class="form-group">
 									<label for="matricola">Matricola</label>
-									<input type="text" class="form-control" id="matricola" aria-describedby="matr" placeholder="matricola studente" name="matricola">
-									<small id="matr" class="form-text text-muted scritta">Inserisci la matricola fornita dall'istituto.</small>
+									<input type="text" class="form-control" id="matricola" aria-describedby="matr" placeholder="matricola fornita dall'istituto" name="matricola">
 								</div>
 								<div class="form-group">
 									<label for="password">Password</label>
@@ -52,74 +79,64 @@
 								</div>
 								<button type="submit" class="btn btn-primary btn-accedi">Accedi</button>
 							</form>
+							<?php } ?>
 						</div>
 					</div>
 				</div>
 			</div>
 	    </header>
 	    <main role="main">
-	        <section class="jumbotron text-center">
-	            <div class="container">
-	                <h1 class="jumbotron-heading">Attività Pomeridiane</h1>
-	                <p class="lead text-muted">Benvenuti in iCourse, la piattaformata di gestione per i corsi pomeridiano dell'istituto Francesco Severi</p>
-			          <!--<p>
-			            <a href="#" class="btn btn-primary my-2">Main call to action</a>
-			            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-			          </p>-->
-	        	</div>
-	      	</section>
-	
-	      	<div class="album py-5 bg-light">
-	        	<div class="container" id="tabella_corsi">
-					<script>
-						var card1 = "<div class=\"col-md-4\"><div class=\"card mb-4 box-shadow\"><img class=\"card-img-top\" data-src=\"holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail\" alt=\"Card image cap\"><div class=\"card-body\"><h4 class=\"card-text\">";
-						var card2 = "</h4><p class=\"card-text\" id=\"contenuto\">";
-						var card3 = "</p><div class=\"d-flex justify-content-between align-items-center\"><div class=\"btn-group\"><button type=\"button\" class=\"btn btn-sm btn-outline-secondary\">Vai all'attività</button></div><small class=\"text-muted\">";
-						var card4 = "</small></div></div></div></div>";
-					    var callback_get = (err, response)=>{
-							if(err){
-								console.log("Errore: " + err);	
-							}else{
-								response = JSON.parse(response);
-								var box = "";
-								var i = 0;
-								box += "<div class=\"row\">";
-								for(course in response) {
-									box += card1;
-									box += response[i].Nome;
-									box += card2;
-									box += response[i].Descrizione;
-									box += card3;
-									box += "Data";
-									box += card4;
-								}		
-								box += "<\div>";
-								document.getElementById('tabella_corsi').innerHTML = box;
-							}//if-else
-					   	}//callback_get
-						
-						var request = new Request("../src/controller/index_controller.php", "POST", [], callback_get); //inizialize the Request object
-						request.send();
-		        	</script>
-	        	</div>
-	      	</div>
+	        <div class="container-fluid">
+			<div class="row contenuto-dashboard">
+				<div class="col-xl-2 side-box">
+				</div>
+				<div class= "col-xl-8">
+					<div class="card card-style">
+					 <div class="card-header side-box-header">
+					 <strong>Impostazioni</strong>
+					 </div>
+					 <div class="card-body">
+					 <blockquote class="blockquote mb-0">
+						 <form method="POST" action="../src/controller/settings_controller.php"> <!-- File da contattare per il login -->
+							 <div class="form-group">
+								<label for="matricola">Cambio password</label>
+								<input type="password" class="form-control" id="password" name="new-password" placeholder="nuova password">
+								<input type="password" class="form-control" id="password" name="conf-new-password" placeholder="conferma nuova password">
+							 </div>
+							 <div class="form-group">
+								<label for="matricola">Cambio mail</label>
+								<input type="password" class="form-control" id="password" name="new-mail" placeholder="nuova mail">
+							 </div>
+							 <div class="form-group">
+								<label for="matricola">Conferma password attuale</label>
+								<input type="password" class="form-control" id="password" name="act-password" placeholder="password attuale">
+							 </div>
+							 <button type="submit" class="btn btn-primary btn-accedi">Cambia</button>
+						 </form>
+					 </blockquote>
+					 </div>
+				 </div>
+				</div>
+				<div class="col-xl-2 side-box">
+				</div>
+			</div>
+			</div>
 	    </main>
-	    
-	    <footer class="text-muted">
+
+			<footer class="text-muted">
 	        <div class="container">
 	            <p class="float-right">
 	                <button type="submit" href="#" class="btn btn-primary btn-torna-su">Torna Su</button>
-	            </p>  
+	            </p>
 	        </div>
 	    </footer>
-	
+
 	    <!-- Bootstrap core JavaScript
 	    ================================================== -->
 	    <!-- Placed at the end of the document so the pages load faster -->
-	    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	    <script>window.jQuery || document.write('<script src="../assets/js/jquery-slim.min.js"><\/script>')</script>
 	    <script src="../assets/js/popper.min.js"></script>
 	    <script src="../assets/js/bootstrap.min.js"></script>
 	    <script src="../assets/js/holder.min.js"></script>
     </body>
 </html>
+<?php } ?>

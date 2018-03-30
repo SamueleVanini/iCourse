@@ -1,8 +1,9 @@
 <?php
 
 $var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/models/priviliged_user_model.php";
-$path2 = $_SERVER['DOCUMENT_ROOT']."/iCourse/template/student_home.php";
-$path3 = $_SERVER['DOCUMENT_ROOT']."/iCourse/template/index.html";
+$path2 = $_SERVER['DOCUMENT_ROOT']."/iCourse/template/index.php";
+$path3 = $_SERVER['DOCUMENT_ROOT']."/iCourse/template/student_home.php";
+$path4 = $_SERVER['DOCUMENT_ROOT']."/iCourse/template/settings.php";
 require_once($var);
 
 class UserControllerBase
@@ -15,8 +16,8 @@ class UserControllerBase
         if(isset($_SESSION["user"]))
         {
             $this->user = unserialize($_SESSION["user"]);
-        } 
-        else 
+        }
+        else
         {
             if(isset($_POST["matricola"]) && isset($_POST["password"]))
             {
@@ -30,7 +31,7 @@ class UserControllerBase
             }
         }
     }
-    
+
     public function getUser()
     {
         return $this->user;
@@ -56,18 +57,18 @@ $user = new UserControllerBase();
 
 if($user->checkError())
 {
-    header("Refresh: 3; url = http://localhost/iCourse/template/index.html", true, 301);
+    header("Refresh: 3; url = /iCourse/template", true, 301);
 }
 elseif(!$user->getUser()->hasPrivilege(13))
 {
-    
-    header("Refresh: 3; url = http://localhost/iCourse/template/index.html", true, 301);
+
+    header("Refresh: 3; url = /iCourse/template", true, 301);
     echo "Non hai i privilegi per accedere a questa pagina, redirect in 3 secondi...";
     exit;
 }
 else
 {
-    header("Location: http://localhost/iCourse/template/student_home.php");
+    header("Location: /iCourse/template/student_home.php");
     //exit;
 }
 ?>

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+    <head>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+	    <link rel="icon" href="../../../../favicon.ico">
+
+	    <title> iCourse </title>
+
+	    <!-- CSS -->
+		<link rel="stylesheet" href="../assets/css/bootstrap.min.css" type="text/css">
+		<link rel="stylesheet" href="../assets/css/style.css" type="text/css">
+	    <link href="../assets/css/album.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	    <script src="../assets/js/request.js"></script>
+    </head>
+    <body>
+	    <header>
+	        <div class="collapse bg-dark" id="navbarHeader">
+			    <div class="container"> </div>
+			</div>
+			<div class="navbar navbar-dark bg-dark box-shadow">
+				<div class="container d-flex justify-content-between">
+				    <a href="/iCourse/template" class="navbar-brand d-flex align-items-center">
+						<svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+							<path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
+							<path d="M0 0h24v24H0z" fill="none"/>
+						</svg>
+						<strong style="margin-left:10px">iCourse</strong>
+				  	</a>
+				  	<button class="navbar-toggler" type="button"  data-toggle="collapse" data-target="#login" aria-expanded="false" aria-controls="collapseExample">
+						<svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+							<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+							<path d="M0 0h24v24H0z" fill="none"/>
+						</svg>
+				  	</button>
+				</div>
+				<div class="login">
+					<div class="collapse" id="login">
+							<?php
+							$var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/controller/session_controller.php";
+							require_once($var);
+							if(checkSession())
+							{?>
+								<a href="/iCourse/template/student_home.php" class="navbar-brand d-flex align-items-right">Home</a>
+								<a href="/iCourse/template/settings.php" class="navbar-brand d-flex align-items-right">Impostazioni</a>
+								<br>
+								<form action="/iCourse/src/logout.php">
+									<button class="btn btn-danger">Logout</button>
+								</form>
+							<?php }
+							else
+							{?>
+							<div class="card card-body cardLogin">
+							<form method="POST" action="../src/controller/user_controller.php"> <!-- File da contattare per il login -->
+								<div class="form-group">
+									<label for="matricola">Matricola</label>
+									<input type="text" class="form-control" id="matricola" aria-describedby="matr" placeholder="matricola fornita dall'istituto" name="matricola">
+								</div>
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input type="password" class="form-control" id="password" name="password" placeholder="password">
+								</div>
+								<button type="submit" class="btn btn-primary btn-accedi">Accedi</button>
+							</form>
+							<?php } ?>
+						</div>
+					</div>
+				</div>
+			</div>
+	    </header>
+	    <main role="main">
+	        <section class="jumbotron text-center">
+	            <div class="container">
+	                <h1 class="jumbotron-heading">Attività Pomeridiane</h1>
+	                <p class="lead text-muted">Benvenuti in iCourse, la piattaformata di gestione per i corsi pomeridiano dell'istituto Francesco Severi</p>
+			          <!--<p>
+			            <a href="#" class="btn btn-primary my-2">Main call to action</a>
+			            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+			          </p>-->
+	        	</div>
+	      	</section>
+
+	      	<div class="album py-5 bg-light">
+	        	<div class="container" id="tabella_corsi">
+					<script>
+						var card1 = "<div class=\"col-md-4\"><div class=\"card mb-4 box-shadow\"><img class=\"card-img-top\" data-src=\"holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail\" alt=\"Card image cap\"><div class=\"card-body\"><h4 class=\"card-text\">";
+						var card2 = "</h4><p class=\"card-text\" id=\"contenuto\">";
+						var card3 = "</p><div class=\"d-flex justify-content-between align-items-center\"><div class=\"btn-group\"><button type=\"button\" class=\"btn btn-sm btn-outline-secondary\">Vai all'attività</button></div><small class=\"text-muted\">";
+						var card4 = "</small></div></div></div></div>";
+					    var callback_get = (err, response)=>{
+							if(err){
+								console.log("Errore: " + err);
+							}else{
+								response = JSON.parse(response);
+								var box = "";
+								var i = 0;
+								box += "<div class=\"row\">";
+								for(course in response) {
+									box += card1;
+									box += response[i].Nome;
+									box += card2;
+									box += response[i].Descrizione;
+									box += card3;
+									box += "Data";
+									box += card4;
+								}
+								box += "<\div>";
+								document.getElementById('tabella_corsi').innerHTML = box;
+							}//if-else
+					   	}//callback_get
+
+						var request = new Request("../src/controller/index_controller.php", "POST", [], callback_get); //inizialize the Request object
+						request.send();
+		        	</script>
+	        	</div>
+	      	</div>
+	    </main>
+
+	    <footer class="text-muted">
+	        <div class="container">
+	            <p class="float-right">
+	                <button type="submit" href="#" class="btn btn-primary btn-torna-su">Torna Su</button>
+	            </p>
+	        </div>
+	    </footer>
+
+	    <!-- Bootstrap core JavaScript
+	    ================================================== -->
+	    <!-- Placed at the end of the document so the pages load faster -->
+	    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	    <script>window.jQuery || document.write('<script src="../assets/js/jquery-slim.min.js"><\/script>')</script>
+	    <script src="../assets/js/popper.min.js"></script>
+	    <script src="../assets/js/bootstrap.min.js"></script>
+	    <script src="../assets/js/holder.min.js"></script>
+    </body>
+</html>
