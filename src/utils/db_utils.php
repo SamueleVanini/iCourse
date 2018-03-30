@@ -24,7 +24,7 @@ class Db extends Config
     public function runQuery($sql)
     {
         $result=$this->conn->query($sql);
-        if($result === null)
+        if($result === null || $result === false)
             return false;
         else
             return $result;

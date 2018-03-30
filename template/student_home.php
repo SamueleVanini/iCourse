@@ -161,34 +161,8 @@ else
                 url: 'http://google.com/',
                 start: '2018-03-28'
               },
-              var callback_get = function(err, response){
-							if(err){
-								console.log("Errore: " + err);	
-							}else{
-								response = JSON.parse(response);
-								var box = "";
-								var i = 0;
-								box += "<div class=\"row\">";
-								for(course in response) {
-									box += card1;
-									box += response[i].Nome;
-									box += card2;
-									box += response[i].Descrizione;
-									box += card3;
-									box += "Data";
-									box += card4;
-								}		
-								box += "<\div>";
-								//document.getElementById('tabella_corsi').innerHTML = box;
-						}//if-else
-					}//callback_get
-						
-					var request = new Request("../src/controller/event_controller.php", "POST", [], callback_get); //inizialize the Request object
-					request.send(); //send the request
-
             ]
           });
-
         });
 		</script>
 	    <!-- Bootstrap core JavaScript

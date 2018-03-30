@@ -44,10 +44,9 @@ class EventsSearcher {
     public function searchUserEvents($user, $return_format = null)
     {
         $sql = "SELECT p.IdEvento, p.Data, p.OraInizio, e.Nome, me.OraFine
-                  FROM Partecipanti as p join Eventi as e on p.IdEvento = e.IdEvento join MomentoEventi as me on e.IdEvento = me.p.IdEvento
+                  FROM Partecipanti as p join Eventi as e on p.IdEvento = e.IdEvento join MomentiEventi as me on e.IdEvento = me.IdEvento
                   WHERE p.IdPartecipante = ".$user->getUserId();
         $result = self::$db->runQuery($sql);
-        $result_array = $result->fetch_all(MYSQLI_ASSOC);
         switch ($return_format) {
             case 1:
                 $result_array = $result->fetch_all(MYSQLI_ASSOC);
@@ -55,7 +54,8 @@ class EventsSearcher {
             
             default:
                 $result_array = $result->fetch_all(MYSQLI_ASSOC);
-                return json_encode($result_array);
+                $a = json_encode($result_array);
+                return $a;
         }
     }
 }
