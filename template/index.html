@@ -76,7 +76,7 @@
 						var card2 = "</h4><p class=\"card-text\" id=\"contenuto\">";
 						var card3 = "</p><div class=\"d-flex justify-content-between align-items-center\"><div class=\"btn-group\"><button type=\"button\" class=\"btn btn-sm btn-outline-secondary\">Vai all'attività</button></div><small class=\"text-muted\">";
 						var card4 = "</small></div></div></div></div>";
-					    var callback_get = function(err, response){
+					    var callback_get = (err, response)=>{
 							if(err){
 								console.log("Errore: " + err);	
 							}else{
@@ -99,7 +99,7 @@
 					   	}//callback_get
 						
 						var request = new Request("../src/controller/index_controller.php", "POST", [], callback_get); //inizialize the Request object
-						request.send(); //send the request
+						request.send();
 		        	</script>
 	        	</div>
 	      	</div>

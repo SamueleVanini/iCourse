@@ -88,6 +88,25 @@ else
 	    </main>
 
 		<script>
+		var eventi = [];
+		var callback_get = (err, response)=>{
+			if(err){
+				console.log("Errore: " + err);	
+			}else{
+				response = JSON.parse(response);
+				var evento = new Object();
+				for(i=0; i<response.length; i++){
+					evento.title = response[i].Nome;
+					evento.start = response[i].Data + 'T' + response[i].OraInizio;
+					evento.end = response[i].Data + 'T' + response[i].OraFine;
+					eventi.push(evento);
+				}//for
+			}//if-else
+		}//callback_get
+		
+		var request = new Request("../src/controller/event_controller.php", "POST", [], callback_get); //inizialize the Request object
+		request.send();
+		
         $(document).ready(function() {
 
           $('#calendar').fullCalendar({
@@ -106,62 +125,7 @@ else
             },
             editable: false,
             eventLimit: true, // allow "more" link when too many events
-            events: [
-              {
-                title: 'All Day Event',
-                start: '2018-03-01'
-              },
-              {
-                title: 'Long Event',
-                start: '2018-03-07',
-                end: '2018-03-10'
-              },
-              {
-                id: 999,
-                title: 'Repeating Event',
-                start: '2018-03-09T16:00:00'
-              },
-              {
-                id: 999,
-                title: 'Repeating Event',
-                start: '2018-03-16T16:00:00'
-              },
-              {
-                title: 'Conference',
-                start: '2018-03-11',
-                end: '2018-03-13'
-              },
-              {
-                title: 'Meeting',
-                start: '2018-03-12T10:30:00',
-                end: '2018-03-12T12:30:00'
-              },
-              {
-                title: 'Lunch',
-                start: '2018-03-12T12:00:00'
-              },
-              {
-                title: 'Meeting',
-                start: '2018-03-12T14:30:00'
-              },
-              {
-                title: 'Happy Hour',
-                start: '2018-03-12T17:30:00'
-              },
-              {
-                title: 'Dinner',
-                start: '2018-03-12T20:00:00'
-              },
-              {
-                title: 'Birthday Party',
-                start: '2018-03-13T07:00:00'
-              },
-              {
-                title: 'Click for Google',
-                url: 'http://google.com/',
-                start: '2018-03-28'
-              },
-            ]
+            events: eventi
           });
         });
 		</script>
