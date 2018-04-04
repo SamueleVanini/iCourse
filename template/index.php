@@ -11,6 +11,7 @@
 	    <link href="/iCourse/assets/css/album.css" rel="stylesheet">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	    <script src="/iCourse/assets/js/request.js"></script>
+	    <script src="/iCourse/assets/js/holder.min.js"></script>
     </head>
     <body>
 			<?php include('header.php'); ?>
@@ -71,6 +72,5 @@
 	    <script>window.jQuery || document.write('<script src="/iCourse/assets/js/jquery-slim.min.js"><\/script>')</script>
 	    <script src="/iCourse/assets/js/popper.min.js"></script>
 	    <script src="/iCourse/assets/js/bootstrap.min.js"></script>
-	    <script src="/iCourse/assets/js/holder.min.js"></script>
     </body>
 </html>
