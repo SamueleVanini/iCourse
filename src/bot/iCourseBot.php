@@ -12,7 +12,7 @@
         } //__construct
 
         /* metodo trovaComunicazione
-        * @return array associativo con le informazioni della comunicazione da inviare
+         * @return array associativo con le informazioni della comunicazione da inviare
         */
         function trovaInviaComunicazione(){
             $comunicazioni=$this->db->runQuery("SELECT * FROM Comunicazioni as C JOIN Utenze as U ON C.IDUtente=U.IDUtente JOIN Eventi as E ON C.IdEvento=E.IdEvento WHERE C.HasToBeSent=TRUE AND E.CodTelegram IS NOT NULL");
@@ -23,7 +23,7 @@
         } //trovaComunicazione
 
         /* metodo inviaComunicazione
-        * @param $comunicazione comunicazione da inviare (array associativo con le informazioni della comunicazione)
+         * @param $comunicazione comunicazione da inviare (array associativo con le informazioni della comunicazione)
         */
         function inviaComunicazione($comunicazione){
             $text="Comunicazione da:".$comunicazione["Nome"]." ".$comunicazione["Cognome"]."\nData:".$comunicazione["Data"]." ".$comunicazione["Ora"]."\nTesto:".$comunicazione["Testo"];
@@ -45,9 +45,9 @@
         } //registraGruppoTelegram
 
         /* metodo prossimoEvento
-        * @param $nG nome del gruppo
-        * @param $codT codice del gruppo telegram
-        * invia nel gruppo il prossimo evento
+         * @param $nG nome del gruppo
+         * @param $codT codice del gruppo telegram
+         * invia nel gruppo il prossimo evento
         */
         function prossimoEvento($nG,$codT){
             $res=$this->db->runQuery("SELECT * FROM Eventi AS E JOIN MomentiEventi AS ME ON E.IdEvento=ME.IdEvento WHERE E.Nome='$nG' AND ME.Data>'".date("Y-m-d")."'");
@@ -59,7 +59,7 @@
                    $text+="Il prossimo incontro si terrà in:".$row["Luogo"]." in data: ".$row["Data"]." dalle ore:".$row["OraInizio"]." alle ore:".$row["OraFine"])."\n";
                 parent::sendMessage($codT,$text);
             } //else
-                
+
         } //prossimoEvento
     } //iCourseBot
 ?>

@@ -4,7 +4,7 @@
         private $requestWebsite;
 
         /* costruttore
-        * @param $t token per accedere al bot
+         * @param $t token per accedere al bot
         */
         function __construct($t){
             $this->token=$t;
@@ -12,24 +12,24 @@
         } //__construct
 
         /* eseguiMetodo
-        * @param $m metodo da eseguire con eventuali parametri (i metodi ammessi sono indicati nelle API telegram)
-        * @return oggetto json con il risultato del metodo
+         * @param $m metodo da eseguire con eventuali parametri (i metodi ammessi sono indicati nelle API telegram)
+         * @return oggetto json con il risultato del metodo
         */
         function eseguiMetodo($m){
             return file_get_contents($this->requestWebsite.$m);
         } //eseguiMetodo
 
         /* metodo getUpdates
-        * @return file json con gli update del bot
+         * @return file json con gli update del bot
         */
         function getUpdates(){
             return file_get_contents("php://input");
         } //getUpdates
 
         /* metodo sendMessage
-        * @param $id id della chat dove inviare il messaggio
-        * @param $text testo da inviare
-        * @return file json con l'esito dell'invio
+         * @param $id id della chat dove inviare il messaggio
+         * @param $text testo da inviare
+         * @return file json con l'esito dell'invio
         */
         function sendMessage($id,$text){
             $text=urlencode($text);
@@ -37,7 +37,7 @@
         } //sendMessage
 
         /* metodo keyboard
-        * @param $kb keyboard da fornire all'utente
+         * @param $kb keyboard da fornire all'utente
         */
         function keyboard($kb){ } //keyboard
     } //TelegramBot
