@@ -26,12 +26,40 @@ class iCourseBot extends TelegramBot{
     * @param $comunicazione comunicazione da inviare (array associativo con le informazioni della comunicazione)
     */
     function inviaComunicazione($comunicazione){
-        $text=urlencode("Comunicazione da:".$comunicazione["Nome"]." ".$comunicazione["Cognome"]."\nData:".$comunicazione["Data"]." ".$comunicazione["Ora"]."\nTesto:".$comunicazione["Testo"]);
-        parent::eseguiMetodo("sendmessage?chat_id=".$comunicazione["CodTelegram"]."&text=$text");
+        $text="Comunicazione da:".$comunicazione["Nome"]." ".$comunicazione["Cognome"]."\nData:".$comunicazione["Data"]." ".$comunicazione["Ora"]."\nTesto:".$comunicazione["Testo"];
+        parent::sendMessage($comunicazione["CodTelegram"],$text);
     } //inviaComunicazione
+    
+    /* metodo registraGruppoTelegram
+    * @param nG nome del gruppo telegram e anche del corso
+    * @param idG id della chat del gruppo telegram
+    * @return true se la registrazione è avvenuta con successo, false se la registrazione è fallita: il gruppo è già registrato o il corso non è registrato nel sistema
+    */
+    function registraGruppoTelegram($nG, $idG){
+        $res=$this->db->runQuery("SELECT * FROM Eventi as E WHERE E.Nome='$nG' AND E.CodTelegram IS NULL");
+        if($res->num_rows==1){
+            $this->db->runQuery("UPDATE `Eventi` SET `CodTelegram`=$idG WHERE Eventi.Nome='$nG' AND Eventi.CodTelegram IS NULL");
+            return true;
+        } //if
+        return false;
+    } //registraGruppoTelegram
+    
+    /* metodo prossimoEvento
+    * @param $nG nome del gruppo 
+    * @param $codT codice del gruppo telegram
+    * invia nel gruppo il prossimo evento
+    */
+    function prossimoEvento($nG,$codT){
+        $res=$this->db->runQuery("SELECT * FROM Eventi AS E JOIN MomentiEventi AS ME ON E.IdEvento=ME.IdEvento WHERE E.Nome='$nG' AND ME.Data>'".date("Y-m-d")."'");
+        if($res->num_rows=0)
+            parent::sendMessage($codT,"Nessun evento programmato per il futuro per questo corso");
+        else{
+            $text="";
+            while($row=$res->fetch_assoc())
+               $text+="Il prossimo incontro si terrà in:".$row["Luogo"]." in data: ".$row["Data"]." dalle ore:".$row["OraInizio"]." alle ore:".$row["OraFine"])."\n";
+            parent::sendMessage($codT,$text);
+        } //else
+            
+    } //prossimoEvento
 } //iCourseBot
-
-//$bot=new iCourseBot("585143993:AAGoTXJB0nPXzEY0puvtSjwf3G4s48zj7_Q",-1001245132047);
-$bot=new iCourseBot();
-$result=$bot->trovaInviaComunicazione();
 ?>

@@ -8,7 +8,7 @@ class TelegramBot{
     */
     function __construct($t){
         $this->token=$t;
-        $this->requestWebsite="https://api.telegram.org/bot".$this->token;
+        $this->requestWebsite="https://api.telegram.org/bot".$this->token."/";
     } //__construct
     
     /* eseguiMetodo
@@ -16,8 +16,30 @@ class TelegramBot{
     * @return oggetto json con il risultato del metodo
     */
     function eseguiMetodo($m){
-        return file_get_contents($this->requestWebsite."/$m");
+        return file_get_contents($this->requestWebsite.$m);
     } //eseguiMetodo
+    
+    /* metodo getUpdates
+    * @return file json con gli update del bot
+    */
+    function getUpdates(){
+        return file_get_contents("php://input");
+    } //getUpdates
+    
+    /* metodo sendMessage
+    * @param $id id della chat dove inviare il messaggio
+    * @param $text testo da inviare
+    * @return file json con l'esito dell'invio 
+    */
+    function sendMessage($id,$text){
+        $text=urlencode($text);
+        return $this->eseguiMetodo("sendMessage?text=$text&parse_mode=HTML&chat_id=$id");
+    } //sendMessage
+    
+    /* metodo keyboard
+    * @param $kb keyboard da fornire all'utente
+    */
+    function keyboard($kb){ } //keyboard
 } //TelegramBot
 
 
