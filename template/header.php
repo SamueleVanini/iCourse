@@ -44,7 +44,7 @@
 						<a href="/iCourse/template/personal_data.php" class="navbar-brand d-flex align-items-right">Dati personali</a>
 						<br>
 						<form action="/iCourse/src/logout.php">
-						<button class="btn btn-danger">Logout</button>
+						<button class="btn btn-danger btn-accedi">Logout</button>
 						</form>
 					<?php } ?>
 				</div>
