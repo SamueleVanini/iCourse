@@ -54,8 +54,7 @@ class EventsSearcher {
             
             default:
                 $result_array = $result->fetch_all(MYSQLI_ASSOC);
-                $a = json_encode($result_array);
-                return $a;
+                return json_encode($result_array);
         }
     }
 }
