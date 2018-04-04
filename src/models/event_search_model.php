@@ -56,4 +56,4 @@
                 return json_encode($result_array);
         }
     }
-?>
+}
