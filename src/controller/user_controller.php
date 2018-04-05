@@ -13,7 +13,7 @@
         {
             if(isset($_POST["matricola"]) && isset($_POST["password"]))
             {
-                $this->user = new PrivilegedUser($_POST["matricola"], $_POST["password"]);
+                $this->user = new PrivilegedUser($_POST["matricola"], hash("sha256", $_POST["password"]));
                 if(!($this->user->getUserId() === null))
                 {
                     $_SESSION["logged"] = true;

@@ -19,7 +19,7 @@
         /**
          * @param $sql query da eseguire
          * @return mysqli_resul risultato della query in caso di successo altrimenti interrompe l'esecuzione dello script
-         */
+        */
         public function runQuery($sql)
         {
             $result=$this->conn->query($sql);
