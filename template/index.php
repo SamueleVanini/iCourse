@@ -1,3 +1,12 @@
+<?php
+
+$var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/controller/session_controller.php";
+require_once($var);
+if(checkSession())
+{
+    header("Location: /iCourse/template/student_home.php");
+}
+?>
 <html>
     <head>
         <meta charset="utf-8">
@@ -13,7 +22,7 @@
         <script src="/iCourse/assets/js/request.js"></script>
     </head>
     <body>
-            <?php include('header.php'); ?>
+        <?php include('header.php'); ?>
         <main role="main">
             <section class="jumbotron text-center">
                 <div class="container">

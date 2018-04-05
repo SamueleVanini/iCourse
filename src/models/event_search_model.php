@@ -42,9 +42,13 @@
         */
         public function searchUserEvents($user, $return_format = null)
         {
-            $sql = "SELECT p.IdEvento, p.Data, p.OraInizio, e.Nome, me.OraFine
+            /*$sql = "SELECT p.IdEvento, p.Data, p.OraInizio, e.Nome, me.OraFine
                       FROM Partecipanti as p join Eventi as e on p.IdEvento = e.IdEvento join MomentiEventi as me on e.IdEvento = me.IdEvento
                       WHERE p.IdPartecipante = ".$user->getUserId();
+            */
+            $sql = "SELECT e.IdEvento, me.Data, me.OraInizio, e.Nome, me.OraFine
+                    FROM Partecipanti as p join MomentiEventi as me on p.IdMomento = me.IdMomento join Eventi as e on me.IdEvento = e.IdEvento
+                    WHERE p.IdPartecipante = ".$user->getUserId();
             $result = self::$db->runQuery($sql);
             switch ($return_format) {
                 case 1:

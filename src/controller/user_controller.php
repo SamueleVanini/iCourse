@@ -11,22 +11,14 @@
 
         public function __construct()
         {
-            unset($_SESSION["user"]);
-            if(isset($_SESSION["user"]))
+            if(isset($_POST["matricola"]) && isset($_POST["password"]))
             {
-                $this->user = unserialize($_SESSION["user"]);
-            }
-            else
-            {
-                if(isset($_POST["matricola"]) && isset($_POST["password"]))
+                $this->user = new PrivilegedUser($_POST["matricola"], $_POST["password"]);
+                if(!($this->user->getUserId() === null))
                 {
-                    $this->user = new PrivilegedUser($_POST["matricola"], $_POST["password"]);
-                    if(!($this->user->getUserId() === null))
-                    {
-                        $_SESSION["logged"] = true;
-                        $a = serialize($this->user);
-                        $_SESSION["user"] = $a;
-                    }
+                    $_SESSION["logged"] = true;
+                    $a = serialize($this->user);
+                    $_SESSION["user"] = $a;
                 }
             }
         }
