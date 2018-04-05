@@ -34,20 +34,18 @@
 
         </head>
         <body>
-                <?php include('header.php'); ?>
+            <?php include('header.php'); ?>
             <main role="main">
                 <div class="container-fluid">
                 <div class="row contenuto-dashboard">
                     <div class="col-xl-2 side-box">
-                       <div class="card card-style">
-                          <div class="card-header side-box-header">
-                            <strong>Corsi</strong>
-                          </div>
-                          <div class="card-body">
-                            <blockquote class="blockquote mb-0">
-                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                            </blockquote>
-                          </div>
+                        <div class="card card-style">
+                            <div class="card-header side-box-header">
+                                <strong>Corsi</strong>
+                            </div>
+                            <div class="card-body" id="activity-box">
+                                
+                            </div>
                         </div>
                     </div>
                     <div class= "col-xl-8">
@@ -83,11 +81,13 @@
                                 evento.end = response[i].Data + 'T' + response[i].OraFine;
                                 eventi.push(evento);
                             }//for
+                            calendario();
                         }//if-else
                     }//callback_get
                     var request = new Request("/iCourse/src/controller/event_controller.php", "POST", [], callback_get); //inizialize the Request object
                     request.send();
-                    $(document).ready(function() {
+                    
+                    function calendario(){
                         $('#calendar').fullCalendar({
                             defaultDate: new Date(),
                             theme: true,
@@ -106,7 +106,17 @@
                             eventLimit: true, // allow "more" link when too many events
                             events: eventi
                         });
-                    });
+                    }
+                    
+                    /**
+                     * Funzione che inserisce le attività nell'activity-box.
+                    */
+                    function createActivityBox(eventi){
+                        var intActivty1 = '<h4>I tuoi corsi</h4><li>';
+                        var intActivty2 = '<h4>Altri corsi</h4><li>';
+                        
+                        document.getElementById('activity-box').write(intActivty1);
+                    }//createActivityBox
             </script>
                 <!-- Bootstrap core JavaScript
                 ================================================== -->
