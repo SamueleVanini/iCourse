@@ -69,8 +69,6 @@
                 </div>
                 </main>
 
-                <?php include('footer.php'); ?>
-
                 <script>
                     var eventi = [];
                     var callback_get = (err, response)=>{
