@@ -82,6 +82,7 @@
                                 eventi.push(evento);
                             }//for
                             calendario();
+                            createActivityBox(eventi);
                         }//if-else
                     }//callback_get
                     var request = new Request("/iCourse/src/controller/event_controller.php", "POST", [], callback_get); //inizialize the Request object
@@ -112,10 +113,15 @@
                      * Funzione che inserisce le attività nell'activity-box.
                     */
                     function createActivityBox(eventi){
-                        var intActivty1 = '<h4>I tuoi corsi</h4><li>';
-                        var intActivty2 = '<h4>Altri corsi</h4><li>';
+                        var intActivty1 = '<h4>I tuoi corsi</h4><ul>';
+                        var intActivty2 = '<h4>Altri corsi</h4><ul>';
+                        var activity = '';
+                        for(i=0; i<eventi.length; i++){
+                            activity += '<li>' + eventi[i].title + '</li>';
+                        }//for
+                        activity += '</ul>';
                         
-                        document.getElementById('activity-box').write(intActivty1);
+                        document.getElementById('activity-box').innerHTML = intActivty1 + activity;
                     }//createActivityBox
             </script>
                 <!-- Bootstrap core JavaScript
