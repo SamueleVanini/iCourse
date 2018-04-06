@@ -42,7 +42,6 @@ class iCourseBot extends TelegramBot{
             parent::sendMessage($idG, "Gruppo Telegram registrato correttamente, eventuali nuove comunicazioni relative al corso associato a questo gruppo verranno inviate qui!");
         } else
             parent::sendMessage($idG, "Registrazione fallita: il gruppo telegram è già registrato o il corso non è registrato nel sistema");
-            parent::sendMessage($idG, "Registrazione fallita: il gruppo telegram è già registrato o il corso non è registrato nel sistema");
     } //registraGruppoTelegram
     
     /* metodo prossimoEvento
