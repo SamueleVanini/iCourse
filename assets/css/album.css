@@ -90,6 +90,10 @@ footer p {
 	display: block;
 }
 
+#form-evnt{
+	display: none;
+}
+
 .side-box-header{
 	background-color: #343a40 !important;
 	color:white;
@@ -141,7 +145,7 @@ footer p {
     border-color: black !important;
 }
 
-@media(max-width:374px){
+@media(max-width:467px){
     .fc-right{
 		margin-top: 5px;
 		margin-bottom: 5px;

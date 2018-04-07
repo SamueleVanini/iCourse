@@ -30,7 +30,7 @@
             <link href='/iCourse/assets/css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
             <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
             <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
-
+			<script src="/iCourse/assets/js/it.js"></script>
         </head>
         <body>
             <?php include('header.php'); ?>
@@ -68,8 +68,8 @@
                 
                 <!-- frame form creazione corso -->
                 <div class="container-fluid">
-                    <button type="button" class="btn btn-primary btn-lg btn-dark float-right creazione-corso">Crea corso</button>
-                    <div class="container inserimento-evento">
+                    <button type="button" class="btn btn-primary btn-lg btn-dark float-right creazione-corso" onclick="showForm()">Crea corso</button>
+                    <div class="container inserimento-evento" id="form-evnt">
                         <form action="" method="POST">
                         	<div class="form-group">
                                 <label for="nomeEvento">Nome evento</label>
@@ -119,10 +119,7 @@
                             defaultDate: new Date(),
                             theme: true,
                             height: 650,
-                            monthNames: ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
-                            monthNamesShort: ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'],
-                            dayNames: ['Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato','Domenica'],
-                            dayNamesShort: ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'],
+                            lang: 'it',
                             themeSystem:'bootstrap4',
                             header: {
                                 left: 'prev,next today',
@@ -150,6 +147,18 @@
                         
                         document.getElementById('activity-box').innerHTML = intActivty1 + activity;
                     }//createActivityBox
+
+                    /**
+                     * Funzione che mostra o nasconde il form di inserimento eventi.
+                    */
+                    function showForm(){
+                        var display = document.getElementById('form-evnt').style.display;
+                        if(!display || display == "none"){
+                        	document.getElementById('form-evnt').style.display = "block";
+                        }else{
+                            document.getElementById('form-evnt').style.display = "none";
+                        }//if-else
+                    }//showForm
             </script>
                 <!-- Bootstrap core JavaScript
                 ================================================== -->
