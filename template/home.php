@@ -23,7 +23,6 @@
             <script src='/iCourse/assets/js/moment.min.js'></script>
             <script src='/iCourse/assets/js/fullcalendar.js'></script>
             <link rel="stylesheet" href="/iCourse/assets/css/bootstrap.min.css" type="text/css">
-            <link rel="stylesheet" href="/iCourse/assets/css/style.css" type="text/css">
             <link href="/iCourse/assets/css/album.css" rel="stylesheet">
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
             <script src="/iCourse/assets/js/request.js"></script>
@@ -65,6 +64,32 @@
                     </div>
                 </div>
                 </div>
+                </div>
+                
+                <!-- frame form creazione corso -->
+                <div class="container-fluid">
+                    <button type="button" class="btn btn-primary btn-lg btn-dark float-right creazione-corso">Crea corso</button>
+                    <div class="container inserimento-evento">
+                        <form action="" method="POST">
+                        	<div class="form-group">
+                                <label for="nomeEvento">Nome evento</label>
+                                <input type="text" class="form-control" id="nomeEvento" placeholder="Nome dell'evento che si vuole creare">
+                            </div>
+                            <div class="form-group">
+                                <label for="dataInizioEvento">Inizio evento</label>
+                                <input type="date" class="form-control" id="dataInizioEvento">
+                                <input type="time" class="form-control" id="oraInizioEvento">
+                            </div>
+                            <div class="form-group">
+                                <label for="dataFineEvento">Fine evento</label>
+                                <input type="date" class="form-control" id="dataFineEvento">
+                                <input type="time" class="form-control" id="oraFineEvento">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Crea evento</button>
+                        </form>
+                    </div>
+                </div>
+                
                 </main>
 
                 <script>
@@ -85,6 +110,7 @@
                             createActivityBox(eventi);
                         }//if-else
                     }//callback_get
+                    
                     var request = new Request("/iCourse/src/controller/event_controller.php", "POST", [], callback_get); //inizialize the Request object
                     request.send();
                     
@@ -92,7 +118,7 @@
                         $('#calendar').fullCalendar({
                             defaultDate: new Date(),
                             theme: true,
-                            height:'parent',
+                            height: 650,
                             monthNames: ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
                             monthNamesShort: ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'],
                             dayNames: ['Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato','Domenica'],
@@ -107,10 +133,11 @@
                             eventLimit: true, // allow "more" link when too many events
                             events: eventi
                         });
-                    }
+                    }//calendario
                     
                     /**
                      * Funzione che inserisce le attivit� nell'activity-box.
+                     * @param eventi Array di eventi in json.
                     */
                     function createActivityBox(eventi){
                         var intActivty1 = '<h4>I tuoi corsi</h4><ul>';

@@ -23,7 +23,6 @@
             <script src='/iCourse/assets/js/moment.min.js'></script>
             <script src='/iCourse/assets/js/fullcalendar.js'></script>
             <link rel="stylesheet" href="/iCourse/assets/css/bootstrap.min.css" type="text/css">
-            <link rel="stylesheet" href="/iCourse/assets/css/style.css" type="text/css">
             <link href="/iCourse/assets/css/album.css" rel="stylesheet">
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
             <script src="/iCourse/assets/js/request.js"></script>
