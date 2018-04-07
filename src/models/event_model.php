@@ -116,16 +116,19 @@
                             ."WHERE IdUtente = ".$user->getUserId();
                     $result = self::$db->runQuery($sql);
                     if($result) {
-                        $message .= "Password cambiata correttamente";
+                        $message .= "Password cambiata correttamente!";
                         $message .= "<br>";
                     } else {
-                        $message .= "SQL Error during password change";
+                        $message .= "SQL error during password change";
                         $message .= "<br>";
                     }
                 } else {
                     $message .= "Nuove password non corrispondenti";
                     $message .= "<br>";
                 }
+            } else {
+                $message .= "Password NON modificata";
+                $message .= "<br>";
             }
             return $message;
         }
@@ -142,12 +145,15 @@
                         ."WHERE IdUtente = ".$user->getUserId();
                 $result = self::$db->runQuery($sql);
                 if($result) {
-                    $message .= "Mail cambiata correttamente";
+                    $message .= "Mail cambiata correttamente!";
                     $message .= "<br>";
                 } else {
-                    $message .= "SQL Error during email change";
+                    $message .= "SQL error during email change";
                     $message .= "<br>";
                 }
+            } else {
+                $message .= "Mail NON modificata";
+                $message .= "<br>";
             }
             return $message;
         }
