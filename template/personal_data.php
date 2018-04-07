@@ -66,7 +66,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="matricola">Cambia mail</label>
-                                                    <input type="password" class="form-control" name="newmail" placeholder="nuova mail">
+                                                    <input type="text" class="form-control" name="newmail" placeholder="nuova mail">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="matricola">Conferma password attuale</label>

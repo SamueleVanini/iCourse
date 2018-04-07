@@ -4,11 +4,11 @@
     require_once($var1);
     require_once($var2);
 
-    $passChange = new EventModel();
+    $dataChange = new EventModel();
     $user = unserialize($_SESSION["user"]);
-    $result = $passChange->changeUserPassword($user);
+    $result = $dataChange->changeUserData($user);
     echo $result;
-    echo "<br><br>";
-    header("Refresh: 3; url = /iCourse/template/personal_data.php");
-    echo "Redirect in 3 secondi...";
+    echo "<br>";
+    header("Refresh: 5; url = /iCourse/template/personal_data.php");
+    echo "Redirect in 5 secondi...";
 ?>
