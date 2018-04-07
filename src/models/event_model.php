@@ -93,12 +93,10 @@
                     $message .= $this->changeUserPassword($user);
                     $message .= $this->changeUserMail($user);
                 } else {
-                    $message .= "Password attuale errata";
-                    $message .= "<br>";
+                    $message .= "Password attuale errata"."<br>";
                 }
             } else {
-                $message .= "Almeno un campo lasciato vuoto";
-                $message .= "<br>";
+                $message .= "Almeno un campo lasciato vuoto"."<br>";
             }
             return $message;
         }
@@ -117,20 +115,16 @@
                     $result = self::$db->runQuery($sql);
                     if($result) {
                         $message .= "Password cambiata correttamente!";
-                        $message .= "<br>";
                     } else {
                         $message .= "SQL error during password change";
-                        $message .= "<br>";
                     }
                 } else {
                     $message .= "Nuove password non corrispondenti";
-                    $message .= "<br>";
                 }
             } else {
                 $message .= "Password NON modificata";
-                $message .= "<br>";
             }
-            return $message;
+            return $message."<br>";
         }
 
         /**
@@ -146,16 +140,13 @@
                 $result = self::$db->runQuery($sql);
                 if($result) {
                     $message .= "Mail cambiata correttamente!";
-                    $message .= "<br>";
                 } else {
                     $message .= "SQL error during email change";
-                    $message .= "<br>";
                 }
             } else {
                 $message .= "Mail NON modificata";
-                $message .= "<br>";
             }
-            return $message;
+            return $message."<br>";
         }
     }
 ?>
