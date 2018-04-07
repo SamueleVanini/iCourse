@@ -1,7 +1,7 @@
 <?php
     $var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/models/priviliged_user_model.php";
     $path2 = $_SERVER['DOCUMENT_ROOT']."/iCourse/template/index.php";
-    $path3 = $_SERVER['DOCUMENT_ROOT']."/iCourse/template/student_home.php";
+    $path3 = $_SERVER['DOCUMENT_ROOT']."/iCourse/template/home.php";
     $path4 = $_SERVER['DOCUMENT_ROOT']."/iCourse/template/personal_data.php";
     require_once($var);
 
@@ -59,7 +59,7 @@
     }
     else
     {
-        header("Location: /iCourse/template/student_home.php");
+        header("Location: /iCourse/template/home.php");
         //exit;
     }
 ?>

@@ -4,7 +4,7 @@ $var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/controller/session_controller.php
 require_once($var);
 if(checkSession())
 {
-    header("Location: /iCourse/template/student_home.php");
+    header("Location: /iCourse/template/home.php");
 }
 ?>
 <html>
