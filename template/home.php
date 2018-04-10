@@ -31,6 +31,7 @@
             <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
             <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
 			<script src="/iCourse/assets/js/it.js"></script>
+			<script src="/iCourse/assets/js/tools.js"></script>
         </head>
         <body>
             <?php include('header.php'); ?>
@@ -65,31 +66,7 @@
                 </div>
                 </div>
                 </div>
-                
-                <!-- frame form creazione corso -->
-                <div class="container-fluid">
-                    <button type="button" class="btn btn-primary btn-lg btn-dark float-right creazione-corso" onclick="showForm()">Crea corso</button>
-                    <div class="container inserimento-evento" id="form-evnt">
-                        <form action="" method="POST">
-                        	<div class="form-group">
-                                <label for="nomeEvento">Nome evento</label>
-                                <input type="text" class="form-control" id="nomeEvento" placeholder="Nome dell'evento che si vuole creare">
-                            </div>
-                            <div class="form-group">
-                                <label for="dataInizioEvento">Inizio evento</label>
-                                <input type="date" class="form-control" id="dataInizioEvento">
-                                <input type="time" class="form-control" id="oraInizioEvento">
-                            </div>
-                            <div class="form-group">
-                                <label for="dataFineEvento">Fine evento</label>
-                                <input type="date" class="form-control" id="dataFineEvento">
-                                <input type="time" class="form-control" id="oraFineEvento">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Crea evento</button>
-                        </form>
-                    </div>
-                </div>
-                
+                <?php include('form_evento.php'); ?>
                 </main>
 
                 <script>
@@ -131,34 +108,6 @@
                             events: eventi
                         });
                     }//calendario
-                    
-                    /**
-                     * Funzione che inserisce le attività nell'activity-box.
-                     * @param eventi Array di eventi in json.
-                    */
-                    function createActivityBox(eventi){
-                        var intActivty1 = '<h4>I tuoi corsi</h4><ul>';
-                        var intActivty2 = '<h4>Altri corsi</h4><ul>';
-                        var activity = '';
-                        for(i=0; i<eventi.length; i++){
-                            activity += '<li>' + eventi[i].title + '</li>';
-                        }//for
-                        activity += '</ul>';
-                        
-                        document.getElementById('activity-box').innerHTML = intActivty1 + activity;
-                    }//createActivityBox
-
-                    /**
-                     * Funzione che mostra o nasconde il form di inserimento eventi.
-                    */
-                    function showForm(){
-                        var display = document.getElementById('form-evnt').style.display;
-                        if(!display || display == "none"){
-                        	document.getElementById('form-evnt').style.display = "block";
-                        }else{
-                            document.getElementById('form-evnt').style.display = "none";
-                        }//if-else
-                    }//showForm
             </script>
                 <!-- Bootstrap core JavaScript
                 ================================================== -->

@@ -152,3 +152,16 @@ footer p {
         float: left !important;
     }
 }
+
+.container-new{
+    margin-top:20px;
+}
+
+.img-center{
+    position:absolute;
+    margin:auto;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
+}
