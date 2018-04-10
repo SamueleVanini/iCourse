@@ -17,12 +17,34 @@ class Db extends Config
     } //__construct
 
     /**
+     * @return conn
+    */
+    public function getConnection()
+    {
+        return $conn;
+    }
+
+    /**
      * @param $sql query da eseguire
      * @return mysqli_resul risultato della query in caso di successo altrimenti interrompe l'esecuzione dello script
-     */
+    */
     public function runQuery($sql)
     {
         $result=$this->conn->query($sql);
+        if($result === null || $result === false)
+            return false;
+        else
+            return $result;
+    } //runQuery
+
+    /**
+     * @param stmt query da eseguire
+     * @return mysqli_resul risultato della query in caso di successo altrimenti interrompe l'esecuzione dello script
+    */
+    public function runStatement($stmt)
+    {
+        $stmt->execute();
+        $result=$stmt->get_result();
         if($result === null || $result === false)
             return false;
         else

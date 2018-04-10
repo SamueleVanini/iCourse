@@ -18,8 +18,10 @@
         public function __construct($username, $password)
         {
             self::$db = new Db();
-            $sql = "SELECT * FROM Utenze WHERE (Username = '$username' or Matricola = '$username') and password = '$password'";
-            $result = self::$db->runQuery($sql);
+            $stmt = self::$db->getConnection()->prepare("SELECT * FROM Utenze WHERE (Username = '?' or Matricola = '?') and password = '?'");
+            $stmt->bind_param("sss", $username, $username, $password);
+            $result = self::$db->runStatement($stmt);
+            $stmt->close();
             $result_array = $result->fetch_all(MYSQLI_ASSOC);
             if($result->num_rows != 0)
             {
