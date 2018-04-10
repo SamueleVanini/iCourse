@@ -66,7 +66,6 @@
                 </div>
                 </div>
                 </div>
-                <?php include('form_evento.php'); ?>
                 </main>
 
                 <script>
