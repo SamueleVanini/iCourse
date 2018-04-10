@@ -50,5 +50,18 @@ class PrivilegedUser extends User
         }
         return false;
     }
+
+    public function getPrivileges()
+    {
+        $total_permisions = array();
+        if(!empty($this->roles))
+        {
+            foreach ($this->roles as $role) {
+                array_push($total_permisions, $role->getPermisions());
+            }
+            return $total_permisions;
+        }
+        return false;
+    }
 }
 ?>

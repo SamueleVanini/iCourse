@@ -40,7 +40,7 @@
                     <?php }
                     else
                     {?>
-                        <a href="/iCourse/template/student_home.php" class="navbar-brand d-flex align-items-right">Home</a>
+                        <a href="/iCourse/template/home.php" class="navbar-brand d-flex align-items-right">Home</a>
                         <a href="/iCourse/template/personal_data.php" class="navbar-brand d-flex align-items-right">Dati personali</a>
                         <br>
                         <form action="/iCourse/src/controller/logout.php">

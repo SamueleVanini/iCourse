@@ -4,7 +4,7 @@ $var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/controller/session_controller.php
 require_once($var);
 if(checkSession())
 {
-    header("Location: /iCourse/template/student_home.php");
+    header("Location: /iCourse/template/home.php");
 }
 */
 ?>
@@ -17,10 +17,10 @@ if(checkSession())
         <title> iCourse </title>
         <!-- CSS -->
         <link rel="stylesheet" href="/iCourse/assets/css/bootstrap.min.css" type="text/css">
-        <link rel="stylesheet" href="/iCourse/assets/css/style.css" type="text/css">
         <link href="/iCourse/assets/css/album.css" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="/iCourse/assets/js/request.js"></script>
+        <script src="/iCourse/assets/js/holder.min.js"></script>
     </head>
     <body>
         <?php include('header.php'); ?>
@@ -39,7 +39,6 @@ if(checkSession())
               <div class="album py-5 bg-light">
                 <div class="container" id="tabella_corsi">
                     <script>
-                        var card1 = "<div class=\"col-md-4\"><div class=\"card mb-4 box-shadow\"><img class=\"card-img-top\" data-src=\"holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail\" alt=\"Card image cap\"><div class=\"card-body\"><h4 class=\"card-text\">";
                         var card2 = "</h4><p class=\"card-text\" id=\"contenuto\">";
                         var card3 = "</p><div class=\"d-flex justify-content-between align-items-center\"><div class=\"btn-group\"><button type=\"button\" class=\"btn btn-sm btn-outline-secondary\">Vai all'attività</button></div><small class=\"text-muted\">";
                         var card4 = "</small></div></div></div></div>";
@@ -52,7 +51,7 @@ if(checkSession())
                                 var i = 0;
                                 box += "<div class=\"row\">";
                                 for(course in response) {
-                                    box += card1;
+                                    box += "<div class=\"col-md-4\"><div class=\"card mb-4 box-shadow\"><img class=\"card-img-top\" data-src=\"holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=" + response[i].Nome + "\" alt=\"Card image cap\"><div class=\"card-body\"><h4 class=\"card-text\">";
                                     box += response[i].Nome;
                                     box += card2;
                                     box += response[i].Descrizione;
@@ -81,6 +80,6 @@ if(checkSession())
         <script>window.jQuery || document.write('<script src="/iCourse/assets/js/jquery-slim.min.js"><\/script>')</script>
         <script src="/iCourse/assets/js/popper.min.js"></script>
         <script src="/iCourse/assets/js/bootstrap.min.js"></script>
-        <script src="/iCourse/assets/js/holder.min.js"></script>
+        
     </body>
 </html>

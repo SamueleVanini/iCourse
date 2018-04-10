@@ -25,7 +25,7 @@
 
             while($row = $result->fetch_assoc())
             {
-                $role->permissions[$row["IdPermesso"]] = array(true, $row["Nome"]);
+                $role->permissions[$row["IdPermesso"]] = array($row["IdPermesso"], $row["Nome"]);
             }
             return $role;
         }
@@ -37,6 +37,15 @@
         public function hasPerm($permissions)
         {
             return isset($this->permissions[$permissions]);
+        }
+
+        /**
+         * Metodo per ritornare i permessi di un ruolo
+         * @return permissions array di permessi
+         */
+        public function getPermisions()
+        {
+            return $this->permissions;
         }
     }
 ?>

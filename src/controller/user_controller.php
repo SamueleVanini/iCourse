@@ -47,7 +47,7 @@
     {
         header("Refresh: 3; url = /iCourse/template", true, 301);
     }
-    elseif(!$user->getUser()->hasPrivilege(13))
+    elseif(!($user->getUser()->hasPrivilege(11) || $user->getUser()->hasPrivilege(13)))
     {
 
         header("Refresh: 3; url = /iCourse/template", true, 301);
@@ -56,7 +56,7 @@
     }
     else
     {
-        header("Location: /iCourse/template/student_home.php");
+        header("Location: /iCourse/template/home.php");
         //exit;
     }
 ?>
