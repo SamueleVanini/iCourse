@@ -1,7 +1,7 @@
                 <!-- frame form creazione corso -->
+                <button type="button" class="btn btn-primary btn-lg btn-dark float-right creazione-corso" onclick="showForm()">Crea corso</button>
                 <div class="container-fluid">
-                    <button type="button" class="btn btn-primary btn-lg btn-dark float-right creazione-corso" onclick="showForm()">Crea corso</button>
-                    <div class="container inserimento-evento" id="form-evnt">
+                    <div class="container inserimento-evento" id="form-evnt" style="display: none">
                         <form action="" method="POST">
                             <div class="form-group">
                                 <label for="nomeEvento">Nome evento</label>
