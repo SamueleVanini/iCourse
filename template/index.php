@@ -1,11 +1,12 @@
 <?php
-
+/*
 $var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/controller/session_controller.php";
 require_once($var);
 if(checkSession())
 {
     header("Location: /iCourse/template/student_home.php");
 }
+*/
 ?>
 <html>
     <head>

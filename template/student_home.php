@@ -1,6 +1,8 @@
 <?php
-    $var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/controller/session_controller.php";
-    require_once($var);
+    $path1 = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/controller/session_controller.php";
+    $path2 = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/models/priviliged_user_model.php";
+    require_once($path1);
+    require_once($path2);
 
     if(!checkSession())
     {
@@ -110,7 +112,7 @@
                     }
                     
                     /**
-                     * Funzione che inserisce le attività nell'activity-box.
+                     * Funzione che inserisce le attivitï¿½ nell'activity-box.
                     */
                     function createActivityBox(eventi){
                         var intActivty1 = '<h4>I tuoi corsi</h4><ul>';
@@ -132,4 +134,10 @@
                 <script src="/iCourse/assets/js/holder.min.js"></script>
             </body>
     </html>
-<?php } ?>
+<?php 
+} 
+
+$user = unserialize($_SESSION["user"]);
+//switch():
+echo "a";
+?>
