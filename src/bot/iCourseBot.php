@@ -42,7 +42,6 @@ class iCourseBot extends TelegramBot{
             parent::sendMessage($idG, "Gruppo Telegram registrato correttamente, eventuali nuove comunicazioni relative al corso associato a questo gruppo verranno inviate qui!");
         } else
             parent::sendMessage($idG, "Registrazione fallita: il gruppo telegram è già registrato o il corso non è registrato nel sistema");
-            parent::sendMessage($idG, "Registrazione fallita: il gruppo telegram è già registrato o il corso non è registrato nel sistema");
     } //registraGruppoTelegram
     
     /* metodo prossimoEvento
@@ -67,10 +66,18 @@ class iCourseBot extends TelegramBot{
     * @param $user utente mittente
     * @param $message messaggio inviato
     * @param $gruppo gruppo telegram in cui è stato inviato il messaggio
+    * @param $idFile id del file allegato
+    * @param $fileName nome del file allegato
     */
-    public function registraMessaggio($user, $message, $gruppo){
+    public function registraMessaggio($user, $message, $gruppo, $idFile, $fileName){
+        //recupero id evento
+        $res=$this->db->runQuery("SELECT E.IdEvento FROM Eventi AS E WHERE E.Nome='$gruppo'");
+        $row=$res->fetch_assoc();
         date_default_timezone_set('Europe/Rome');
-        $res=$this->db->runQuery("INSERT INTO `MessaggiTelegram`(`NomeEvento`, `UtenteTelegram`, `TestoMessaggio`, `DataOra`) VALUES ('$gruppo','$user','$message','".date('Y-m-d H:i:s')."')");
+        if(isset($idFile)){
+            $this->db->runQuery("INSERT INTO `MessaggiTelegram`(`IdEvento`, `UtenteTelegram`, `TestoMessaggio`, `idFile`, `NomeFile`, `DataOra`) VALUES ('".$row["IdEvento"]."','$user','$message','$idFile','$fileName','".date('Y-m-d H:i:s')."')");
+        } else
+            $this->db->runQuery("INSERT INTO `MessaggiTelegram`(`IdEvento`, `UtenteTelegram`, `TestoMessaggio`, `DataOra`) VALUES ('".$row["IdEvento"]."','$user','$message','".date('Y-m-d H:i:s')."')");
     } //registraMessaggio
     
 } //iCourseBot

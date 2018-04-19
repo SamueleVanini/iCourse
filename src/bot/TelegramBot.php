@@ -2,6 +2,7 @@
 class TelegramBot{
     private $token; //token per accedere al bot
     private $requestWebsite;
+    private $requestFileWebsite;
     
     /* costruttore 
     * @param $t token per accedere al bot
@@ -9,6 +10,7 @@ class TelegramBot{
     public function __construct($t){
         $this->token=$t;
         $this->requestWebsite="https://api.telegram.org/bot".$this->token."/";
+        $this->requestFileWebsite="https://api.telegram.org/file/bot".$this->token."/";
     } //__construct
     
     /* eseguiMetodo
@@ -38,8 +40,18 @@ class TelegramBot{
     
     /* metodo keyboard
     * @param $kb keyboard da fornire all'utente
+    * da implementare in caso di usi futuri
     */
     public function keyboard($kb){ } //keyboard
+    
+    /* metodo downloadFile 
+    * @param $idFile identificativo del file da scaricare
+    * @output download del file il cui id è stato specificato precedentemente
+    */
+    public function downloadFile($idFile){
+        $info=json_decode($this->eseguiMetodo("getFile?file_id=$idFile"));
+        file_get_contents($this->requestFileWebsite."/".$info["result"]["file_path"]);
+    } //downloadFile
 } //TelegramBot
 
 
