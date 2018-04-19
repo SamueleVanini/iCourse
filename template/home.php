@@ -1,6 +1,8 @@
 <?php
-    $var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/controller/session_controller.php";
-    require_once($var);
+    $path1 = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/controller/session_controller.php";
+    $path2 = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/models/priviliged_user_model.php";
+    require_once($path1);
+    require_once($path2);
 
     if(!checkSession())
     {
@@ -23,7 +25,6 @@
             <script src='/iCourse/assets/js/moment.min.js'></script>
             <script src='/iCourse/assets/js/fullcalendar.js'></script>
             <link rel="stylesheet" href="/iCourse/assets/css/bootstrap.min.css" type="text/css">
-            <link rel="stylesheet" href="/iCourse/assets/css/style.css" type="text/css">
             <link href="/iCourse/assets/css/album.css" rel="stylesheet">
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
             <script src="/iCourse/assets/js/request.js"></script>
@@ -31,7 +32,8 @@
             <link href='/iCourse/assets/css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
             <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
             <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
-
+			<script src="/iCourse/assets/js/it.js"></script>
+			<script src="/iCourse/assets/js/tools.js"></script>
         </head>
         <body>
             <?php include('header.php'); ?>
@@ -65,6 +67,7 @@
                     </div>
                 </div>
                 </div>
+                </div>
                 </main>
 
                 <script>
@@ -85,6 +88,7 @@
                             createActivityBox(eventi);
                         }//if-else
                     }//callback_get
+                    
                     var request = new Request("/iCourse/src/controller/event_controller.php", "POST", [], callback_get); //inizialize the Request object
                     request.send();
                     
@@ -92,11 +96,8 @@
                         $('#calendar').fullCalendar({
                             defaultDate: new Date(),
                             theme: true,
-                            height:'parent',
-                            monthNames: ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
-                            monthNamesShort: ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'],
-                            dayNames: ['Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato','Domenica'],
-                            dayNamesShort: ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'],
+                            height: 650,
+                            lang: 'it',
                             themeSystem:'bootstrap4',
                             header: {
                                 left: 'prev,next today',
@@ -107,22 +108,7 @@
                             eventLimit: true, // allow "more" link when too many events
                             events: eventi
                         });
-                    }
-                    
-                    /**
-                     * Funzione che inserisce le attivit� nell'activity-box.
-                    */
-                    function createActivityBox(eventi){
-                        var intActivty1 = '<h4>I tuoi corsi</h4><ul>';
-                        var intActivty2 = '<h4>Altri corsi</h4><ul>';
-                        var activity = '';
-                        for(i=0; i<eventi.length; i++){
-                            activity += '<li>' + eventi[i].title + '</li>';
-                        }//for
-                        activity += '</ul>';
-                        
-                        document.getElementById('activity-box').innerHTML = intActivty1 + activity;
-                    }//createActivityBox
+                    }//calendario
             </script>
                 <!-- Bootstrap core JavaScript
                 ================================================== -->
@@ -132,4 +118,21 @@
                 <script src="/iCourse/assets/js/holder.min.js"></script>
             </body>
     </html>
-<?php } ?>
+<?php 
+} 
+
+$user = unserialize($_SESSION["user"]);
+$array_privileges = $user->getPrivileges();
+foreach($array_privileges as $privileges)
+{
+    foreach($privileges as $privilege)
+    {
+        switch($privilege[0]){
+            case 2:
+                $pathFormEvent = $_SERVER['DOCUMENT_ROOT']."/iCourse/template/form_evento.php";
+                require_once($pathFormEvent);
+                break;
+        }
+    }
+}
+?>

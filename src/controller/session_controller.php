@@ -1,12 +1,15 @@
 <?php
-    session_start();
 
-    function checkSession()
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+function checkSession()
+{
+    if(isset($_SESSION["user"]) && isset($_SESSION["logged"]) && $_SESSION["logged"]===true)
     {
-        if(isset($_SESSION["user"]) && isset($_SESSION["logged"]) && $_SESSION["logged"]===true)
-        {
-            return true;
-        }
-        return false;
+        return true;
     }
+    return false;
+}
 ?>
