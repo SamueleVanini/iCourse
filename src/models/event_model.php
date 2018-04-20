@@ -78,17 +78,25 @@
             }
         }
 
+        /** Metodo per l'iserimento di un evento nella tabella Eventi e dell'isegnate con l'evento nella tabella GestioneEventi
+         * @param user utente che effettua l'inserimento
+         * @param nome nome dell'evento
+         * @param descrizione descrizione dell'evento
+         * @return true/false indica se l'inserimento è andato a buon fine 
+         */
         public function insertEvent($user, $nome, $descrizione)
         {
-            $sql = "INSERT INTO Eventi ('Descrizione', 'Nome') 
-                    VALUES($descrizione, $nome)";
-            $result = self::$db->runQuery($sql);
+            $stmt = self::$db->getConnection()->prepare("INSERT INTO Eventi ('Descrizione', 'Nome') 
+                                                         VALUES(?, ?)");
+            $stmt->bind_param("ss", $descrizione, $nome);
+            $result = self::$db->runStatement($stmt);
+            $stmt->close();
             if($result != false)
             {
-                $sql = "SELECT IdEvento
-                    FROM Eventi
-                    WHERE Nome = $nome";
-                $result = self::$db->runQuery($sql);
+                $stmt = self::$db->getConnection()->prepare("SELECT IdEvento FROM Eventi WHERE Nome = ?");
+                $stmt->bind_param("s", $nome);
+                $result = self::$db->runStatement($stmt);
+                $stmt->close();
                 $result_array = $result->fetch_all(MYSQLI_ASSOC);
                 $sql = "INSERT INTO GestioneEventi ('IdEvento', 'IdInsegnante') 
                         VALUES(".$result_array["IdEvento"].",". $user->getUserId().")";
