@@ -111,10 +111,12 @@
         public function changeUserData($user) {
             $message="";
             if($_POST["actpassword"]!="" && (($_POST["newpassword"]!="" && $_POST["confnewpassword"]!="") || $_POST["newmail"]!="")) {
-                $sql = "SELECT Password
-                        FROM Utenze as u
-                        WHERE u.IdUtente = ".$user->getUserId()." AND u.Password = '".hash("sha256", $_POST["actpassword"])."'";
-                $result = self::$db->runQuery($sql);
+                $stmt = self::$db->getConnection()->prepare("SELECT Password
+                                                            FROM Utenze as u
+                                                            WHERE u.IdUtente = ? AND u.Password = '?'");
+                $stmt->bind_param("is", $user->getUserId(), hash("sha256", $_POST["actpassword"]));
+                $result = self::$db->runStatement($stmt);
+                $stmt->close();
                 if($result->num_rows != 0) {
                     $message .= $this->changeUserPassword($user);
                     $message .= $this->changeUserMail($user);
@@ -135,10 +137,12 @@
             $message="";
             if($_POST["newpassword"]!="" && $_POST["confnewpassword"]!="") {
                 if(($_POST["newpassword"] == $_POST["confnewpassword"])) {
-                    $sql = "UPDATE Utenze
-                            SET Password = '".hash("sha256", $_POST["newpassword"])."'"
-                            ."WHERE IdUtente = ".$user->getUserId();
-                    $result = self::$db->runQuery($sql);
+                    $stmt = self::$db->getConnection()->prepare("UPDATE Utenze
+                                                                SET Password = '?'
+                                                                WHERE IdUtente = ?");
+                    $stmt->bind_param("si", hash("sha256", $_POST["newpassword"]), $user->getUserId());
+                    $result = self::$db->runStatement($stmt);
+                    $stmt->close();
                     if($result) {
                         $message .= "Password cambiata correttamente!";
                     } else {
@@ -160,10 +164,12 @@
         private function changeUserMail($user) {
             $message="";
             if($_POST["newmail"]!="") {
-                $sql = "UPDATE Utenze
-                        SET Mail = '".$_POST['newmail']."'"
-                        ."WHERE IdUtente = ".$user->getUserId();
-                $result = self::$db->runQuery($sql);
+                $stmt = self::$db->getConnection()->prepare("UPDATE Utenze
+                                                            SET Mail = '?'
+                                                            WHERE IdUtente = ?");
+                $stmt->bind_param("si", $_POST['newmail'], $user->getUserId());
+                $result = self::$db->runQuery($stmt);
+                $stmt->close();
                 if($result) {
                     $message .= "Mail cambiata correttamente!";
                 } else {
