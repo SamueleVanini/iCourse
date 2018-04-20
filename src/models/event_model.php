@@ -78,6 +78,32 @@
             }
         }
 
+        public function insertEvent($user, $nome, $descrizione)
+        {
+            $sql = "INSERT INTO Eventi ('Descrizione', 'Nome') 
+                    VALUES($descrizione, $nome)";
+            $result = self::$db->runQuery($sql);
+            if($result != false)
+            {
+                $sql = "SELECT IdEvento
+                    FROM Eventi
+                    WHERE Nome = $nome";
+                $result = self::$db->runQuery($sql);
+                $result_array = $result->fetch_all(MYSQLI_ASSOC);
+                $sql = "INSERT INTO GestioneEventi ('IdEvento', 'IdInsegnante') 
+                        VALUES(".$result_array["IdEvento"].",". $user->getUserId().")";
+                $result = self::$db->runQuery($sql);
+                if($result === false)
+                    return $result;
+                else
+                    return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         /**
          * @param user utente per cui si vuole effettuare la ricerca
          * @return result risultato della query
