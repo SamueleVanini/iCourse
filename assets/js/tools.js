@@ -10,8 +10,24 @@ function createActivityBox(eventi){
         activity += '<li>' + eventi[i].title + '</li>';
     }//for
     activity += '</ul>';
-                        
+
    document.getElementById('activity-box').innerHTML = intActivty1 + activity;
+}//createActivityBox
+
+/**
+ * Funzione che inserisce le attività nell'activity-box.
+ * @param comunicazioni Array di comunicazioni in json.
+*/
+function createSocialBox(comunicazioni){
+    var intSocial1 = '<h4>Comunicazioni recenti</h4><ul>';
+    var intSocial2 = '<h4>Altre comunicazioni</h4><ul>';
+    var social = '';
+    for(i=0; i<comunicazioni.length; i++){
+        social += '<li>' + comunicazioni[i].title + '</li>';
+    }//for
+    social += '</ul>';
+
+   document.getElementById('social-box').innerHTML = intSocial1 + social;
 }//createActivityBox
 
 /**
@@ -28,11 +44,11 @@ function showForm(){
 
 /**
  * Funzione che mostra una porzione di un form dato un valore precedentemente inserito.
- */
+*/
 function showFine(){
     var fine = document.getElementById('div-fine-rip').style.display;
     var select = document.getElementById('ripetizione').value;
     if(select != 0){
         fine = "block";
     }//if
-}//showFine
+}//showFine 

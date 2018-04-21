@@ -38,7 +38,6 @@
                                 <input type="number" class="form-control" id="fine-ripetizione" placeholder="">
                                 <small id="fine-ripetizione-help" class="form-text text-muted">Inserire il numero di eventi che si ripetono consecutivamente.</small>
                             </div>
-                            
                             <button type="submit" class="btn btn-primary">Crea evento</button>
                         </form>
                         </div>
@@ -64,5 +63,5 @@
                     if (event.target == modal) {
                         modal.style.display = "none";
                     }
-                } 
+                }
                 </script>

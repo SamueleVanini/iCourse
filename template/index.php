@@ -81,6 +81,6 @@ if(checkSession())
         <script>window.jQuery || document.write('<script src="/iCourse/assets/js/jquery-slim.min.js"><\/script>')</script>
         <script src="/iCourse/assets/js/popper.min.js"></script>
         <script src="/iCourse/assets/js/bootstrap.min.js"></script>
-        
+
     </body>
 </html>

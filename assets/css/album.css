@@ -178,6 +178,7 @@ footer p {
 	margin-left:5px;
 }
 
+ /* The Modal (background) */
 .modal {
     display: none;
     position: fixed !important;
@@ -201,9 +202,8 @@ footer p {
     overflow: auto !important;
 }
 
-
 .close {
-	float: right;
+    float: right;
     color: #aaa !important;
     font-size: 28px !important;
     font-weight: bold !important;
@@ -214,8 +214,8 @@ footer p {
     color: black !important;
     text-decoration: none !important;
     cursor: pointer !important;
-} 
+}
 
 #div-fine-rip{
-	display: none;
+    display: none;
 }
