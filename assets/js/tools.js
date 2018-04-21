@@ -25,3 +25,14 @@ function showForm(){
         document.getElementById('form-evnt').style.display = "none";
     }//if-else
 }//showForm
+
+/**
+ * Funzione che mostra una porzione di un form dato un valore precedentemente inserito.
+ */
+function showFine(){
+    var fine = document.getElementById('div-fine-rip').style.display;
+    var select = document.getElementById('ripetizione').value;
+    if(select != 0){
+        fine = "block";
+    }//if
+}//showFine

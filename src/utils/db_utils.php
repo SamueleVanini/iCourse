@@ -21,7 +21,7 @@ class Db extends Config
     */
     public function getConnection()
     {
-        return $conn;
+        return $this->conn;
     }
 
     /**

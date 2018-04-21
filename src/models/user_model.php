@@ -18,7 +18,7 @@
         public function __construct($username, $password)
         {
             self::$db = new Db();
-            $stmt = self::$db->getConnection()->prepare("SELECT * FROM Utenze WHERE (Username = '?' or Matricola = '?') and password = '?'");
+            $stmt = self::$db->getConnection()->prepare("SELECT * FROM Utenze WHERE (Username = ? or Matricola = ?) and password = ?");
             $stmt->bind_param("sss", $username, $username, $password);
             $result = self::$db->runStatement($stmt);
             $stmt->close();

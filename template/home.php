@@ -77,8 +77,8 @@
                             console.log("Errore: " + err);
                         }else{
                             response = JSON.parse(response);
-                            var evento = new Object();
                             for(i=0; i<response.length; i++){
+                                var evento = new Object(); //NON GUARDARE TI PREGO
                                 evento.title = response[i].Nome;
                                 evento.start = response[i].Data + 'T' + response[i].OraInizio;
                                 evento.end = response[i].Data + 'T' + response[i].OraFine;

@@ -53,6 +53,15 @@ footer p {
     color:black;
 }
 
+.btn-accedi{
+	height:30px;
+	line-height:0px;
+}
+
+.btn-download{
+	float:right;
+}
+
 .btn-torna-su{
     background-color:white !important;
     color:black !important;
@@ -158,10 +167,55 @@ footer p {
 }
 
 .img-center{
-    position:absolute;
     margin:auto;
     top:0px;
     right:0px;
     bottom:0px;
     left:0px;
+}
+
+#date > a:hover{
+	margin-left:5px;
+}
+
+.modal {
+    display: none;
+    position: fixed !important;
+    z-index: 1 !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgb(0,0,0) !important;
+    background-color: rgba(0,0,0,0.4) !important;
+}
+
+.modal-content {
+    background-color: #fefefe !important;
+    margin: 5% auto !important;
+    padding: 20px !important;
+    padding-bottom: 20px !important;
+    border: 1px solid #888 !important;
+    width: 80% !important;
+    height: 80%  !important;
+    overflow: auto !important;
+}
+
+
+.close {
+	float: right;
+    color: #aaa !important;
+    font-size: 28px !important;
+    font-weight: bold !important;
+}
+
+.close:hover,
+.close:focus {
+    color: black !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+} 
+
+#div-fine-rip{
+	display: none;
 }

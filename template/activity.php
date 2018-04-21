@@ -19,7 +19,7 @@
 					<div class="row">
 						<div class="col-md-1"></div>
 						<div class="col-md-5">
-							<img src="../src/img/math.jpg" alt="matematica" class="img-thumbnail img-center">
+							<img data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Corso" alt="matematica" class="img-thumbnail img-center">
 						</div>
 						<div class="col-md-5">
 							<div>
@@ -66,7 +66,7 @@
 						<div class="col-md-1"></div>
 						<div class="col-md-10 container-new">
 							<div> <h4> Eventi </h4> </div>
-							<div class="list-group">
+							<div class="list-group" id="date">
 							  <a href="#" class="list-group-item list-group-item-action">Lezione del 1-02-2018</a>
 							  <a href="#" class="list-group-item list-group-item-action">Lezione del 10-02-2018</a>
 							  <a href="#" class="list-group-item list-group-item-action">Lezione del 17-02-2018</a>
@@ -115,6 +115,9 @@
 					</div>
 				</div>
 	    </main>
+		<script>
+		    
+		</script>
 	    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	    <script>window.jQuery || document.write('<script src="/iCourse/assets/js/jquery-slim.min.js"><\/script>')</script>
 	    <script src="/iCourse/assets/js/popper.min.js"></script>
