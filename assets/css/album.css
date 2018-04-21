@@ -53,6 +53,15 @@ footer p {
     color:black;
 }
 
+.btn-accedi{
+	height:30px;
+	line-height:0px;
+}
+
+.btn-download{
+	float:right;
+}
+
 .btn-torna-su{
     background-color:white !important;
     color:black !important;
@@ -158,10 +167,52 @@ footer p {
 }
 
 .img-center{
-    position:absolute;
     margin:auto;
     top:0px;
     right:0px;
     bottom:0px;
     left:0px;
 }
+
+#date > a:hover{
+	margin-left:5px;
+}
+
+ /* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed !important; /* Stay in place */
+    z-index: 1 !important; /* Sit on top */
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important; /* Full width */
+    height: 100% !important; /* Full height */
+    background-color: rgb(0,0,0) !important; /* Fallback color */
+    background-color: rgba(0,0,0,0.4) !important; /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe !important;
+    margin: 5% auto !important; /* 15% from the top and centered */
+    padding: 20px !important;
+    padding-bottom: 20px !important;
+    border: 1px solid #888 !important;
+    width: 80% !important; /* Could be more or less, depending on screen size */
+    height: 80%  !important;
+    overflow: auto !important; /* Enable scroll if needed */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa !important;
+    float: right !important;
+    font-size: 28px !important;
+    font-weight: bold !important;
+}
+
+.close:hover,
+.close:focus {
+    color: black !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+} 

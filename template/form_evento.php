@@ -1,7 +1,9 @@
                 <!-- frame form creazione corso -->
-                <button type="button" class="btn btn-primary btn-lg btn-dark float-right creazione-corso" onclick="showForm()">Crea corso</button>
-                <div class="container-fluid">
-                    <div class="container inserimento-evento" id="form-evnt" style="display: none">
+                <button type="button" class="btn btn-primary btn-lg btn-dark float-right creazione-corso" id="btn-form">Crea corso</button>
+
+                <div class="modal" id="form-evnt">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
                         <form action="" method="POST">
                             <div class="form-group">
                                 <label for="nomeEvento">Nome evento</label>
@@ -17,7 +19,48 @@
                                 <input type="date" class="form-control" id="dataFineEvento">
                                 <input type="time" class="form-control" id="oraFineEvento">
                             </div>
+                            <div class="form-group">
+                                <label for="dataFineEvento">Fine evento</label>
+                                <input type="date" class="form-control" id="dataFineEvento">
+                                <input type="time" class="form-control" id="oraFineEvento">
+                            </div>
+                            <div class="form-group">
+                                <label for="dataFineEvento">Fine evento</label>
+                                <input type="date" class="form-control" id="dataFineEvento">
+                                <input type="time" class="form-control" id="oraFineEvento">
+                            </div><div class="form-group">
+                                <label for="dataFineEvento">Fine evento</label>
+                                <input type="date" class="form-control" id="dataFineEvento">
+                                <input type="time" class="form-control" id="oraFineEvento">
+                            </div>
+                            <div class="form-group">
+                                <label for="dataFineEvento">Fine evento</label>
+                                <input type="date" class="form-control" id="dataFineEvento">
+                                <input type="time" class="form-control" id="oraFineEvento">
+                            </div>
                             <button type="submit" class="btn btn-primary">Crea evento</button>
                         </form>
                     </div>
-                </div> 
+                </div>
+
+                <script>
+                var modal = document.getElementById('form-evnt');
+
+                var btn = document.getElementById("btn-form");
+
+                var span = document.getElementsByClassName("close")[0];
+
+                btn.onclick = function() {
+                    modal.style.display = "block";
+                }
+
+                span.onclick = function() {
+                    modal.style.display = "none";
+                }
+
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                } 
+                </script>
