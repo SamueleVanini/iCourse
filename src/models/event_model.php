@@ -82,11 +82,11 @@
          * @param user utente che effettua l'inserimento
          * @param nome nome dell'evento
          * @param descrizione descrizione dell'evento
-         * @return true/false indica se l'inserimento è andato a buon fine 
+         * @return true/false indica se l'inserimento è andato a buon fine
          */
         public function insertEvent($user, $nome, $descrizione)
         {
-            $stmt = self::$db->getConnection()->prepare("INSERT INTO Eventi ('Descrizione', 'Nome') 
+            $stmt = self::$db->getConnection()->prepare("INSERT INTO Eventi ('Descrizione', 'Nome')
                                                          VALUES(?, ?)");
             $stmt->bind_param("ss", $descrizione, $nome);
             $result = self::$db->runStatement($stmt);
@@ -98,7 +98,7 @@
                 $result = self::$db->runStatement($stmt);
                 $stmt->close();
                 $result_array = $result->fetch_all(MYSQLI_ASSOC);
-                $sql = "INSERT INTO GestioneEventi ('IdEvento', 'IdInsegnante') 
+                $sql = "INSERT INTO GestioneEventi ('IdEvento', 'IdInsegnante')
                         VALUES(".$result_array["IdEvento"].",". $user->getUserId().")";
                 $result = self::$db->runQuery($sql);
                 if($result === false)
@@ -121,7 +121,7 @@
             if($_POST["actpassword"]!="" && (($_POST["newpassword"]!="" && $_POST["confnewpassword"]!="") || $_POST["newmail"]!="")) {
                 $stmt = self::$db->getConnection()->prepare("SELECT Password
                                                             FROM Utenze as u
-                                                            WHERE u.IdUtente = ? AND u.Password = '?'");
+                                                            WHERE u.IdUtente = ? AND u.Password = ?");
                 $stmt->bind_param("is", $user->getUserId(), hash("sha256", $_POST["actpassword"]));
                 $result = self::$db->runStatement($stmt);
                 $stmt->close();
@@ -146,7 +146,7 @@
             if($_POST["newpassword"]!="" && $_POST["confnewpassword"]!="") {
                 if(($_POST["newpassword"] == $_POST["confnewpassword"])) {
                     $stmt = self::$db->getConnection()->prepare("UPDATE Utenze
-                                                                SET Password = '?'
+                                                                SET Password = ?
                                                                 WHERE IdUtente = ?");
                     $stmt->bind_param("si", hash("sha256", $_POST["newpassword"]), $user->getUserId());
                     $result = self::$db->runStatement($stmt);
@@ -173,7 +173,7 @@
             $message="";
             if($_POST["newmail"]!="") {
                 $stmt = self::$db->getConnection()->prepare("UPDATE Utenze
-                                                            SET Mail = '?'
+                                                            SET Mail = ?
                                                             WHERE IdUtente = ?");
                 $stmt->bind_param("si", $_POST['newmail'], $user->getUserId());
                 $result = self::$db->runQuery($stmt);
