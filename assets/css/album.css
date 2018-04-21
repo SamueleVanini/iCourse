@@ -178,34 +178,33 @@ footer p {
 	margin-left:5px;
 }
 
- /* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed !important; /* Stay in place */
-    z-index: 1 !important; /* Sit on top */
+    display: none;
+    position: fixed !important;
+    z-index: 1 !important;
     left: 0 !important;
     top: 0 !important;
-    width: 100% !important; /* Full width */
-    height: 100% !important; /* Full height */
-    background-color: rgb(0,0,0) !important; /* Fallback color */
-    background-color: rgba(0,0,0,0.4) !important; /* Black w/ opacity */
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgb(0,0,0) !important;
+    background-color: rgba(0,0,0,0.4) !important;
 }
 
 .modal-content {
     background-color: #fefefe !important;
-    margin: 5% auto !important; /* 15% from the top and centered */
+    margin: 5% auto !important;
     padding: 20px !important;
     padding-bottom: 20px !important;
     border: 1px solid #888 !important;
-    width: 80% !important; /* Could be more or less, depending on screen size */
+    width: 80% !important;
     height: 80%  !important;
-    overflow: auto !important; /* Enable scroll if needed */
+    overflow: auto !important;
 }
 
-/* The Close Button */
+
 .close {
+	float: right;
     color: #aaa !important;
-    float: right !important;
     font-size: 28px !important;
     font-weight: bold !important;
 }
@@ -216,3 +215,7 @@ footer p {
     text-decoration: none !important;
     cursor: pointer !important;
 } 
+
+#div-fine-rip{
+	display: none;
+}

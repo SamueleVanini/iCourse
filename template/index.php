@@ -58,6 +58,7 @@ if(checkSession())
                                     box += card3;
                                     box += "Data";
                                     box += card4;
+                                    i++;
                                 }
                                 box += "<\div>";
                                 document.getElementById('tabella_corsi').innerHTML = box;

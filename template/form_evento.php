@@ -4,6 +4,7 @@
                 <div class="modal" id="form-evnt">
                     <div class="modal-content">
                         <span class="close">&times;</span>
+                        <div>
                         <form action="" method="POST">
                             <div class="form-group">
                                 <label for="nomeEvento">Nome evento</label>
@@ -20,26 +21,27 @@
                                 <input type="time" class="form-control" id="oraFineEvento">
                             </div>
                             <div class="form-group">
-                                <label for="dataFineEvento">Fine evento</label>
-                                <input type="date" class="form-control" id="dataFineEvento">
-                                <input type="time" class="form-control" id="oraFineEvento">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="ripetizione">Ripetizione evento</label>
+                                    </div>
+                                    <select class="custom-select" id="ripetizione" onchange="showFine()">
+                                        <option selected value="0">Nessuna</option>
+                                        <option value="1">Ogni settimana</option>
+                                        <option value="2">Ogni 2 settimane</option>
+                                        <option value="3">Ogni mese</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="dataFineEvento">Fine evento</label>
-                                <input type="date" class="form-control" id="dataFineEvento">
-                                <input type="time" class="form-control" id="oraFineEvento">
-                            </div><div class="form-group">
-                                <label for="dataFineEvento">Fine evento</label>
-                                <input type="date" class="form-control" id="dataFineEvento">
-                                <input type="time" class="form-control" id="oraFineEvento">
+                            <div class="form-group" id="div-fine-rip">
+                                <label for="fine-ripetizione">Fine ripetizione</label>
+                                <input type="number" class="form-control" id="fine-ripetizione" placeholder="">
+                                <small id="fine-ripetizione-help" class="form-text text-muted">Inserire il numero di eventi che si ripetono consecutivamente.</small>
                             </div>
-                            <div class="form-group">
-                                <label for="dataFineEvento">Fine evento</label>
-                                <input type="date" class="form-control" id="dataFineEvento">
-                                <input type="time" class="form-control" id="oraFineEvento">
-                            </div>
+                            
                             <button type="submit" class="btn btn-primary">Crea evento</button>
                         </form>
+                        </div>
                     </div>
                 </div>
 
