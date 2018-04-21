@@ -21,6 +21,8 @@ if(checkSession())
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="/iCourse/assets/js/request.js"></script>
         <script src="/iCourse/assets/js/holder.min.js"></script>
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js'></script>
+        <script src='/iCourse/assets/js/returnToTopArrow.js'></script>
     </head>
     <body>
         <?php include('header.php'); ?>
@@ -51,7 +53,7 @@ if(checkSession())
                                 var i = 0;
                                 box += "<div class=\"row\">";
                                 for(course in response) {
-                                    box += "<div class=\"col-md-4\"><div class=\"card mb-4 box-shadow\"><img class=\"card-img-top\" data-src=\"holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=" + response[i].Nome + "\" alt=\"Card image cap\"><div class=\"card-body\"><h4 class=\"card-text\">";
+                                    box += "<div class=\"col-md-4\"><div class=\"card mb-4 box-shadow\"><img class=\"card-img-top\" data-src=\"holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=" + response[i].Nome + "\" alt=\"Corso\"><div class=\"card-body\"><h4 class=\"card-text\">";
                                     box += response[i].Nome;
                                     box += card2;
                                     box += response[i].Descrizione;

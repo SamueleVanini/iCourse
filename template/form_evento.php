@@ -3,7 +3,7 @@
 
                 <div class="modal" id="form-evnt">
                     <div class="modal-content">
-                        <span class="close">&times;</span>
+                        <span class="close" id="chiudi">&times;</span>
                         <div>
                         <form action="" method="POST">
                             <div class="form-group">
@@ -35,8 +35,7 @@
                             </div>
                             <div class="form-group" id="div-fine-rip">
                                 <label for="fine-ripetizione">Fine ripetizione</label>
-                                <input type="number" class="form-control" id="fine-ripetizione" placeholder="">
-                                <small id="fine-ripetizione-help" class="form-text text-muted">Inserire il numero di eventi che si ripetono consecutivamente.</small>
+                                <input type="date" class="form-control" id="fine-ripetizione">
                             </div>
                             <button type="submit" class="btn btn-primary">Crea evento</button>
                         </form>
