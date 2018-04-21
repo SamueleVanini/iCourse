@@ -84,7 +84,7 @@
          * @param descrizione descrizione dell'evento
          * @return true/false indica se l'inserimento è andato a buon fine 
          */
-        public function insertEvent($user, $nome, $descrizione)
+        public function insertEvent($user, $nome, $descrizione, $inizioEvento, $fineEvento, $luogo, $riperizione = null)
         {
             $stmt = self::$db->getConnection()->prepare("INSERT INTO Eventi ('Descrizione', 'Nome') 
                                                          VALUES(?, ?)");
@@ -98,8 +98,10 @@
                 $result = self::$db->runStatement($stmt);
                 $stmt->close();
                 $result_array = $result->fetch_all(MYSQLI_ASSOC);
+                $idEvento = $result_array["IdEvento"];
+                $userId = $user->getUserId();
                 $sql = "INSERT INTO GestioneEventi ('IdEvento', 'IdInsegnante') 
-                        VALUES(".$result_array["IdEvento"].",". $user->getUserId().")";
+                        VALUES(".$idEvento.",".$userId.")";
                 $result = self::$db->runQuery($sql);
                 if($result === false)
                     return $result;
@@ -112,6 +114,20 @@
             }
         }
 
+        /*
+        public function momentiEventi($idEvento, $inizioEvento, $fineEvento, $luogo, $ripetizione)
+        {
+            switch($ripetizione)
+            {
+                case 1:
+                    $numberEvent =  
+                case 2:
+
+                case 3:
+
+                default:
+            }
+        } */
         /**
          * @param user utente per cui si vuole effettuare la ricerca
          * @return result risultato della query
