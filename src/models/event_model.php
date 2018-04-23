@@ -98,15 +98,10 @@
                 $result = self::$db->runStatement($stmt);
                 $stmt->close();
                 $result_array = $result->fetch_all(MYSQLI_ASSOC);
-<<<<<<< HEAD
                 $idEvento = $result_array["IdEvento"];
                 $userId = $user->getUserId();
                 $sql = "INSERT INTO GestioneEventi ('IdEvento', 'IdInsegnante') 
                         VALUES(".$idEvento.",".$userId.")";
-=======
-                $sql = "INSERT INTO GestioneEventi ('IdEvento', 'IdInsegnante')
-                        VALUES(".$result_array["IdEvento"].",". $user->getUserId().")";
->>>>>>> da0400a194e8a1d0b071343e6a0da84aa25135ed
                 $result = self::$db->runQuery($sql);
                 if($result === false)
                     return $result;
