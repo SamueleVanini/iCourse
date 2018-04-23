@@ -78,14 +78,22 @@
             }
         }
 
-        /** Metodo per l'iserimento di un evento nella tabella Eventi e dell'isegnate con l'evento nella tabella GestioneEventi
+        /** Metodo per l'iserimento di un evento nel db
          * @param user utente che effettua l'inserimento
          * @param nome nome dell'evento
          * @param descrizione descrizione dell'evento
+         * @param inizioEvento data di inizio dell'evento
+         * @param scartoFineEvento scarto tra data di fine e di inizio di un evento continuo in più giorni
+         * @param luogo luogo in cui si svolge l'evento
+         * @param oraInizio ora di inizio dell'evento
+         * @param oraFine ora di fine dell'evento
+         * @param ripetizione flag che indica ogni quanto un evento deve ripetersi {0: mai, 1: ogni settimana, 2: ogni 2 settimane, 3: ogni mese}
+         * @param fineRipetizione data in cui il numero di ripetizioni finiscono
          * @return true/false indica se l'inserimento è andato a buon fine
          */
-        public function insertEvent($user, $nome, $descrizione, $inizioEvento, $fineEvento, $luogo, $riperizione = null)
+        public function insertEvent($user, $nome, $descrizione, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = null, $fineRipetizione = null)
         {
+            //Inserimento evento nella tabella "Eventi"
             $stmt = self::$db->getConnection()->prepare("INSERT INTO Eventi ('Descrizione', 'Nome')
                                                          VALUES(?, ?)");
             $stmt->bind_param("ss", $descrizione, $nome);
@@ -93,6 +101,7 @@
             $stmt->close();
             if($result != false)
             {
+                //Estrazione id evento appena inserito
                 $stmt = self::$db->getConnection()->prepare("SELECT IdEvento FROM Eventi WHERE Nome = ?");
                 $stmt->bind_param("s", $nome);
                 $result = self::$db->runStatement($stmt);
@@ -100,13 +109,18 @@
                 $result_array = $result->fetch_all(MYSQLI_ASSOC);
                 $idEvento = $result_array["IdEvento"];
                 $userId = $user->getUserId();
+                
+                //Inserimento id insegnante che tiene l'evento con evento nella tabella "GestioneEventi"
                 $sql = "INSERT INTO GestioneEventi ('IdEvento', 'IdInsegnante') 
                         VALUES(".$idEvento.",".$userId.")";
                 $result = self::$db->runQuery($sql);
                 if($result === false)
                     return $result;
                 else
+                {
+                    momentiEventi($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione, $fineRipetizione);
                     return true;
+                }
             }
             else
             {
@@ -114,20 +128,105 @@
             }
         }
 
-        /*
-        public function momentiEventi($idEvento, $inizioEvento, $fineEvento, $luogo, $ripetizione)
+        /** Metodo per indicare ogni quanto un evento va ripetuto in base alla ripetizione dell'evento
+         * @param idEvento id dell'evento
+         * @param inizioEvento data di inizio dell'evento
+         * @param scartoFineEvento scarto tra data di fine e di inizio di un evento continuo in più giorni
+         * @param luogo luogo in cui si svolge l'evento
+         * @param oraInizio ora di inizio dell'evento
+         * @param oraFine ora di fine dell'evento
+         * @param ripetizione flag che indica ogni quanto un evento deve ripetersi {0: mai, 1: ogni settimana, 2: ogni 2 settimane, 3: ogni mese}
+         * @param fineRipetizione data in cui il numero di ripetizioni finiscono
+         */
+        private function momentiEventi($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione, $fineRipetizione)
         {
+            checkInizioFineEvento($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine);
             switch($ripetizione)
             {
                 case 1:
-                    $numberEvent =  
+                    inserimentoMomentiEventiSettimanale($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = 7, $fineRipetizione);
+                    break;
                 case 2:
-
+                    inserimentoMomentiEventiSettimanale($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = 14, $fineRipetizione);
+                    break;
                 case 3:
-
+                    inserimentoMomentiEventiMensile($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = 1, $fineRipetizione);
+                    break;
                 default:
+                    break;
             }
-        } */
+        }
+
+        /** Metodo per il controllo se un evento è contiguo in più giorni e l'inserimento in "MomentiEventi"
+         * @param idEvento id dell'evento
+         * @param inizioEvento data di inizio dell'evento
+         * @param scartoFineEvento scarto tra data di fine e di inizio di un evento continuo in più giorni
+         * @param luogo luogo in cui si svolge l'evento
+         * @param oraInizio ora di inizio dell'evento
+         * @param oraFine ora di fine dell'evento
+         */
+        private function checkInizioFineEvento($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine)
+        {
+            if($scartoFineEvento == 0)
+            {
+                $sql = "INSERT INTO MomentiEventi ('IdEvento', 'Luogo', 'Data', 'OraInizio', 'OraFine') 
+                        VALUES(".$idEvento.",".$luogo.",".$inizioEvento.",".$oraInizio.",".$oraFine.")";
+                $result = self::$db->runQuery($sql);
+            }
+            else
+            {
+                $sql = "INSERT INTO MomentiEventi ('IdEvento', 'Luogo', 'Data', 'OraInizio') 
+                        VALUES(".$idEvento.",".$luogo.",".$inizioEvento.",".$oraInizio.")";
+                $result = self::$db->runQuery($sql);
+                $fineEvento = date('Y-m-d', strtotime($inizioEvento. " + $scartoFineEvento days"));
+                $sql = "INSERT INTO MomentiEventi ('IdEvento', 'Luogo', 'Data', 'OraFine') 
+                        VALUES(".$idEvento.",".$luogo.",".$fineEvento.",".$oraFine.")";
+                $result = self::$db->runQuery($sql);
+            }
+        }
+
+        /** Metodo per l'iserimento di un evento con cadenza ogni 1/2 settimane nella tabella "MomentiEventi" in base alla ripetizione dell'evento
+         * @param idEvento id dell'evento
+         * @param inizioEvento data di inizio dell'evento
+         * @param scartoFineEvento scarto tra data di fine e di inizio di un evento continuo in più giorni
+         * @param luogo luogo in cui si svolge l'evento
+         * @param oraInizio ora di inizio dell'evento
+         * @param oraFine ora di fine dell'evento
+         * @param ripetizione flag che indica ogni quanto un evento deve ripetersi {0: mai, 1: ogni settimana, 2: ogni 2 settimane, 3: ogni mese}
+         * @param fineRipetizione data in cui il numero di ripetizioni finiscono
+         */
+        private function inserimentoMomentiEventiSettimanale($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione, $fineRipetizione)
+        {
+            //$interval = date_diff($scartoFineEvento, $inizioEvento);
+            $dataEvento = date('Y-m-d', strtotime($inizioEvento. " + $riperizione days"));
+            while($dataEvento <= $fineRipetizione)
+            {
+                checkInizioFineEvento($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine);
+                $dataEvento = date('Y-m-d', strtotime($dataEvento. " + $riperizione days"));
+            }
+        }
+
+         /** Metodo per l'iserimento di un evento con cadenza ogni mese nella tabella "MomentiEventi" in base alla ripetizione dell'evento
+         * @param idEvento id dell'evento
+         * @param inizioEvento data di inizio dell'evento
+         * @param scartoFineEvento scarto tra data di fine e di inizio di un evento continuo in più giorni
+         * @param luogo luogo in cui si svolge l'evento
+         * @param oraInizio ora di inizio dell'evento
+         * @param oraFine ora di fine dell'evento
+         * @param ripetizione flag che indica ogni quanto un evento deve ripetersi {0: mai, 1: ogni settimana, 2: ogni 2 settimane, 3: ogni mese}
+         * @param fineRipetizione data in cui il numero di ripetizioni finiscono
+         */
+        private function inserimentoMomentiEventiMensile($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione, $fineRipetizione)
+        {
+            //$interval = date_diff($scartoFineEvento, $inizioEvento);
+            $dataEvento = date('Y-m-d', strtotime($inizioEvento. " + $riperizione months"));
+            while($dataEvento <= $fineRipetizione)
+            {
+                checkInizioFineEvento($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine);
+                $dataEvento = date('Y-m-d', strtotime($dataEvento. " + $riperizione months"));
+            }
+        }
+
         /**
          * @param user utente per cui si vuole effettuare la ricerca
          * @return result risultato della query
