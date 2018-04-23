@@ -39,59 +39,75 @@
             <?php include('header.php'); ?>
             <main role="main">
                 <div class="container-fluid">
-                <div class="row contenuto-dashboard">
-                    <div class="col-xl-2 side-box">
-                        <div class="card card-style">
-                            <div class="card-header side-box-header">
-                                <strong>Corsi</strong>
+                    <div class="row contenuto-dashboard">
+                        <div class="col-xl-2 side-box">
+                            <div class="card card-style">
+                                <div class="card-header side-box-header">
+                                    <strong>Corsi</strong>
+                                </div>
+                                <div class="card-body" id="activity-box">
+
+                                </div>
                             </div>
-                            <div class="card-body" id="activity-box">
-                                
+                        </div>
+                        <div class= "col-xl-8">
+                            <div id="calendar"></div>
+                        </div>
+                        <div class="col-xl-2 side-box">
+                            <div class="card card-style">
+                                <div class="card-header side-box-header">
+                                    <strong>Comunicazioni</strong>
+                                </div>
+                                <div class="card-body" id="social-box">
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class= "col-xl-8">
-                        <div id="calendar"></div>
-                    </div>
-                    <div class="col-xl-2 side-box">
-                        <div class="card card-style">
-                          <div class="card-header side-box-header">
-                            <strong>Social</strong>
-                          </div>
-                          <div class="card-body">
-                            <blockquote class="blockquote mb-0">
-                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                            </blockquote>
-                          </div>
-                        </div>
-                    </div>
                 </div>
-                </div>
-                </div>
-                </main>
+            </main>
 
                 <script>
                     var eventi = [];
-                    var callback_get = (err, response)=>{
+                    var callback_event = (err, response_event)=>{
                         if(err){
                             console.log("Errore: " + err);
                         }else{
-                            response = JSON.parse(response);
-                            for(i=0; i<response.length; i++){
+                            response_event = JSON.parse(response_event);
+                            for(i=0; i<response_event.length; i++){
                                 var evento = new Object(); //NON GUARDARE TI PREGO
-                                evento.title = response[i].Nome;
-                                evento.start = response[i].Data + 'T' + response[i].OraInizio;
-                                evento.end = response[i].Data + 'T' + response[i].OraFine;
+                                evento.title = response_event[i].Nome;
+                                evento.start = response_event[i].Data + 'T' + response_event[i].OraInizio;
+                                evento.end = response_event[i].Data + 'T' + response_event[i].OraFine;
                                 eventi.push(evento);
                             }//for
                             calendario();
                             createActivityBox(eventi);
                         }//if-else
                     }//callback_get
-                    
-                    var request = new Request("/iCourse/src/controller/event_controller.php", "POST", [], callback_get); //inizialize the Request object
-                    request.send();
-                    
+
+                    var comunicazioni = [];
+                    var callback_communication = (err, response_communication)=>{
+                        if(err){
+                            console.log("Errore: " + err);
+                        }else{
+                            response_communication = JSON.parse(response_communication);
+                            for(i=0; i<response_communication.length; i++){
+                                var comunicazione = new Object(); //NON GUARDARE TI PREGO
+                                comunicazione.name = response_communication[i].Nome;
+                                comunicazione.title = response_communication[i].Titolo;
+                                comunicazioni.push(comunicazione);
+                            }//for
+                            calendario();
+                            createSocialBox(comunicazioni);
+                        }//if-else
+                    }//callback_get
+
+                    var requestEvent = new Request("/iCourse/src/controller/event_controller.php", "POST", [], callback_event); //inizialize the Request object
+                    var requestCommunication = new Request("/iCourse/src/controller/communication_controller.php", "POST", [], callback_communication);
+                    requestEvent.send();
+                    requestCommunication.send();
+
                     function calendario(){
                         $('#calendar').fullCalendar({
                             defaultDate: new Date(),
@@ -118,8 +134,8 @@
                 <script src="/iCourse/assets/js/holder.min.js"></script>
             </body>
     </html>
-<?php 
-} 
+<?php
+}
 
 $user = unserialize($_SESSION["user"]);
 $array_privileges = $user->getPrivileges();

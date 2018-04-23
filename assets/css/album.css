@@ -178,6 +178,59 @@ footer p {
 	margin-left:5px;
 }
 
+/* gestione return to top arrow */
+
+#return-to-top {
+    position: fixed;
+    bottom: 25px; /**** Position of button ****/
+    right: 25px;  /**** Position of button ****/
+    background: rgb(0, 0, 0);        /**** Color of button ****/
+    background: rgba(0, 0, 0, 0.7);  /**** Color of button ****/
+    width: 50px;  /**** Size of button ****/
+    height: 50px; /**** Size of button ****/
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    display: none;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#return-to-top i {
+    color: red !important; /**** Color of Arrow ****/
+    margin: 0;
+    position: relative;
+    left: 8.5px;  /**** Position of arrow within button ****/
+    top: 8px;
+    font-size: 19px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#return-to-top:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+#return-to-top:hover i {
+    color: red !important;
+    top: 5px;
+}
+
+.fa{
+    display:inline-block;
+    font:normal normal normal 14px/1 FontAwesome;
+    font-size:inherit;
+    text-rendering:auto;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+}
+
+ /* The Modal (background) */
 .modal {
     display: none;
     position: fixed !important;
@@ -201,9 +254,8 @@ footer p {
     overflow: auto !important;
 }
 
-
 .close {
-	float: right;
+    float: right;
     color: #aaa !important;
     font-size: 28px !important;
     font-weight: bold !important;
@@ -214,8 +266,12 @@ footer p {
     color: black !important;
     text-decoration: none !important;
     cursor: pointer !important;
-} 
+}
 
 #div-fine-rip{
-	display: none;
+    display: none;
+}
+
+#chiudi{
+	text-align: right;
 }
