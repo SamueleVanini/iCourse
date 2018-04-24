@@ -98,7 +98,6 @@
                                 comunicazione.title = response_communication[i].Titolo;
                                 comunicazioni.push(comunicazione);
                             }//for
-                            calendario();
                             createSocialBox(comunicazioni);
                         }//if-else
                     }//callback_get
