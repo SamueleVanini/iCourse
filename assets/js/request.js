@@ -48,7 +48,7 @@ Request.prototype.send = function() {
 	  	parameters_str = parameters_str + this.parameters[i].name;
 	  	parameters_str = parameters_str + "="+this.parameters[i].value;
 	  }
-	  xhttp.open("GET", this.page+"?cache=" +Date.now()+ encodeURI(parameters_str), true);
+	  xhttp.open("GET", this.page+"?cache=" + encodeURI(parameters_str), true);
 	  xhttp.send();
 	}else{
 		console.log("Error ... the type of the request is not valid.");

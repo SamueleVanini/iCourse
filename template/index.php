@@ -31,10 +31,6 @@ if(checkSession())
                 <div class="container">
                     <h1 class="jumbotron-heading">Attività Pomeridiane</h1>
                     <p class="lead text-muted">Benvenuti in iCourse, la piattaformata di gestione per i corsi pomeridiano dell'istituto Francesco Severi</p>
-                      <!--<p>
-                        <a href="#" class="btn btn-primary my-2">Main call to action</a>
-                        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-                      </p>-->
                 </div>
               </section>
 

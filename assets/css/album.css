@@ -279,3 +279,7 @@ footer p {
 #chiudi{
 	text-align: right;
 }
+
+#dataInizioEvento,#dataFineEvento{
+	margin-bottom: 5px;
+}
