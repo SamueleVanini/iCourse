@@ -218,7 +218,6 @@
          */
         private function inserimentoMomentiEventiMensile($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione, $fineRipetizione)
         {
-            //$interval = date_diff($scartoFineEvento, $inizioEvento);
             $dataEvento = date('Y-m-d', strtotime($inizioEvento. " + $riperizione months"));
             while($dataEvento <= $fineRipetizione)
             {

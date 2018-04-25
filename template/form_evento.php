@@ -5,7 +5,7 @@
                     <div class="modal-content">
                         <span class="close" id="chiudi">&times;</span>
                         <div>
-                        <form action="" method="POST">
+                        <form action="/iCourse/src/controller/new_course_controller.php" method="POST">
                             <div class="form-group">
                                 <label for="nomeEvento">Nome evento</label>
                                 <input type="text" class="form-control" id="nomeEvento" placeholder="Nome dell'evento che si vuole creare">
@@ -35,7 +35,7 @@
                             </div>
                             <div class="form-group" id="div-fine-rip">
                                 <label for="fine-ripetizione">Fine ripetizione</label>
-                                <input type="date" class="form-control" id="fine-ripetizione">
+                                <input type="date" class="form-control" id="fineRipetizione">
                             </div>
                             <button type="submit" class="btn btn-primary">Crea evento</button>
                         </form>
