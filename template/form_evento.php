@@ -8,17 +8,17 @@
                         <form action="/iCourse/src/controller/new_course_controller.php" method="POST">
                             <div class="form-group">
                                 <label for="nomeEvento">Nome evento</label>
-                                <input type="text" class="form-control" id="nomeEvento" placeholder="Nome dell'evento che si vuole creare">
+                                <input type="text" class="form-control" id="nomeEvento" placeholder="Nome dell'evento che si vuole creare" required>
                             </div>
                             <div class="form-group">
                                 <label for="dataInizioEvento">Inizio evento</label>
-                                <input type="date" class="form-control" id="dataInizioEvento">
-                                <input type="time" class="form-control" id="oraInizioEvento">
+                                <input type="date" class="form-control" id="dataInizioEvento" required>
+                                <input type="time" class="form-control" id="oraInizioEvento" required>
                             </div>
                             <div class="form-group">
                                 <label for="dataFineEvento">Fine evento</label>
-                                <input type="date" class="form-control" id="dataFineEvento">
-                                <input type="time" class="form-control" id="oraFineEvento">
+                                <input type="date" class="form-control" id="dataFineEvento" required>
+                                <input type="time" class="form-control" id="oraFineEvento" required>
                             </div>
                             <div class="form-group">
                                 <div class="input-group mb-3">
@@ -36,6 +36,14 @@
                             <div class="form-group" id="div-fine-rip">
                                 <label for="fine-ripetizione">Fine ripetizione</label>
                                 <input type="date" class="form-control" id="fineRipetizione">
+                            </div>
+                            <div class="form-group" id="div-luogo">
+                                <label for="luogo">Luogo</label>
+                                <input type="text" class="form-control" id="luogo" placeholder="Luogo in cui si terr&agrave; il corso" required>
+                            </div>
+                            <div class="form-group" id="div-descr">
+                                <label for="descr">Descrizione del corso</label>
+                                <textarea class="form-control" id="descr" rows="3" placeholder="Descrizione del corso"></textarea required>
                             </div>
                             <button type="submit" class="btn btn-primary">Crea evento</button>
                         </form>

@@ -109,6 +109,10 @@ footer p {
 	border-color: #343a40 !important;
 }
 
+#social-box > h4{
+	font-size: 1.3em;
+}
+
 .card-style{
 	border-color: #343a40 !important;
 }
@@ -274,4 +278,8 @@ footer p {
 
 #chiudi{
 	text-align: right;
+}
+
+#dataInizioEvento,#dataFineEvento{
+	margin-bottom: 5px;
 }

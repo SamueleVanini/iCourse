@@ -2,7 +2,7 @@
     $var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/controller/session_controller.php";
     require_once($var);
 
-    if(!checkSession())
+   if(!checkSession())
     {
         header("Refresh: 3; url = /iCourse/template", true, 301);
         echo "Devi eseguire il login per accedere a questa pagina, redirect in 3 secondi...";
@@ -46,8 +46,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-2 side-box">
-                            </div>
+						</div>
+                           <div class="row contenuto-dashboard">
                             <div class="col-xl-2 side-box">
                             </div>
                             <div class= "col-xl-8">
