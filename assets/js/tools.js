@@ -53,3 +53,78 @@ function showFine(){
         document.getElementById('div-fine-rip').style.display = "none";
     }
 }//showFine 
+
+function valoreDaId(id){
+    return document.getElementById(id).value;
+}
+
+/**
+ * Funzione che crea un json con i dati della richiesta.
+ * @returns json con i dati della richiesta.
+ */
+function creaFormatoRichiesta(){
+    var dati = [];
+    
+    var oggetto = new Object();
+    oggetto.name = 'nomeEvento';
+    oggetto.value = valoreDaId('nomeEvento');
+    dati.push(oggetto);
+    
+    var oggetto = new Object();
+    oggetto.name = 'dataInizioEvento';
+    oggetto.value = valoreDaId('dataInizioEvento');
+    dati.push(oggetto);
+    
+    var oggetto = new Object();
+    oggetto.name = 'oraInizioEvento';
+    oggetto.value = valoreDaId('oraInizioEvento');
+    dati.push(oggetto);
+    
+    var oggetto = new Object();
+    oggetto.name = 'dataFineEvento';
+    oggetto.value = valoreDaId('dataFineEvento');
+    dati.push(oggetto);
+    
+    var oggetto = new Object();
+    oggetto.name = 'oraFineEvento';
+    oggetto.value = valoreDaId('oraFineEvento');
+    dati.push(oggetto);
+    
+    var oggetto = new Object();
+    oggetto.name = 'ripetizione';
+    oggetto.value = valoreDaId('ripetizione');
+    dati.push(oggetto);
+    
+    var oggetto = new Object();
+    oggetto.name = 'fineRipetizione';
+    oggetto.value = valoreDaId('fineRipetizione');
+    dati.push(oggetto);
+
+    var oggetto = new Object();
+    oggetto.name = 'luogo';
+    oggetto.value = valoreDaId('luogo');
+    dati.push(oggetto);
+    
+    var oggetto = new Object();
+    oggetto.name = 'descr';
+    oggetto.value = valoreDaId('descr');
+    dati.push(oggetto);
+    
+    return dati;
+}//creaFormatoRichiesta
+
+function sendDatiCorso(){
+    dati = creaFormatoRichiesta();
+    
+    var callback = (err, res)=>{
+        if(err){
+            console.log("Errore: " + err + "; status: " + res);
+        }else{
+            console.log("bella");
+        }
+    }//callback
+    
+    console.log(dati);
+    var richiesta = new Request("/iCourse/src/controller/new_course_controller.php", "POST", dati, callback);
+    richiesta.send();
+}//sendDatiCorso

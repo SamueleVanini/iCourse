@@ -283,3 +283,7 @@ footer p {
 #dataInizioEvento,#dataFineEvento{
 	margin-bottom: 5px;
 }
+
+.tabella-utenti{
+	margin-top: 10px;
+}

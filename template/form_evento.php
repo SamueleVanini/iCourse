@@ -5,7 +5,7 @@
                     <div class="modal-content">
                         <span class="close" id="chiudi">&times;</span>
                         <div>
-                        <form method="POST" action="">
+                        <form>
                             <div class="form-group">
                                 <label for="nomeEvento">Nome evento</label>
                                 <input type="text" class="form-control" id="nomeEvento" placeholder="Nome dell'evento che si vuole creare" required>
@@ -45,7 +45,7 @@
                                 <label for="descr">Descrizione del corso</label>
                                 <textarea class="form-control" id="descr" rows="3" placeholder="Descrizione del corso"></textarea required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Crea evento</button>
+                            <input type="button" class="btn btn-primary" onclick="sendDatiCorso()" value="Crea corso">
                         </form>
                         </div>
                     </div>
