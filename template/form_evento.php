@@ -5,7 +5,7 @@
                     <div class="modal-content">
                         <span class="close" id="chiudi">&times;</span>
                         <div>
-                        <form action="/iCourse/src/controller/new_course_controller.php" method="POST">
+                        <form method="POST" action="">
                             <div class="form-group">
                                 <label for="nomeEvento">Nome evento</label>
                                 <input type="text" class="form-control" id="nomeEvento" placeholder="Nome dell'evento che si vuole creare" required>

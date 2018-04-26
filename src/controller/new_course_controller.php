@@ -4,6 +4,7 @@
     require_once($var1);
     require_once($var2);
 
+
     if(isset($_POST["nomeEvento"]) && isset($_POST["dataInizioEvento"]) && isset($_POST["oraInizioEvento"]) && isset($_POST["dataFineEvento"]) && isset($_POST["oraFineEvento"]))
     {
         $events_searcher = new EventModel();
