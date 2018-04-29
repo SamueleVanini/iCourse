@@ -31,6 +31,25 @@ function createSocialBox(comunicazioni){
 }//createActivityBox
 
 /**
+ * Funzione che compila la pagina delle activity
+ * @param informazioni oggetto json con le informazioni dell'activiy
+*/
+function createActivityPage(informazioni){
+   document.getElementById('activity_image').src="data:image/jpeg;base64,"+informazioni[0]["ImmAnteprima"];
+   document.getElementById('title').innerHTML = informazioni[0].NomeCorso;
+   document.getElementById('activity_description').innerHTML = informazioni[0].Descrizione;
+   var testo=""; //stampa momenti dell'activity
+   for(var i=0;i<informazioni[1].length;i++)
+       testo+="<a href='#' class='list-group-item list-group-item-action'>Luogo:"+informazioni[1][i].Luogo+" Data: "+informazioni[1][i].Data+" Orario: "+informazioni[1][i].OraInizio+" - "+informazioni[1][i].OraFine+"</a>";
+   document.getElementById('activity_moments').innerHTML = testo;
+   var testo="Insegnanti responsabili del corso:<ul>"; //stampa insegnanti responsabili dell'activity
+   for(var i=0;i<informazioni[2].length;i++)
+       testo+="<li>"+informazioni[2][i].Nome+" "+informazioni[2][i].Cognome+"</li>";
+   testo+="</ul>";
+   document.getElementById('activity_spec').innerHTML = testo;
+}//createActivityPage
+
+/**
  * Funzione che mostra o nasconde il form di inserimento eventi.
 */
 function showForm(){
@@ -52,4 +71,4 @@ function showFine(){
     }else{
         document.getElementById('div-fine-rip').style.display = "none";
     }
-}//showFine 
+}//showFine
