@@ -72,7 +72,7 @@
                                                     <input type="password" class="form-control" name="actpassword" placeholder="password attuale">
                                                 </div>
                                                 <br>
-                                                <button type="submit" class="btn btn-primary">Aggiorna</button>
+                                                <button type="submit" class="btn btn-primary btn-accedi">Aggiorna</button>
                                              </form>
                                          </blockquote>
                                     </div>

@@ -16,6 +16,6 @@
     }
     else
     {
-        echo "Controlla di aver inserito tutte le informazioni richieste";
+        echo false;
     }
 ?>
