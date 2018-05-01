@@ -94,12 +94,11 @@
         public function insertEvent($user, $nome, $descrizione, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = null, $fineRipetizione = null)
         {
             //Inserimento evento nella tabella "Eventi"
-            $stmt = self::$db->getConnection()->prepare("INSERT INTO Eventi ('Descrizione', 'Nome')
-                                                         VALUES(?, ?)");
+            $stmt = self::$db->getConnection()->prepare("INSERT INTO Eventi (Descrizione, Nome) VALUES(?, ?)");
             $stmt->bind_param("ss", $descrizione, $nome);
             $result = self::$db->runStatement($stmt);
-            $stmt->close();
-            if($result != false)
+            //$stmt->close();
+            if(!empty($stmt->error_list))
             {
                 //Estrazione id evento appena inserito
                 $stmt = self::$db->getConnection()->prepare("SELECT IdEvento FROM Eventi WHERE Nome = ?");
@@ -111,7 +110,7 @@
                 $userId = $user->getUserId();
                 
                 //Inserimento id insegnante che tiene l'evento con evento nella tabella "GestioneEventi"
-                $sql = "INSERT INTO GestioneEventi ('IdEvento', 'IdInsegnante') 
+                $sql = "INSERT INTO GestioneEventi (IdEvento, IdInsegnante) 
                         VALUES(".$idEvento.",".$userId.")";
                 $result = self::$db->runQuery($sql);
                 if($result === false)
