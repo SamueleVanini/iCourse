@@ -146,6 +146,10 @@ foreach($array_privileges as $privileges)
             case 2:
                 $pathFormEvent = $_SERVER['DOCUMENT_ROOT']."/iCourse/template/form_evento.php";
                 require_once($pathFormEvent);
+
+                $pathFormCommunication = $_SERVER['DOCUMENT_ROOT']."/iCourse/template/form_comunicazione.php";
+                require_once($pathFormCommunication);
+
                 break;
         }
     }
