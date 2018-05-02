@@ -50,16 +50,18 @@ if(checkSession())
                                 var i = 0;
                                 box += "<div class=\"row\">";
                                 for(course in response) {
-                                    box += "<div class=\"col-md-4\"><div class=\"card mb-4 box-shadow\"><img class=\"card-img-top\" src=\"data:image/jpeg;base64,";
-                                    box += response[i].ImmAnteprima;
-                                    box += "\" data-src=\"holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=" + response[i].Nome + "\" alt=\"Corso\"><div class=\"card-body\"><h4 class=\"card-text\">";
+                                    box += "<div class=\"col-md-4\"><div class=\"card box-shadow corso-index\"><img class=\"card-img-top img-index\"";
+                                    if(response[i].ImmAnteprima){
+                                        box += "src=\"data:image/jpeg;base64," + response[i].ImmAnteprima + "\" ";
+                                    }
+                                    box += "data-src=\"holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=CORSO\"><div class=\"card-body\"><h4 class=\"card-text\">";
                                     box += response[i].Nome;
                                     box += card2;
                                     box += response[i].Descrizione;
                                     box += card3;
                                     box += response[i].IdEvento;
                                     box += card3_1;
-                                    box += "Data";
+                                    box += "";
                                     box += card4;
                                     i++;
                                 }

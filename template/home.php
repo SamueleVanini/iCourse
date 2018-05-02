@@ -76,6 +76,7 @@
                             response_event = JSON.parse(response_event);
                             for(i=0; i<response_event.length; i++){
                                 var evento = new Object(); //NON GUARDARE TI PREGO
+                                evento.id = response_event[i].IdEvento;
                                 evento.title = response_event[i].Nome;
                                 evento.start = response_event[i].Data + 'T' + response_event[i].OraInizio;
                                 evento.end = response_event[i].Data + 'T' + response_event[i].OraFine;

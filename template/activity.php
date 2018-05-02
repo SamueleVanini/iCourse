@@ -20,7 +20,7 @@
 					<div class="row">
 						<div class="col-md-1"></div>
 						<div class="col-md-5">
-							<img id="activity_image" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Corso" alt="matematica" class="img-thumbnail img-center">
+							<img id="activity_image" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Corso" class="img-thumbnail img-center">
 						</div>
 						<div class="col-md-5">
 							<div>
@@ -50,11 +50,7 @@
 						<div class="col-md-10 container-new">
 							<div> <h4> Eventi </h4> </div>
 							<div class="list-group" id="activity_moments">
-							  <a href="#" class="list-group-item list-group-item-action">Lezione del 1-02-2018</a>
-							  <a href="#" class="list-group-item list-group-item-action">Lezione del 10-02-2018</a>
-							  <a href="#" class="list-group-item list-group-item-action">Lezione del 17-02-2018</a>
-							  <a href="#" class="list-group-item list-group-item-action">Lezione del 25-02-2018</a>
-							  <a href="#" class="list-group-item list-group-item-action">Lezione del 3-03-2018</a>
+							  
 							</div>
 						</div>
 						<div class="col-md-1"></div>
