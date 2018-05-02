@@ -18,11 +18,7 @@
                                 for(i=0; i<response_event.length; i++){
                                     var eventoGestiti = new Object(); //NON GUARDARE TI PREGO
                                     eventoGestiti.IdEvento = response_event[i].IdEvento;
-                                    eventoGestiti.start = response_event[i].Data + 'T' + response_event[i].OraInizio;
-                                    eventoGestiti.end = response_event[i].Data + 'T' + response_event[i].OraFine;
-                                    eventiGestiti.push(eventoGestiti);
-                                }//for
-                                createActivityBox(eventiGestiti);
+                                    eventoGestiti.Nome = response_event[i].Nome;
                             }//if-else
                         }//callback_get
                         var requestEvent = new Request("/iCourse/src/controller/managed_event_controller.php", "POST", [], callback_event); //inizialize the Request object
