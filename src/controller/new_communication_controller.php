@@ -4,11 +4,12 @@
     require_once($var1);
     require_once($var2);
 
-    if(isset($_POST["nomeComunicazione"]) && isset($_POST["testoComunicazione"]))
+    if(isset($_REQUEST["nomeComunicazione"]) && isset($_REQUEST["testoComunicazione"]))
     {
         $communication_model = new communicationModel();
         $user = unserialize($_SESSION["user"]);
-        $result = salvaComunicazione($_POST["idEv"], $_POST["nomeComunicazione"], $_POST["testoComunicazione"], $_POST["file"], $_POST["nomeFile"]);
+        $communications = $communication_model->insertCommunication($user, $_REQUEST["selezionaCorso"], $_REQUEST["nomeComunicazione"], $_REQUEST["testoComunicazione"]);
+        echo $communications;
     }
     else
     {

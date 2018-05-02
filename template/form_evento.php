@@ -44,6 +44,7 @@
                     <label for="descr">Descrizione del corso</label>
                     <textarea class="form-control" id="descr" rows="3" placeholder="Descrizione del corso"></textarea required>
                 </div>
+                <br>
                 <input type="button" class="btn btn-primary" onclick="sendDatiCorso()" value="Crea corso">
             </form>
         </div>

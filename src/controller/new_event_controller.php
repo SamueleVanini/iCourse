@@ -13,7 +13,7 @@
         $dataFineEvento = new DateTime($_REQUEST["dataFineEvento"]);
 
         $scartoFineEvento = date_diff($dataFineEvento, $dataInizioEvento);
-        $events = $events_searcher->insertEvent($user, $_REQUEST["nomeEvento"], $_REQUEST["descr"], $dataInizioEvento, $scartoFineEvento, $_REQUEST["luogo"], 
+        $events = $events_searcher->insertEvent($user, $_REQUEST["nomeEvento"], $_REQUEST["descr"], $dataInizioEvento, $scartoFineEvento, $_REQUEST["luogo"],
                                                 $_REQUEST["oraInizioEvento"], $_REQUEST["oraFineEvento"], $_REQUEST["ripetizione"], $_REQUEST["fineRipetizione"]);
         echo $events;
         //variabili per debug

@@ -15,7 +15,7 @@ function createActivityBox(eventi){
 }//createActivityBox
 
 /**
- * Funzione che inserisce le attività nell'activity-box.
+ * Funzione che inserisce le attività nella social-box.
  * @param comunicazioni Array di comunicazioni in json.
 */
 function createSocialBox(comunicazioni){
@@ -29,6 +29,20 @@ function createSocialBox(comunicazioni){
 
    document.getElementById('social-box').innerHTML = intSocial1 + social;
 }//createSocialBox
+
+/**
+ * Funzione che crea il select nel form di aggiunta comunicazione.
+ * @param eventiGestiti Array di eventi gestiti in json.
+*/
+function createSelectFormComunicazione(eventiGestiti){
+    select = document.getElementById('selezionaCorso');
+    for(i=0; i<eventiGestiti.length; i++){
+        var opt = document.createElement('option');
+        opt.value = eventiGestiti[i].IdEvento;
+        opt.innerHTML = eventiGestiti[i].Nome;
+        select.appendChild(opt);
+    }
+}//createSelectFormComunicazione
 
 /**
  * Funzione che compila la pagina delle activity
@@ -149,3 +163,44 @@ function sendDatiCorso(){
     var richiesta = new Request("/iCourse/src/controller/new_event_controller.php", "POST", dati, callback);
     richiesta.send();
 }//sendDatiCorso
+
+/**
+ * Funzione che crea un json con i dati della richiesta per la creazione di una comunicazione
+ * @returns json con i dati della richiesta.
+ */
+function creaFormatoRichiestaComunicazione(){
+    var dati = [];
+
+    var oggetto = new Object();
+    oggetto.name = 'selezionaCorso';
+    oggetto.value = valoreDaId('selezionaCorso');
+    dati.push(oggetto);
+
+    var oggetto = new Object();
+    oggetto.name = 'nomeComunicazione';
+    oggetto.value = valoreDaId('nomeComunicazione');
+    dati.push(oggetto);
+
+    var oggetto = new Object();
+    oggetto.name = 'testoComunicazione';
+    oggetto.value = valoreDaId('testoComunicazione');
+    dati.push(oggetto);
+
+    return dati;
+}//creaFormatoRichiestaComunicazione
+
+function sendDatiComunicazione(){
+    dati = creaFormatoRichiestaComunicazione();
+
+    var callback = (err, res)=>{
+        if(err){
+            console.log("Errore: " + err + "; status: " + res);
+        }else{
+            console.log("bella");
+        }
+    }//callback
+
+    console.log(dati);
+    var richiesta = new Request("/iCourse/src/controller/new_communication_controller.php", "POST", dati, callback);
+    richiesta.send();
+}//sendDatiComunicazione

@@ -6,8 +6,10 @@
         <div>
             <form>
                 <div class="form-group">
-                    <label for="nomeCorso">Seleziona nome del corso in cui inserire</label>
+                    <label for="nomeCorso">Seleziona il corso in cui inserire la comunicazione</label>
                     <br>
+                    <select id="selezionaCorso" name="Corso">
+                    </select>
                     <script>
                         var eventiGestiti = [];
                         var callback_event = (err, response_event)=>{
@@ -16,17 +18,16 @@
                             }else{
                                 response_event = JSON.parse(response_event);
                                 for(i=0; i<response_event.length; i++){
-                                    var eventoGestiti = new Object(); //NON GUARDARE TI PREGO
-                                    eventoGestiti.IdEvento = response_event[i].IdEvento;
-                                    eventoGestiti.Nome = response_event[i].Nome;
+                                    var eventoGestito = new Object(); //NON GUARDARE TI PREGO
+                                    eventoGestito.IdEvento = response_event[i].IdEvento;
+                                    eventoGestito.Nome = response_event[i].Nome;
+                                    eventiGestiti.push(eventoGestito);
+                                }
+                                createSelectFormComunicazione(eventiGestiti);
                             }//if-else
                         }//callback_get
                         var requestEvent = new Request("/iCourse/src/controller/managed_event_controller.php", "POST", [], callback_event); //inizialize the Request object
                         requestEvent.send();
-                        <select name="Corso">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                        </select>
                     </script>
                 </div>
                 <div class="form-group">
@@ -42,6 +43,7 @@
                     <br>
                     <input type="file" name="file">
                 </div>
+                <br>
                 <input type="button" class="btn btn-primary" onclick="sendDatiComunicazione()" value="Crea comunicazione">
             </form>
         </div>
