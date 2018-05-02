@@ -42,9 +42,4 @@
     span_communication.onclick = function() {
         modal_communication.style.display = "none";
     }
-    window.onclick = function(event) {
-        if (event.target == modal_communication) {
-            modal_communication.style.display = "none";
-        }
-    }
 </script>

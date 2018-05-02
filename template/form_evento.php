@@ -60,9 +60,4 @@
     span_event.onclick = function() {
         modal_event.style.display = "none";
     }
-    window.onclick = function(event) {
-        if (event.target == modal_event) {
-            modal_event.style.display = "none";
-        }
-    }
 </script>
