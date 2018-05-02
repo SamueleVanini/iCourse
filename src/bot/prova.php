@@ -17,8 +17,8 @@ if(isset($update["message"]["voice"]["file_id"])){
     $idFile=$update["message"]["voice"]["file_id"];
     $fileName="File audio";
 } //if allegato vocale
-if(isset($update["message"]["photo"]["file_id"])){
-    $idFile=$update["message"]["photo"]["file_id"];
+if(isset($update["message"]["photo"][0]["file_id"])){
+    $idFile=$update["message"]["photo"][0]["file_id"];
     $fileName="File immmagine";
 } //if allegato foto
 if(isset($update["message"]["video_note"]["file_id"])){
