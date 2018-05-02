@@ -93,36 +93,40 @@
          */
         public function insertEvent($user, $nome, $descrizione, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = null, $fineRipetizione = null)
         {
+            $conn = self::$db->getConnection();
+            $conn->autocommit(false); 
             //Inserimento evento nella tabella "Eventi"
-            $stmt = self::$db->getConnection()->prepare("INSERT INTO Eventi (Descrizione, Nome) VALUES(?, ?)");
+            $stmt = $conn->prepare("INSERT INTO Eventi (Descrizione, Nome) VALUES(?, ?)");
             $stmt->bind_param("ss", $descrizione, $nome);
-            $result = self::$db->runStatement($stmt);
-            if(empty($stmt->error_list))
-            {
-                //Estrazione id evento appena inserito
-                $idEvento = $stmt->insert_id;
-                $userId = $user->getUserId();
+            if(!$stmt->execute())
+                $failure = true;
+            //Estrazione id evento appena inserito
+            $idEvento = $stmt->insert_id;
+            $userId = $user->getUserId();
                 
-                //Inserimento id insegnante che tiene l'evento con evento nella tabella "GestioneEventi"
-                $sql = "INSERT INTO GestioneEventi (IdEvento, IdInsegnante) 
-                        VALUES(".$idEvento.",".$userId.")";
-                $result = self::$db->runQuery($sql);
-                if($result === false)
-                {
-                    //$stmt->close();
-                    return $result;
-                }
-                else
-                {
-                    //$stmt->close();
-                    return $this->momentiEventi($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione, $fineRipetizione);
-                }
-            }
-            else
+            //Inserimento id insegnante che tiene l'evento con evento nella tabella "GestioneEventi"
+            $sql = "INSERT INTO GestioneEventi (IdEvento, IdInsegnante) 
+                    VALUES(".$idEvento.",".$userId.")";
+            if(!$conn->query($sql))
             {
                 //$stmt->close();
                 return false;
             }
+                else
+                {
+                    //$stmt->close();
+                    if($this->momentiEventi($conn, $idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione, $fineRipetizione))
+                    {
+                        $conn->commit();
+                        $conn->autocommit(true);
+                        return true;
+                    }
+                    else
+                    {
+                        $conn->rollback();
+                        return false;
+                    }
+                }
         }
 
         /** Metodo per indicare ogni quanto un evento va ripetuto in base alla ripetizione dell'evento
@@ -135,24 +139,24 @@
          * @param ripetizione flag che indica ogni quanto un evento deve ripetersi {0: mai, 1: ogni settimana, 2: ogni 2 settimane, 3: ogni mese}
          * @param fineRipetizione data in cui il numero di ripetizioni finiscono
          */
-        private function momentiEventi($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione, $fineRipetizione)
+        private function momentiEventi($conn, $idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione, $fineRipetizione)
         {
-            if($this->checkInizioFineEvento($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine))
+            if($this->checkInizioFineEvento($conn, $idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine))
             {
                 switch($ripetizione)
                 {
                     case 1:
-                        if($this->inserimentoMomentiEventiSettimanale($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = 7, $fineRipetizione) != false)
+                        if($this->inserimentoMomentiEventiSettimanale($conn, $idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = 7, $fineRipetizione) != false)
                             return true;
                         else
                             return false;
                     case 2:
-                        if($this->inserimentoMomentiEventiSettimanale($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = 14, $fineRipetizione) != false)
+                        if($this->inserimentoMomentiEventiSettimanale($conn, $idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = 14, $fineRipetizione) != false)
                             return true;
                         else
                             return false;
                     case 3:
-                        if($this->inserimentoMomentiEventiMensile($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = 1, $fineRipetizione) != false)
+                        if($this->inserimentoMomentiEventiMensile($conn, $idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = 1, $fineRipetizione) != false)
                             return true;
                         else
                             return false;
@@ -172,30 +176,37 @@
          * @param oraInizio ora di inizio dell'evento
          * @param oraFine ora di fine dell'evento
          */
-        private function checkInizioFineEvento($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine)
+        private function checkInizioFineEvento($conn, $idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine)
         {
+            if(!is_string($inizioEvento))
+            {
+                $inizio = $inizioEvento->format('Y-m-d');
+            }
+            else
+                $inizio = $inizioEvento;
+                
             if($scartoFineEvento->days == 0)
             {
                 $sql = "INSERT INTO MomentiEventi (IdEvento, Luogo, Data, OraInizio, OraFine) 
-                        VALUES(".$idEvento.",".$luogo.",".$inizioEvento->format('Y-m-d').",".$oraInizio.",".$oraFine.")";
-                $result = self::$db->runQuery($sql);
-                if($result === false)
-                    return $result;
+                        VALUES(".$idEvento.",".$luogo.",'".$inizio."','".$oraInizio."','".$oraFine."')";
+                $a = $conn->query($sql);
+                if(!$a)
+                    return false;
                 return true;
             }
             else
             {
                 $sql = "INSERT INTO MomentiEventi (IdEvento, Luogo, Data, OraInizio) 
-                        VALUES(".$idEvento.",".$luogo.",".$inizioEvento->format('Y-m-d').",".$oraInizio.")";
-                $result = self::$db->runQuery($sql);
-                if($result === false)
-                    return $result;
-                $fineEvento = date('Y-m-d', strtotime($inizioEvento. " + $scartoFineEvento->days days"));
+                        VALUES(".$idEvento.",".$luogo.",'".$inizio."','".$oraInizio."')";
+                if(!$conn->query($sql))
+                    return false;
+
+                $fineEvento = date('Y-m-d', strtotime($inizio. " + $scartoFineEvento->days days"));
+                
                 $sql = "INSERT INTO MomentiEventi (IdEvento, Luogo, Data, OraFine) 
-                        VALUES(".$idEvento.",".$luogo.",".$fineEvento->format('Y-m-d').",".$oraFine.")";
-                $result = self::$db->runQuery($sql);
-                if($result === false)
-                    return $result;
+                        VALUES(".$idEvento.",".$luogo.",'".$fineEvento->format('Y-m-d')."','".$oraFine."')";
+                if(!$conn->query($sql))
+                    return false;
                 return true;
             }
         }
@@ -210,14 +221,14 @@
          * @param ripetizione flag che indica ogni quanto un evento deve ripetersi {0: mai, 1: ogni settimana, 2: ogni 2 settimane, 3: ogni mese}
          * @param fineRipetizione data in cui il numero di ripetizioni finiscono
          */
-        private function inserimentoMomentiEventiSettimanale($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione, $fineRipetizione)
+        private function inserimentoMomentiEventiSettimanale($conn, $idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione, $fineRipetizione)
         {
             //$interval = date_diff($scartoFineEvento, $inizioEvento);
-            $dataEvento = date('Y-m-d', strtotime($inizioEvento. " + $riperizione days"));
+            $dataEvento = date('Y-m-d', strtotime($inizioEvento->format('Y-m-d'). " + $ripetizione days"));
             while($dataEvento <= $fineRipetizione)
             {
-                if($this->checkInizioFineEvento($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine) != false)
-                    $dataEvento = date('Y-m-d', strtotime($dataEvento. " + $riperizione days"));
+                if($this->checkInizioFineEvento($conn, $idEvento, $dataEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine) != false)
+                    $dataEvento = date('Y-m-d', strtotime($dataEvento. " + $ripetizione days"));
                 else
                     return false;
             }
@@ -234,13 +245,13 @@
          * @param ripetizione flag che indica ogni quanto un evento deve ripetersi {0: mai, 1: ogni settimana, 2: ogni 2 settimane, 3: ogni mese}
          * @param fineRipetizione data in cui il numero di ripetizioni finiscono
          */
-        private function inserimentoMomentiEventiMensile($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione, $fineRipetizione)
+        private function inserimentoMomentiEventiMensile($conn, $idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione, $fineRipetizione)
         {
-            $dataEvento = date('Y-m-d', strtotime($inizioEvento. " + $riperizione months"));
+            $dataEvento = date('Y-m-d', strtotime($inizioEvento->format('Y-m-d'). " + $ripetizione months"));
             while($dataEvento <= $fineRipetizione)
             {
-                if($this->checkInizioFineEvento($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine) != false)
-                    $dataEvento = date('Y-m-d', strtotime($dataEvento. " + $riperizione months"));
+                if($this->checkInizioFineEvento($conn, $idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine) != false)
+                    $dataEvento = date('Y-m-d', strtotime($dataEvento. " + $ripetizione months"));
                 else
                     return false;
             }
