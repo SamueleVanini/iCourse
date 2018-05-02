@@ -19,14 +19,14 @@
         */
         public function getUserCommunications($user, $return_format = null)
         {
-            $sql = "select e.Nome, c.Titolo
-                    from Comunicazioni as c join Eventi as e on c.IdEvento = e.IdEvento
-                    where c.IdEvento in (
-                        select m.IdEvento
-                        from MomentiEventi as m join Partecipanti as p on (m.IdMomento = p.IdMomento)
-                        where p.IdPartecipante =". $user->getUserId().")
-                    order by c.Data, c.Ora
-                    limit 5"; //ritorna le ultime 5 comunicazioni più recenti per lo specifico user
+            $sql = "SELECT e.Nome, c.Titolo
+                    FROM Comunicazioni as c join Eventi as e on c.IdEvento = e.IdEvento
+                    WHERE c.IdEvento in (
+                        SELECT m.IdEvento
+                        FROM MomentiEventi as m join Partecipanti as p on (m.IdMomento = p.IdMomento)
+                        WHERE p.IdPartecipante =". $user->getUserId().")
+                    ORDER BY c.Data, c.Ora
+                    LIMIT 5"; //ritorna le ultime 5 comunicazioni più recenti per lo specifico user
             $result = self::$db->runQuery($sql);
             switch ($return_format) {
                 case 1:

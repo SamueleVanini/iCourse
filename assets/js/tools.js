@@ -78,10 +78,10 @@ function valoreDaId(id){
 }
 
 /**
- * Funzione che crea un json con i dati della richiesta.
+ * Funzione che crea un json con i dati della richiesta per la creazione di un corso
  * @returns json con i dati della richiesta.
  */
-function creaFormatoRichiesta(){
+function creaFormatoRichiestaCorso(){
     var dati = [];
 
     var oggetto = new Object();
@@ -130,10 +130,10 @@ function creaFormatoRichiesta(){
     dati.push(oggetto);
 
     return dati;
-}//creaFormatoRichiesta
+}//creaFormatoRichiestaCorso
 
 function sendDatiCorso(){
-    dati = creaFormatoRichiesta();
+    dati = creaFormatoRichiestaCorso();
 
     var callback = (err, res)=>{
         if(err){

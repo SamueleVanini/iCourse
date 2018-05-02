@@ -41,13 +41,13 @@
                                     </div>
                                     <div class="card-body">
                                         <blockquote class="blockquote mb-0">
-                                            Qui vanno inseriti i dati attuali
+                                            <i>ancora da fare</i>
                                         </blockquote>
                                     </div>
                                 </div>
                             </div>
-						</div>
-                           <div class="row contenuto-dashboard">
+                        </div>
+                        <div class="row contenuto-dashboard">
                             <div class="col-xl-2 side-box">
                             </div>
                             <div class= "col-xl-8">
