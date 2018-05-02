@@ -15,20 +15,33 @@
         /**
          * @param return_format indica il formato i cui si vuole che i valori siano ritornati:
          * 1 -> array associativo semplice (dizionario);
-         * non indicato/default -> array associativo formattato in json;
+         * non indicato/default -> array associativo formattato in json, le immagini sono in base64;
          * @return result risultato della query
         */
         public function getAll($return_format = null)
         {
+            $a = array();
             $sql = "SELECT * FROM Eventi";
             $result = self::$db->runQuery($sql);
             switch ($return_format) {
                 case 1:
                     $result_array = $result->fetch_all(MYSQLI_ASSOC);
-                    return $result_array;
+                    foreach($result_array as $course)
+                    {
+                        $image = base64_encode($course["ImmAnteprima"]);
+                        $course["ImmAnteprima"] = $image;
+                        array_push($a,$course); 
+                    }
+                    return $a;
                 default:
                     $result_array = $result->fetch_all(MYSQLI_ASSOC);
-                    return json_encode($result_array);
+                    foreach($result_array as $course)
+                    {
+                        $image = base64_encode($course["ImmAnteprima"]);
+                        $course["ImmAnteprima"] = $image;
+                        array_push($a,$course); 
+                    }
+                    return json_encode($a);
             }
         }
 
