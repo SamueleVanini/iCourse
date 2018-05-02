@@ -276,7 +276,11 @@ footer p {
     display: none;
 }
 
-#chiudi{
+#chiudiEvento{
+	text-align: right;
+}
+
+#chiudiComunicazione{
 	text-align: right;
 }
 

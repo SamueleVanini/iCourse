@@ -144,6 +144,6 @@ function sendDatiCorso(){
     }//callback
 
     console.log(dati);
-    var richiesta = new Request("/iCourse/src/controller/new_course_controller.php", "POST", dati, callback);
+    var richiesta = new Request("/iCourse/src/controller/new_event_controller.php", "POST", dati, callback);
     richiesta.send();
 }//sendDatiCorso

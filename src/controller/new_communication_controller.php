@@ -4,7 +4,6 @@
     require_once($var1);
     require_once($var2);
 
-
     if(isset($_POST["nomeComunicazione"]) && isset($_POST["testoComunicazione"]))
     {
         $communication_model = new communicationModel();

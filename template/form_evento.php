@@ -1,9 +1,9 @@
                 <!-- frame form creazione corso -->
-                <button type="button" class="btn btn-primary btn-lg btn-dark float-right creazione-corso" id="btn-form">Crea corso</button>
+                <button type="button" class="btn btn-primary btn-lg btn-dark float-right creazione-corso" id="btn-event">Crea corso</button>
 
-                <div class="modal" id="form-evnt">
+                <div class="modal" id="form-event">
                     <div class="modal-content">
-                        <span class="close" id="chiudi">&times;</span>
+                        <span class="close" id="chiudiEvento">&times;</span>
                         <div>
                         <form>
                             <div class="form-group">
@@ -51,24 +51,19 @@
                     </div>
                 </div>
 
-                <script>
-                var modal = document.getElementById('form-evnt');
-
-                var btn = document.getElementById("btn-form");
-
-                var span = document.getElementsByClassName("close")[0];
-
-                btn.onclick = function() {
-                    modal.style.display = "block";
-                }
-
-                span.onclick = function() {
-                    modal.style.display = "none";
-                }
-
-                window.onclick = function(event) {
-                    if (event.target == modal) {
-                        modal.style.display = "none";
-                    }
-                }
-                </script>
+<script>
+    var modal_event = document.getElementById('form-event');
+    var btn_event = document.getElementById("btn-event");
+    var span_event = document.getElementById("chiudiComunicazione");
+    btn_event.onclick = function() {
+        modal_event.style.display = "block";
+    }
+    span_event.onclick = function() {
+        modal_event.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == modal_event) {
+            modal_event.style.display = "none";
+        }
+    }
+</script>
