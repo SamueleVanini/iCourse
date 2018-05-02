@@ -1,5 +1,5 @@
 <!-- frame form creazione corso -->
-<button type="button" class="btn btn-primary btn-lg btn-dark float-right creazione-corso" id="btn-event">Crea corso</button>
+<button type="button" class="btn btn-primary btn-lg btn-dark float-left creazione-corso" id="btn-event">Crea corso</button>
 <div class="modal" id="form-event">
     <div class="modal-content">
         <span class="close" id="chiudiEvento">&times;</span>

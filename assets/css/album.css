@@ -71,8 +71,16 @@ footer p {
     color:white !important;
 }
 
-.creazione-corso{
-    margin: 20px;
+.creazione-corso {
+    margin-left: 10px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+.creazione-comunicazione{
+    margin-right: 10px;
+    margin-top: -10px;
+    margin-bottom: 15px;
 }
 
 .login{
