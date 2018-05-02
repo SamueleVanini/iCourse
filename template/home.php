@@ -134,24 +134,25 @@
             </body>
     </html>
 <?php
-}
-
-$user = unserialize($_SESSION["user"]);
-$array_privileges = $user->getPrivileges();
-foreach($array_privileges as $privileges)
-{
-    foreach($privileges as $privilege)
+    }
+    $user = unserialize($_SESSION["user"]);
+    $array_privileges = $user->getPrivileges();
+    foreach($array_privileges as $privileges)
     {
-        switch($privilege[0]){
-            case 2:
-                $pathFormEvent = $_SERVER['DOCUMENT_ROOT']."/iCourse/template/form_evento.php";
-                require_once($pathFormEvent);
-                $pathFormCommunication = $_SERVER['DOCUMENT_ROOT']."/iCourse/template/form_comunicazione.php";
-                require_once($pathFormCommunication);
-                break;
+        foreach($privileges as $privilege)
+        {
+            switch($privilege[0]){
+                case 1:
+                    $pathFormCommunication = $_SERVER['DOCUMENT_ROOT']."/iCourse/template/form_comunicazione.php";
+                    require_once($pathFormCommunication);
+                    break;
+                case 2:
+                    $pathFormEvent = $_SERVER['DOCUMENT_ROOT']."/iCourse/template/form_evento.php";
+                    require_once($pathFormEvent);
+                    break;
+            }
         }
     }
-}
 ?>
 <script>
     window.onclick = function(event) {

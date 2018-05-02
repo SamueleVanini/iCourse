@@ -28,7 +28,7 @@ function createSocialBox(comunicazioni){
     social += '</ul>';
 
    document.getElementById('social-box').innerHTML = intSocial1 + social;
-}//createActivityBox
+}//createSocialBox
 
 /**
  * Funzione che compila la pagina delle activity
