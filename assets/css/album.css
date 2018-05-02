@@ -99,7 +99,11 @@ footer p {
 	display: block;
 }
 
-#form-evnt{
+#form-event{
+	display: none;
+}
+
+#form-communication{
 	display: none;
 }
 
