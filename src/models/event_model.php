@@ -97,16 +97,10 @@
             $stmt = self::$db->getConnection()->prepare("INSERT INTO Eventi (Descrizione, Nome) VALUES(?, ?)");
             $stmt->bind_param("ss", $descrizione, $nome);
             $result = self::$db->runStatement($stmt);
-            //$stmt->close();
-            if(!empty($stmt->error_list))
+            if(empty($stmt->error_list))
             {
                 //Estrazione id evento appena inserito
-                $stmt = self::$db->getConnection()->prepare("SELECT IdEvento FROM Eventi WHERE Nome = ?");
-                $stmt->bind_param("s", $nome);
-                $result = self::$db->runStatement($stmt);
-                $stmt->close();
-                $result_array = $result->fetch_all(MYSQLI_ASSOC);
-                $idEvento = $result_array["IdEvento"];
+                $idEvento = $stmt->insert_id;
                 $userId = $user->getUserId();
                 
                 //Inserimento id insegnante che tiene l'evento con evento nella tabella "GestioneEventi"
@@ -114,15 +108,19 @@
                         VALUES(".$idEvento.",".$userId.")";
                 $result = self::$db->runQuery($sql);
                 if($result === false)
+                {
+                    //$stmt->close();
                     return $result;
+                }
                 else
                 {
-                    momentiEventi($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione, $fineRipetizione);
-                    return true;
+                    //$stmt->close();
+                    return $this->momentiEventi($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione, $fineRipetizione);
                 }
             }
             else
             {
+                //$stmt->close();
                 return false;
             }
         }
@@ -139,27 +137,31 @@
          */
         private function momentiEventi($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione, $fineRipetizione)
         {
-            checkInizioFineEvento($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine);
-            switch($ripetizione)
+            if($this->checkInizioFineEvento($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine))
             {
-                case 1:
-                    if(inserimentoMomentiEventiSettimanale($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = 7, $fineRipetizione) != false)
+                switch($ripetizione)
+                {
+                    case 1:
+                        if($this->inserimentoMomentiEventiSettimanale($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = 7, $fineRipetizione) != false)
+                            return true;
+                        else
+                            return false;
+                    case 2:
+                        if($this->inserimentoMomentiEventiSettimanale($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = 14, $fineRipetizione) != false)
+                            return true;
+                        else
+                            return false;
+                    case 3:
+                        if($this->inserimentoMomentiEventiMensile($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = 1, $fineRipetizione) != false)
+                            return true;
+                        else
+                            return false;
+                    default:
                         return true;
-                    else
-                        return false;
-                case 2:
-                    if(inserimentoMomentiEventiSettimanale($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = 14, $fineRipetizione) != false)
-                        return true;
-                    else
-                        return false;
-                case 3:
-                    if(inserimentoMomentiEventiMensile($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = 1, $fineRipetizione) != false)
-                        return true;
-                    else
-                        return false;
-                default:
-                    return true;
+                }
             }
+            else
+                return false;            
         }
 
         /** Metodo per il controllo se un evento è contiguo in più giorni e l'inserimento in "MomentiEventi"
@@ -172,10 +174,10 @@
          */
         private function checkInizioFineEvento($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine)
         {
-            if($scartoFineEvento == 0)
+            if($scartoFineEvento->days == 0)
             {
-                $sql = "INSERT INTO MomentiEventi ('IdEvento', 'Luogo', 'Data', 'OraInizio', 'OraFine') 
-                        VALUES(".$idEvento.",".$luogo.",".$inizioEvento.",".$oraInizio.",".$oraFine.")";
+                $sql = "INSERT INTO MomentiEventi (IdEvento, Luogo, Data, OraInizio, OraFine) 
+                        VALUES(".$idEvento.",".$luogo.",".$inizioEvento->format('Y-m-d').",".$oraInizio.",".$oraFine.")";
                 $result = self::$db->runQuery($sql);
                 if($result === false)
                     return $result;
@@ -183,14 +185,14 @@
             }
             else
             {
-                $sql = "INSERT INTO MomentiEventi ('IdEvento', 'Luogo', 'Data', 'OraInizio') 
-                        VALUES(".$idEvento.",".$luogo.",".$inizioEvento.",".$oraInizio.")";
+                $sql = "INSERT INTO MomentiEventi (IdEvento, Luogo, Data, OraInizio) 
+                        VALUES(".$idEvento.",".$luogo.",".$inizioEvento->format('Y-m-d').",".$oraInizio.")";
                 $result = self::$db->runQuery($sql);
                 if($result === false)
                     return $result;
-                $fineEvento = date('Y-m-d', strtotime($inizioEvento. " + $scartoFineEvento days"));
-                $sql = "INSERT INTO MomentiEventi ('IdEvento', 'Luogo', 'Data', 'OraFine') 
-                        VALUES(".$idEvento.",".$luogo.",".$fineEvento.",".$oraFine.")";
+                $fineEvento = date('Y-m-d', strtotime($inizioEvento. " + $scartoFineEvento->days days"));
+                $sql = "INSERT INTO MomentiEventi (IdEvento, Luogo, Data, OraFine) 
+                        VALUES(".$idEvento.",".$luogo.",".$fineEvento->format('Y-m-d').",".$oraFine.")";
                 $result = self::$db->runQuery($sql);
                 if($result === false)
                     return $result;
@@ -214,7 +216,7 @@
             $dataEvento = date('Y-m-d', strtotime($inizioEvento. " + $riperizione days"));
             while($dataEvento <= $fineRipetizione)
             {
-                if(checkInizioFineEvento($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine) != false)
+                if($this->checkInizioFineEvento($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine) != false)
                     $dataEvento = date('Y-m-d', strtotime($dataEvento. " + $riperizione days"));
                 else
                     return false;
@@ -237,7 +239,7 @@
             $dataEvento = date('Y-m-d', strtotime($inizioEvento. " + $riperizione months"));
             while($dataEvento <= $fineRipetizione)
             {
-                if(checkInizioFineEvento($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine) != false)
+                if($this->checkInizioFineEvento($idEvento, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine) != false)
                     $dataEvento = date('Y-m-d', strtotime($dataEvento. " + $riperizione months"));
                 else
                     return false;
