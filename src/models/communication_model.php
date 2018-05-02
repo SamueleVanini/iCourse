@@ -33,21 +33,8 @@
             } //switch
         } //getUserCommunication
 
-        public function salvaComunicazione($idEv, $titolo, $testo, $file, $nomeFile) {
-            $idAlleg = null;
-            if ($file != null && $nomeFile != null) {
-                $sql = "INSERT INTO Allegati (File, NomeAllegato) VALUES (".$file.", ".$nomeFile.");";
-                self::$db->runQuery($sql);
-                $idAlleg = self::$db->getConnection()->$insert_id;
-            }
-            $sql = "INSERT INTO Comunicazioni (IdEvento, Data, Ora, IdUtenteCreatore, Titolo, Testo, IdAllegato) VALUES (".$idEv.", ".date("Y-m-d").", ".date("H:m:s").", ".$user->getUserId().", ".$titolo.", ".$testo.", ".$idAlleg.");";
-            self::$db->runQuery($sql);
-        }
 
-        public function getAllNomeEventiGestiti() {
-            $sql = "SELECT g.IdEvento, e.Nome FROM GestioneEventi as g join Eventi as e on (g.IdEvento = e.IdEvento) WHERE g.IdInsegnante = ".$user->getUserId().";"
-            self::$db->runQuery($sql);
-        }
+
 
     } //communicationModel
 ?>

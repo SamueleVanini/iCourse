@@ -6,12 +6,11 @@
 		<meta name="author" content="">
 		<title> iCourse </title>
 	    <!-- CSS -->
-		  <link rel="stylesheet" href="/iCourse/assets/css/bootstrap.min.css" type="text/css">
+		<link rel="stylesheet" href="/iCourse/assets/css/bootstrap.min.css" type="text/css">
 	    <link href="/iCourse/assets/css/album.css" rel="stylesheet">
-		  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	    <script src="/iCourse/assets/js/request.js"></script>
 	    <script src="/iCourse/assets/js/holder.min.js"></script>
-			<script src="/iCourse/assets/js/tools.js"></script>
     </head>
     <body>
 		<?php include('header.php'); ?>
@@ -20,17 +19,20 @@
 					<div class="row">
 						<div class="col-md-1"></div>
 						<div class="col-md-5">
-							<img id="activity_image" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Corso" alt="matematica" class="img-thumbnail img-center">
+							<img data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Corso" alt="matematica" class="img-thumbnail img-center">
 						</div>
 						<div class="col-md-5">
 							<div>
-								<h2 id="title">Titolo del corso</h2>
+								<h2>Titolo del corso</h2>
 							</div>
 							<div>
 								<h5> Dettagli tecnici</h5>
 							</div>
 							<div>
-								<p id="activity_spec"></p>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod
+								tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrum exercitationem ullam corporis suscipit laboriosam,
+								nisi ut aliquid ex ea commodi consequatur.</p>
 							</div>
 						</div>
 						<div class="col-md-1"></div>
@@ -39,8 +41,23 @@
 						<div class="col-md-1"></div>
 						<div class="col-md-10 container-new">
 							<div> <h4> Descrizione del Corso </h4> </div>
-							<div>
-							    <p id="activity_description"></p>
+							<div> 
+							    <p>Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod
+								tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrum exercitationem ullam corporis suscipit laboriosam,
+								nisi ut aliquid ex ea commodi consequatur.
+								Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod
+								tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrum exercitationem ullam corporis suscipit laboriosam,
+								nisi ut aliquid ex ea commodi consequatur.
+								Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod
+								tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrum exercitationem ullam corporis suscipit laboriosam,
+								nisi ut aliquid ex ea commodi consequatur.
+								Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod
+								tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+								quis nostrum exercitationem ullam corporis suscipit laboriosam,
+								nisi ut aliquid ex ea commodi consequatur.</p>
 							</div>
 						</div>
 						<div class="col-md-1"></div>
@@ -49,7 +66,7 @@
 						<div class="col-md-1"></div>
 						<div class="col-md-10 container-new">
 							<div> <h4> Eventi </h4> </div>
-							<div class="list-group" id="activity_moments">
+							<div class="list-group" id="date">
 							  <a href="#" class="list-group-item list-group-item-action">Lezione del 1-02-2018</a>
 							  <a href="#" class="list-group-item list-group-item-action">Lezione del 10-02-2018</a>
 							  <a href="#" class="list-group-item list-group-item-action">Lezione del 17-02-2018</a>
@@ -99,17 +116,7 @@
 				</div>
 	    </main>
 		<script>
-			var activity = [];
-			var callback_activity = (err, response_activity)=>{
-					if(err){
-							console.log("Errore: " + err);
-					}else{
-							response_activity = JSON.parse(response_activity);
-							createActivityPage(response_activity);
-					}//if-else
-			}//callback_get
-			var requestActivity = new Request("/iCourse/src/controller/activity_controller.php", "GET", [{"name":"activity_id", "value":((window.location.search.substr(1)).split("="))[1]}], callback_activity); //inizialize the Request object
-			requestActivity.send();
+		    
 		</script>
 	    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	    <script>window.jQuery || document.write('<script src="/iCourse/assets/js/jquery-slim.min.js"><\/script>')</script>

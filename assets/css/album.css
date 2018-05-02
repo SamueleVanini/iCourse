@@ -99,11 +99,7 @@ footer p {
 	display: block;
 }
 
-#form-event{
-	display: none;
-}
-
-#form-communication{
+#form-evnt{
 	display: none;
 }
 
@@ -280,11 +276,7 @@ footer p {
     display: none;
 }
 
-#chiudiEvento{
-	text-align: right;
-}
-
-#chiudiComunicazione{
+#chiudi{
 	text-align: right;
 }
 
