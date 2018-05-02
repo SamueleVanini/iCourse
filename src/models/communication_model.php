@@ -12,6 +12,11 @@
             self::$db = new Db();
         }
 
+        /**
+        * @param $user id dell'utente
+        * @param $return_format indicazione del formato dei dati di output
+        * @return file json o array associativo contenente le comunicazioni relative ai corsi dell'utente $user
+        */
         public function getUserCommunications($user, $return_format = null)
         {
             $sql = "select e.Nome, c.Titolo
@@ -45,8 +50,8 @@
         }
 
         public function getAllNomeEventiGestiti($user, $return_format = null) {
-            $sql = "SELECT g.IdEvento, e.Nome FROM GestioneEventi as g join Eventi as e on (g.IdEvento = e.IdEvento) WHERE g.IdInsegnante = ".$user->getUserId().";"
-            self::$db->runQuery($sql);
+            $sql = "SELECT g.IdEvento, e.Nome FROM GestioneEventi as g join Eventi as e on (g.IdEvento = e.IdEvento) WHERE g.IdInsegnante = ".$user->getUserId().";";
+            $this->db->runQuery($sql);
             switch ($return_format) {
                 case 1:
                     $result_array = $result->fetch_all(MYSQLI_ASSOC);
