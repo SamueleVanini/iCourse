@@ -38,7 +38,8 @@ if(checkSession())
                 <div class="container" id="tabella_corsi">
                     <script>
                         var card2 = "</h4><p class=\"card-text\" id=\"contenuto\">";
-                        var card3 = "</p><div class=\"d-flex justify-content-between align-items-center\"><div class=\"btn-group\"><button type=\"button\" class=\"btn btn-sm btn-outline-secondary\">Vai all'attività</button></div><small class=\"text-muted\">";
+                        var card3 = "</p><div class=\"d-flex justify-content-between align-items-center\"><div class=\"btn-group\"><a href=\"activity.php?activity_id=";
+                        var card3_1 = "\"><button type=\"button\" class=\"btn btn-sm btn-outline-secondary\">Vai all'attività</button></a></div><small class=\"text-muted\">";
                         var card4 = "</small></div></div></div></div>";
                         var callback_get = (err, response)=>{
                             if(err){
@@ -54,6 +55,8 @@ if(checkSession())
                                     box += card2;
                                     box += response[i].Descrizione;
                                     box += card3;
+                                    box += response[i].IdEvento;
+                                    box += card3_1;
                                     box += "Data";
                                     box += card4;
                                     i++;
