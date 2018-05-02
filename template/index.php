@@ -30,7 +30,7 @@ if(checkSession())
             <section class="jumbotron text-center">
                 <div class="container">
                     <h1 class="jumbotron-heading">Attività Pomeridiane</h1>
-                    <p class="lead text-muted">Benvenuti in iCourse, la piattaformata di gestione per i corsi pomeridiano dell'istituto Francesco Severi</p>
+                    <p class="lead text-muted">Benvenuti in iCourse, la piattaformata di gestione dei corsi pomeridiani dell'istituto Francesco Severi</p>
                 </div>
               </section>
 
