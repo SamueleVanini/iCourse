@@ -1,10 +1,10 @@
 <?php
     $var2 = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/models/priviliged_user_model.php";
-    $var1 = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/models/event_model.php";
+    $var1 = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/models/personal_data_model.php";
     require_once($var1);
     require_once($var2);
 
-    $dataChange = new EventModel();
+    $dataChange = new PersonalDataModel();
     $user = unserialize($_SESSION["user"]);
     $result = $dataChange->changeUserData($user);
     echo $result;

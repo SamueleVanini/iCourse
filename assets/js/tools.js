@@ -45,7 +45,7 @@ function createSelectFormComunicazione(eventiGestiti){
 }//createSelectFormComunicazione
 
 /**
- * Funzione che inserisce le attività nella social-box.
+ * Funzione che inserisce le attività nella personal-data-view.
  * @param dati Array di dati in json.
 */
 function createViewPersonalData(dati){
