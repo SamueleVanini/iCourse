@@ -54,9 +54,10 @@
         */
         public function searchUserEvents($user, $return_format = null)
         {
+            $IdUntente = $user->getUserId();
             $sql = "SELECT e.IdEvento, me.Data, me.OraInizio, e.Nome, me.OraFine
-                    FROM Partecipanti as p join MomentiEventi as me on p.IdMomento = me.IdMomento join Eventi as e on me.IdEvento = e.IdEvento
-                    WHERE p.IdPartecipante = ".$user->getUserId();
+            FROM Eventi as e left join MomentiEventi as me on (e.IdEvento = me.IdEvento) left join Partecipanti as p on (p.IdMomento = me.IdMomento) left join GestioneEventi as ge on (ge.IdEvento = e.IdEvento)
+            WHERE ge.IdInsegnante = ".$IdUntente." or p.IdPartecipante =".$IdUntente;
             $result = self::$db->runQuery($sql);
             switch ($return_format) {
                 case 1:
