@@ -47,7 +47,7 @@
             }
             */
             $idAlleg = !empty($idAlleg) ? $idAlleg : "NULL";
-            $stmt = self::$db->getConnection()->prepare("INSERT INTO Comunicazioni (IdEvento, Data, Ora, IdUtenteCreatore, Titolo, Testo, IdAllegato) VALUES (".$idEvento.", '".date("Y-m-d")."', '".date("H:m:s")."', ".$user->getUserId().", "?", "?", ".$idAlleg.");");
+            $stmt = self::$db->getConnection()->prepare("INSERT INTO Comunicazioni (IdEvento, Data, Ora, IdUtenteCreatore, Titolo, Testo, IdAllegato) VALUES (".$idEvento.", '".date("Y-m-d")."', '".date("H:m:s")."', ".$user->getUserId().", ?, ?, ".$idAlleg.");");
             $stmt->bind_param("ss", $titolo, $testo);
             $result = self::$db->runStatement($stmt);
             $stmt->close();
