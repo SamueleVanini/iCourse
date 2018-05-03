@@ -56,13 +56,17 @@ function createActivityPage(informazioni){
     document.getElementById('activity_description').innerHTML = informazioni[0].Descrizione;
     var testo=""; //stampa momenti dell'activity
     for(var i=0;i<informazioni[1].length;i++)
-        testo+="<a href='#' class='list-group-item list-group-item-action'>Luogo:"+informazioni[1][i].Luogo+" Data: "+informazioni[1][i].Data+" Orario: "+informazioni[1][i].OraInizio+" - "+informazioni[1][i].OraFine+"</a>";
+        testo+="<a class='list-group-item list-group-item-action'>Luogo: "+informazioni[1][i].Luogo+"; Data: "+informazioni[1][i].Data+"; Orario: "+informazioni[1][i].OraInizio+" - "+informazioni[1][i].OraFine+"</a>";
     document.getElementById('activity_moments').innerHTML = testo;
     var testo="Insegnanti responsabili del corso:<ul>"; //stampa insegnanti responsabili dell'activity
     for(var i=0;i<informazioni[2].length;i++)
         testo+="<li>"+informazioni[2][i].Nome+" "+informazioni[2][i].Cognome+"</li>";
     testo+="</ul>";
     document.getElementById('activity_spec').innerHTML = testo;
+    testo='<table class="table table-hover" id="tabellaFile"><thead><tr><th scope="col">#</th><th scope="col">Nome file</th><th scope="col">Data aggiunta</th></tr></thead>';
+    for(var i=0;i<informazioni[3].length;i++)
+        testo+="<tr><th>"+(i+1)+"</th><td>"+informazioni[3][i].NomeMateriale+"</td><td>"+informazioni[3][i].DataAggiunta+"</td></tr>";
+    document.getElementById('tabellaFile').innerHTML = testo;
 }//createActivityPage
 
 /**

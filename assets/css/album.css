@@ -304,6 +304,10 @@ footer p {
 	margin-top: 10px;
 }
 
+#tabellaFile{
+    text-align: center;
+}
+
 .div-img-index{
     height: 200px;
 }
