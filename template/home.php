@@ -65,6 +65,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="alert alert-success" role="alert" id="successo">
+                    Creazione avvenuta con successo.
+                </div>
+                <div class="alert alert-danger" role="alert" id="errore">
+                    Errore nella creazione.
+                </div>
             </main>
 
                 <script>

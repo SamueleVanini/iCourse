@@ -13,8 +13,8 @@ class activityModel {
     } //__construct
 
     /** metodo getActivityInformation
-    * @param $activiy_id id del corso di cui si vogliono visualizzare le informazioni
-    * @return array con le informazioni del corso
+    * @param $activity_id id del corso di cui si vogliono visualizzare le informazioni
+    * @return array associativo con le informazioni del corso
     */
     private function getActivityInformation($activity_id)
     {
@@ -27,7 +27,7 @@ class activityModel {
     } //getActivityInformation
 
     /** metodo getActivityImage
-    * @param $activiy_id id del corso di cui si vuole ottenere l'immagine di anteprima
+    * @param $activity_id id del corso di cui si vuole ottenere l'immagine di anteprima
     * @return immagine di anteprima del corso in base 64
     */
     private function getActivityImage($activity_id){
@@ -41,8 +41,8 @@ class activityModel {
     } //getActivityImage
 
     /** metodo getActivityMoments
-    * @param $activiy_id id del corso di cui si vogliono visualizzare gli eventi
-    * @return array con gli eventi del corso
+    * @param $activity_id id del corso di cui si vogliono visualizzare gli eventi
+    * @return array associativo con gli eventi del corso
     */
     private function getActivityMoments($activity_id)
     {
@@ -55,8 +55,8 @@ class activityModel {
     } //getActivityInformation
 
     /** metodo getActivitySpec
-    * @param $activiy_id id del corso di cui si vogliono visualizzare gli eventi
-    * @return array con le specifiche del corso
+    * @param $activity_id id del corso di cui si vogliono visualizzare gli eventi
+    * @return array associativo con le specifiche del corso
     */
     private function getActivitySpec($activity_id)
     {
@@ -68,8 +68,21 @@ class activityModel {
         return $result->fetch_all(MYSQLI_ASSOC);
     } //getActivitySpec
 
+    /** metdo getActivityMaterials
+    * @param $activity_id id del corso di cui si vogliono visualizzare i materiali
+    * @return array associativo con i materiali del corso
+    */
+    public function getActivityMaterials($activity_id)
+    {
+        $sql = "SELECT M.NomeMateriale, M.DataAggiunta
+                FROM MaterialiEventi as ME JOIN Materiali as M ON ME.IdMateriale = M.IdMateriale
+                WHERE ME.IdEvento = $activity_id"; //ritorna i materiali dell'evento avente id $activity_id
+        $result=self::$db->runQuery($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    } //getActivityMaterials
+
     /** getActivityAllInformation
-    * @param $activiy_id id del corso di cui generare la pagina
+    * @param $activity_id id del corso di cui generare la pagina
     * @param $return_format formato dei dati ritornati dal metodo
     * @return array associativo o file json con i dati della activiy
     */
@@ -77,7 +90,7 @@ class activityModel {
     {
         $activity_information=$this->getActivityInformation($activity_id);
         $activity_information[0]["ImmAnteprima"]=$this->getActivityImage($activity_id);
-        $allInformations=array_merge($activity_information, array($this->getActivityMoments($activity_id)), array($this->getActivitySpec($activity_id)));
+        $allInformations=array_merge($activity_information, array($this->getActivityMoments($activity_id)), array($this->getActivitySpec($activity_id)), array($this->getActivityMaterials($activity_id)));
         switch ($return_format) {
             case 1:
                 return $allInformations;

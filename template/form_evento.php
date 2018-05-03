@@ -7,17 +7,17 @@
             <form>
                 <div class="form-group">
                     <label for="nomeEvento">Nome evento</label>
-                    <input type="text" class="form-control" id="nomeEvento" placeholder="Nome dell'evento che si vuole creare" required>
+                    <input type="text" class="form-control" id="nomeEvento" placeholder="Nome dell'evento che si vuole creare" maxlength="50">
                 </div>
                 <div class="form-group">
                     <label for="dataInizioEvento">Inizio evento</label>
-                    <input type="date" class="form-control" id="dataInizioEvento" required>
-                    <input type="time" class="form-control" id="oraInizioEvento" required>
+                    <input type="date" class="form-control" id="dataInizioEvento">
+                    <input type="time" class="form-control" id="oraInizioEvento">
                 </div>
                 <div class="form-group">
                     <label for="dataFineEvento">Fine evento</label>
-                    <input type="date" class="form-control" id="dataFineEvento" required>
-                    <input type="time" class="form-control" id="oraFineEvento" required>
+                    <input type="date" class="form-control" id="dataFineEvento">
+                    <input type="time" class="form-control" id="oraFineEvento">
                 </div>
                 <div class="form-group">
                     <div class="input-group mb-3">
@@ -38,11 +38,11 @@
                 </div>
                 <div class="form-group" id="div-luogo">
                     <label for="luogo">Luogo</label>
-                    <input type="text" class="form-control" id="luogo" placeholder="Luogo in cui si terr&agrave; il corso" required>
+                    <input type="text" class="form-control" id="luogo" placeholder="Luogo in cui si terr&agrave; il corso">
                 </div>
                 <div class="form-group" id="div-descr">
                     <label for="descr">Descrizione del corso</label>
-                    <textarea class="form-control" id="descr" rows="3" placeholder="Descrizione del corso"></textarea required>
+                    <textarea class="form-control" id="descr" rows="3" placeholder="Descrizione del corso" maxlength="250"></textarea>
                 </div>
                 <br>
                 <input type="button" class="btn btn-primary" onclick="sendDatiCorso()" value="Crea corso">

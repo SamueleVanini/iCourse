@@ -304,6 +304,10 @@ footer p {
 	margin-top: 10px;
 }
 
+#tabellaFile{
+    text-align: center;
+}
+
 .div-img-index{
     height: 200px;
 }
@@ -319,4 +323,15 @@ footer p {
 
 #activity_image{
 	object-fit: cover;
+}
+
+#successo, #errore{
+	position: fixed !important;
+	bottom: 5px !important;
+	z-index: 3000 !important;
+	margin: 0 auto;
+	width: 100%;
+	text-align: center;
+	align: center;
+	display: none;
 }
