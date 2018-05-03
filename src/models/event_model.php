@@ -201,7 +201,7 @@
             if($scartoFineEvento->days == 0)
             {
                 $sql = "INSERT INTO MomentiEventi (IdEvento, Luogo, Data, OraInizio, OraFine) 
-                        VALUES(".$idEvento.",".$luogo.",'".$inizio."','".$oraInizio."','".$oraFine."')";
+                        VALUES(".$idEvento.",'".$luogo."','".$inizio."','".$oraInizio."','".$oraFine."')";
                 $a = $conn->query($sql);
                 if(!$a)
                     return false;
@@ -210,14 +210,14 @@
             else
             {
                 $sql = "INSERT INTO MomentiEventi (IdEvento, Luogo, Data, OraInizio) 
-                        VALUES(".$idEvento.",".$luogo.",'".$inizio."','".$oraInizio."')";
+                        VALUES(".$idEvento.",'".$luogo."','".$inizio."','".$oraInizio."')";
                 if(!$conn->query($sql))
                     return false;
 
                 $fineEvento = date('Y-m-d', strtotime($inizio. " + $scartoFineEvento->days days"));
                 
                 $sql = "INSERT INTO MomentiEventi (IdEvento, Luogo, Data, OraFine) 
-                        VALUES(".$idEvento.",".$luogo.",'".$fineEvento->format('Y-m-d')."','".$oraFine."')";
+                        VALUES(".$idEvento.",'".$luogo."','".$fineEvento->format('Y-m-d')."','".$oraFine."')";
                 if(!$conn->query($sql))
                     return false;
                 return true;
