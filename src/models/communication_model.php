@@ -39,16 +39,18 @@
         } //getUserCommunication
 
         public function insertCommunication($user, $idEvento, $titolo, $testo) {
-            /*
             $idAlleg = null;
+            /*
             if ($file != null && $nomeFile != null) {
                 $sql = "INSERT INTO Allegati (File, NomeAllegato) VALUES (".$file.", ".$nomeFile.");";
                 self::$db->runQuery($sql);
                 $idAlleg = self::$db->getConnection()->$insert_id;
             }
             */
-            $sql = "INSERT INTO Comunicazioni (IdEvento, Data, Ora, IdUtenteCreatore, Titolo, Testo, IdAllegato) VALUES (".$idEvento.", ".date("Y-m-d").", ".date("H:m:s").", ".$user->getUserId().", ".$titolo.", ".$testo.")";
-            self::$db->runQuery($sql);
+            $sql = "INSERT INTO Comunicazioni (IdEvento, Data, Ora, IdUtenteCreatore, Titolo, Testo, IdAllegato) VALUES (".$idEvento.", ".date("Y-m-d").", ".date("H:m:s").", ".$user->getUserId().", '".$titolo."', '".$testo."', ".$idAlleg.");";
+            if(self::$db->runQuery($sql))
+                return true;
+            return false;
         }
 
         public function getAllNomeEventiGestiti($user, $return_format = null) {
