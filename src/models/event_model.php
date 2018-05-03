@@ -30,7 +30,7 @@
                     {
                         $image = base64_encode($course["ImmAnteprima"]);
                         $course["ImmAnteprima"] = $image;
-                        array_push($a,$course); 
+                        array_push($a,$course);
                     }
                     return $a;
                 default:
@@ -39,7 +39,7 @@
                     {
                         $image = base64_encode($course["ImmAnteprima"]);
                         $course["ImmAnteprima"] = $image;
-                        array_push($a,$course); 
+                        array_push($a,$course);
                     }
                     return json_encode($a);
             }
@@ -107,7 +107,7 @@
         public function insertEvent($user, $nome, $descrizione, $inizioEvento, $scartoFineEvento, $luogo, $oraInizio, $oraFine, $ripetizione = null, $fineRipetizione = null)
         {
             $conn = self::$db->getConnection();
-            $conn->autocommit(false); 
+            $conn->autocommit(false);
             //Inserimento evento nella tabella "Eventi"
             $stmt = $conn->prepare("INSERT INTO Eventi (Descrizione, Nome) VALUES(?, ?)");
             $stmt->bind_param("ss", $descrizione, $nome);
@@ -116,9 +116,9 @@
             //Estrazione id evento appena inserito
             $idEvento = $stmt->insert_id;
             $userId = $user->getUserId();
-                
+
             //Inserimento id insegnante che tiene l'evento con evento nella tabella "GestioneEventi"
-            $sql = "INSERT INTO GestioneEventi (IdEvento, IdInsegnante) 
+            $sql = "INSERT INTO GestioneEventi (IdEvento, IdInsegnante)
                     VALUES(".$idEvento.",".$userId.")";
             if(!$conn->query($sql))
             {
@@ -178,7 +178,7 @@
                 }
             }
             else
-                return false;            
+                return false;
         }
 
         /** Metodo per il controllo se un evento è contiguo in più giorni e l'inserimento in "MomentiEventi"
@@ -197,10 +197,10 @@
             }
             else
                 $inizio = $inizioEvento;
-                
+
             if($scartoFineEvento->days == 0)
             {
-                $sql = "INSERT INTO MomentiEventi (IdEvento, Luogo, Data, OraInizio, OraFine) 
+                $sql = "INSERT INTO MomentiEventi (IdEvento, Luogo, Data, OraInizio, OraFine)
                         VALUES(".$idEvento.",'".$luogo."','".$inizio."','".$oraInizio."','".$oraFine."')";
                 $a = $conn->query($sql);
                 if(!$a)
@@ -209,14 +209,14 @@
             }
             else
             {
-                $sql = "INSERT INTO MomentiEventi (IdEvento, Luogo, Data, OraInizio) 
+                $sql = "INSERT INTO MomentiEventi (IdEvento, Luogo, Data, OraInizio)
                         VALUES(".$idEvento.",'".$luogo."','".$inizio."','".$oraInizio."')";
                 if(!$conn->query($sql))
                     return false;
 
                 $fineEvento = date('Y-m-d', strtotime($inizio. " + $scartoFineEvento->days days"));
-                
-                $sql = "INSERT INTO MomentiEventi (IdEvento, Luogo, Data, OraFine) 
+
+                $sql = "INSERT INTO MomentiEventi (IdEvento, Luogo, Data, OraFine)
                         VALUES(".$idEvento.",'".$luogo."','".$fineEvento->format('Y-m-d')."','".$oraFine."')";
                 if(!$conn->query($sql))
                     return false;
@@ -280,8 +280,8 @@
             if($_POST["actpassword"]!="" && (($_POST["newpassword"]!="" && $_POST["confnewpassword"]!="") || $_POST["newmail"]!="")) {
                 $stmt = self::$db->getConnection()->prepare("SELECT Password
                                                             FROM Utenze as u
-                                                            WHERE u.IdUtente = ? AND u.Password = ?");
-                $stmt->bind_param("is", $user->getUserId(), hash("sha256", $_POST["actpassword"]));
+                                                            WHERE u.IdUtente = ". $user->getUserId() . " AND u.Password = ?");
+                $stmt->bind_param("s", hash("sha256", $_POST["actpassword"]));
                 $result = self::$db->runStatement($stmt);
                 $stmt->close();
                 if($result->num_rows != 0) {
@@ -306,8 +306,8 @@
                 if(($_POST["newpassword"] == $_POST["confnewpassword"])) {
                     $stmt = self::$db->getConnection()->prepare("UPDATE Utenze
                                                                 SET Password = ?
-                                                                WHERE IdUtente = ?");
-                    $stmt->bind_param("si", hash("sha256", $_POST["newpassword"]), $user->getUserId());
+                                                                WHERE IdUtente = ".$user->getUserId());
+                    $stmt->bind_param("s", hash("sha256", $_POST["newpassword"]));
                     $result = self::$db->runStatement($stmt);
                     $stmt->close();
                     if($result) {
@@ -333,8 +333,8 @@
             if($_POST["newmail"]!="") {
                 $stmt = self::$db->getConnection()->prepare("UPDATE Utenze
                                                             SET Mail = ?
-                                                            WHERE IdUtente = ?");
-                $stmt->bind_param("si", $_POST['newmail'], $user->getUserId());
+                                                            WHERE IdUtente = ".$user->getUserId());
+                $stmt->bind_param("s", $_POST['newmail']);
                 $result = self::$db->runQuery($stmt);
                 $stmt->close();
                 if($result) {
