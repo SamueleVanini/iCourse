@@ -45,6 +45,25 @@ function createSelectFormComunicazione(eventiGestiti){
 }//createSelectFormComunicazione
 
 /**
+ * Funzione che inserisce le attività nella social-box.
+ * @param dati Array di dati in json.
+*/
+function createViewPersonalData(dati){
+
+    var data = "";
+    for(i=0; i<dati.length; i++){
+        data += 'Nome: ' + '<i>' + dati[i].name + '</i><br>';
+        data += 'Cognome: ' + '<i>' + dati[i].surname + '</i><br>';
+        data += 'Data di Nascita: ' + '<i>' + dati[i].bornDate + '</i><br>';
+        data += 'Classe: ' + '<i>' + dati[i].classYear + dati[i].classCourse + dati[i].classSection + '</i><br>';
+        data += 'Mail: ' + '<i>' + dati[i].mail + '</i><br>';
+        data += 'Telefono: ' + '<i>' + dati[i].phone + '</i><br>';
+    }//for
+
+   document.getElementById('personal-data-view').innerHTML = data;
+}//createSocialBox
+
+/**
  * Funzione che compila la pagina delle activity
  * @param informazioni oggetto json con le informazioni dell'activiy
 */
@@ -108,42 +127,42 @@ function creaFormatoRichiestaCorso(){
         oggetto.name = 'nomeEvento';
         oggetto.value = valoreDaId('nomeEvento');
         dati.push(oggetto);
-    
+
         var oggetto = new Object();
         oggetto.name = 'dataInizioEvento';
         oggetto.value = valoreDaId('dataInizioEvento');
         dati.push(oggetto);
-    
+
         var oggetto = new Object();
         oggetto.name = 'oraInizioEvento';
         oggetto.value = valoreDaId('oraInizioEvento');
         dati.push(oggetto);
-    
+
         var oggetto = new Object();
         oggetto.name = 'dataFineEvento';
         oggetto.value = valoreDaId('dataFineEvento');
         dati.push(oggetto);
-    
+
         var oggetto = new Object();
         oggetto.name = 'oraFineEvento';
         oggetto.value = valoreDaId('oraFineEvento');
         dati.push(oggetto);
-    
+
         var oggetto = new Object();
         oggetto.name = 'ripetizione';
         oggetto.value = valoreDaId('ripetizione');
         dati.push(oggetto);
-    
+
         var oggetto = new Object();
         oggetto.name = 'fineRipetizione';
         oggetto.value = valoreDaId('fineRipetizione');
         dati.push(oggetto);
-    
+
         var oggetto = new Object();
         oggetto.name = 'luogo';
         oggetto.value = valoreDaId('luogo');
         dati.push(oggetto);
-    
+
         var oggetto = new Object();
         oggetto.name = 'descr';
         oggetto.value = valoreDaId('descr');
@@ -169,7 +188,7 @@ function sendDatiCorso(){
     }//callback
 
     console.log(dati);
-    
+
     if(dati != null){
         var richiesta = new Request("/iCourse/src/controller/new_event_controller.php", "POST", dati, callback);
         richiesta.send();
@@ -189,12 +208,12 @@ function creaFormatoRichiestaComunicazione(){
         oggetto.name = 'selezionaCorso';
         oggetto.value = valoreDaId('selezionaCorso');
         dati.push(oggetto);
-    
+
         var oggetto = new Object();
         oggetto.name = 'nomeComunicazione';
         oggetto.value = valoreDaId('nomeComunicazione');
         dati.push(oggetto);
-    
+
         var oggetto = new Object();
         oggetto.name = 'testoComunicazione';
         oggetto.value = valoreDaId('testoComunicazione');

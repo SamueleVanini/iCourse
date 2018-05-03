@@ -2,7 +2,7 @@
     $var = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/utils/db_utils.php";
     require_once($var);
 
-    class communicationModel {
+    class CommunicationModel {
 
         protected static $db;
 
@@ -69,5 +69,5 @@
             } //switch
         }
 
-    } //communicationModel
+    } //CommunicationModel
 ?>

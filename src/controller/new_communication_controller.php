@@ -6,7 +6,7 @@
 
     if(isset($_REQUEST["nomeComunicazione"]) && isset($_REQUEST["testoComunicazione"]))
     {
-        $communication_model = new communicationModel();
+        $communication_model = new CommunicationModel();
         $user = unserialize($_SESSION["user"]);
         $communications = $communication_model->insertCommunication($user, $_REQUEST["selezionaCorso"], $_REQUEST["nomeComunicazione"], $_REQUEST["testoComunicazione"]);
         echo $communications;

@@ -12,21 +12,21 @@
                     </select>
                     <script>
                         var eventiGestiti = [];
-                        var callback_event = (err, response_event)=>{
+                        var callback_managed_event = (err, response_managed_event)=>{
                             if(err){
                                 console.log("Errore: " + err);
                             }else{
-                                response_event = JSON.parse(response_event);
-                                for(i=0; i<response_event.length; i++){
+                                response_managed_event = JSON.parse(response_managed_event);
+                                for(i=0; i<response_managed_event.length; i++){
                                     var eventoGestito = new Object(); //NON GUARDARE TI PREGO
-                                    eventoGestito.IdEvento = response_event[i].IdEvento;
-                                    eventoGestito.Nome = response_event[i].Nome;
+                                    eventoGestito.IdEvento = response_managed_event[i].IdEvento;
+                                    eventoGestito.Nome = response_managed_event[i].Nome;
                                     eventiGestiti.push(eventoGestito);
                                 }
                                 createSelectFormComunicazione(eventiGestiti);
                             }//if-else
                         }//callback_get
-                        var requestEvent = new Request("/iCourse/src/controller/managed_event_controller.php", "POST", [], callback_event); //inizialize the Request object
+                        var requestEvent = new Request("/iCourse/src/controller/managed_event_controller.php", "POST", [], callback_managed_event); //inizialize the Request object
                         requestEvent.send();
                     </script>
                 </div>

@@ -54,10 +54,10 @@
         */
         public function searchUserEvents($user, $return_format = null)
         {
-            $IdUntente = $user->getUserId();
+            $idUtente = $user->getUserId();
             $sql = "SELECT e.IdEvento, me.Data, me.OraInizio, e.Nome, me.OraFine
-            FROM Eventi as e left join MomentiEventi as me on (e.IdEvento = me.IdEvento) left join Partecipanti as p on (p.IdMomento = me.IdMomento) left join GestioneEventi as ge on (ge.IdEvento = e.IdEvento)
-            WHERE ge.IdInsegnante = ".$IdUntente." or p.IdPartecipante =".$IdUntente;
+                    FROM Eventi as e left join MomentiEventi as me on (e.IdEvento = me.IdEvento) left join Partecipanti as p on (p.IdMomento = me.IdMomento) left join GestioneEventi as ge on (ge.IdEvento = e.IdEvento)
+                    WHERE ge.IdInsegnante = ".$idUtente." or p.IdPartecipante =".$idUtente;
             $result = self::$db->runQuery($sql);
             switch ($return_format) {
                 case 1:
@@ -276,9 +276,28 @@
          * @param user utente per cui si vuole effettuare la ricerca
          * @return result risultato della query
         */
+        public function viewUserData($user, $return_format = null) {
+            $sql = "SELECT u.Nome, u.Cognome, u.DataDiNascita, u.Matricola, c.Anno, c.Corso, c.Sezione, u.Mail, u.Telefono
+                        FROM Utenze as u left join Classi as c on (u.IdClasse = c.IdClasse)
+                        WHERE u.IdUtente = ".$user->getUserId().";";
+            $result = self::$db->runQuery($sql);
+            switch ($return_format) {
+                case 1:
+                    $result_array = $result->fetch_all(MYSQLI_ASSOC);
+                    return $result_array;
+                default:
+                    $result_array = $result->fetch_all(MYSQLI_ASSOC);
+                    return json_encode($result_array);
+            }
+        }
+
+        /**
+         * @param user utente per cui si vuole effettuare la modifica
+         * @return result risultato della query
+        */
         public function changeUserData($user) {
             $message="";
-            if($_POST["actpassword"]!="" && (($_POST["newpassword"]!="" && $_POST["confnewpassword"]!="") || $_POST["newmail"]!="")) {
+            if($_POST["actpassword"]!="" && (($_POST["newpassword"]!="" && $_POST["confnewpassword"]!="") || $_POST["newmail"]!="" || $_POST["newphone"]!="")) {
                 $stmt = self::$db->getConnection()->prepare("SELECT Password
                                                             FROM Utenze as u
                                                             WHERE u.IdUtente = ". $user->getUserId() . " AND u.Password = ?");
@@ -288,6 +307,7 @@
                 if($result->num_rows != 0) {
                     $message .= $this->changeUserPassword($user);
                     $message .= $this->changeUserMail($user);
+                    $message .= $this->changeUserPhone($user);
                 } else {
                     $message .= "Password attuale errata"."<br>";
                 }
@@ -298,7 +318,7 @@
         }
 
         /**
-         * @param user utente per cui si vuole effettuare la ricerca
+         * @param user utente per cui si vuole effettuare la modifica
          * @return result risultato della query
         */
         private function changeUserPassword($user) {
@@ -326,7 +346,7 @@
         }
 
         /**
-         * @param user utente per cui si vuole effettuare la ricerca
+         * @param user utente per cui si vuole effettuare la modifica
          * @return result risultato della query
         */
         private function changeUserMail($user) {
@@ -345,6 +365,30 @@
                 }
             } else {
                 $message .= "Mail NON modificata";
+            }
+            return $message."<br>";
+        }
+
+        /**
+         * @param user utente per cui si vuole effettuare la modifica
+         * @return result risultato della query
+        */
+        private function changeUserPhone($user) {
+            $message="";
+            if($_POST["newphone"]!="") {
+                $stmt = self::$db->getConnection()->prepare("UPDATE Utenze
+                                                            SET Telefono = ?
+                                                            WHERE IdUtente = ".$user->getUserId());
+                $stmt->bind_param("i", $_POST['newphone']);
+                $result = self::$db->runQuery($stmt);
+                $stmt->close();
+                if($result) {
+                    $message .= "Telefono cambiato correttamente!";
+                } else {
+                    $message .= "SQL error during phone change";
+                }
+            } else {
+                $message .= "Telefono NON modificata";
             }
             return $message."<br>";
         }

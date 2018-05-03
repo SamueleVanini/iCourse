@@ -4,7 +4,7 @@
     require_once($var1);
     require_once($var2);
 
-    $managed_events_searcher = new communicationModel();
+    $managed_events_searcher = new CommunicationModel();
     $user = unserialize($_SESSION["user"]);
     $managed_events = $managed_events_searcher->getAllNomeEventiGestiti($user);
     echo $managed_events;

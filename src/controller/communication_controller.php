@@ -4,7 +4,7 @@
     require_once($var1);
     require_once($var2);
 
-    $communications_searcher = new communicationModel();
+    $communications_searcher = new CommunicationModel();
     $user = unserialize($_SESSION["user"]);
     $communications = $communications_searcher->getUserCommunications($user);
     echo $communications;
