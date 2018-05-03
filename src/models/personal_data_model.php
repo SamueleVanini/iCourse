@@ -17,9 +17,10 @@
          * @return result risultato della query
         */
         public function viewUserData($user, $return_format = null) {
+            $idUtente = $user->getUserId();
             $sql = "SELECT u.Nome, u.Cognome, u.DataDiNascita, u.Matricola, c.Anno, c.Corso, c.Sezione, u.Mail, u.Telefono
-                        FROM Utenze as u left join Classi as c on (u.IdClasse = c.IdClasse)
-                        WHERE u.IdUtente = ".$user->getUserId().";";
+                    FROM Utenze as u left join Classi as c on (u.IdClasse = c.IdClasse)
+                    WHERE u.IdUtente = ".$idUtente.";";
             $result = self::$db->runQuery($sql);
             switch ($return_format) {
                 case 1:
@@ -37,11 +38,13 @@
         */
         public function changeUserData($user) {
             $message="";
+            $idUtente = $user->getUserId();
             if($_POST["actpassword"]!="" && (($_POST["newpassword"]!="" && $_POST["confnewpassword"]!="") || $_POST["newmail"]!="" || $_POST["newphone"]!="")) {
                 $stmt = self::$db->getConnection()->prepare("SELECT Password
                                                             FROM Utenze as u
-                                                            WHERE u.IdUtente = ". $user->getUserId() . " AND u.Password = ?");
-                $stmt->bind_param("s", hash("sha256", $_POST["actpassword"]));
+                                                            WHERE u.IdUtente = ". $idUtente . " AND u.Password = ?");
+                $hashActPass = hash("sha256", $_POST["actpassword"]);
+                $stmt->bind_param("s", $hashActPass);
                 $result = self::$db->runStatement($stmt);
                 $stmt->close();
                 if($result->num_rows != 0) {
@@ -63,19 +66,25 @@
         */
         private function changeUserPassword($user) {
             $message="";
+            $idUtente = $user->getUserId();
             if($_POST["newpassword"]!="" && $_POST["confnewpassword"]!="") {
                 if(($_POST["newpassword"] == $_POST["confnewpassword"])) {
                     $stmt = self::$db->getConnection()->prepare("UPDATE Utenze
                                                                 SET Password = ?
-                                                                WHERE IdUtente = ".$user->getUserId());
-                    $stmt->bind_param("s", hash("sha256", $_POST["newpassword"]));
+                                                                WHERE IdUtente = " . $idUtente);
+                    $hashNewPass = hash("sha256", $_POST["newpassword"]);
+                    $stmt->bind_param("s", $hashNewPass);
                     $result = self::$db->runStatement($stmt);
                     $stmt->close();
+
+                    $message .= "Password cambiata correttamente!";
+                    /*
                     if($result) {
                         $message .= "Password cambiata correttamente!";
                     } else {
                         $message .= "SQL error during password change";
                     }
+                    */
                 } else {
                     $message .= "Nuove password non corrispondenti";
                 }
@@ -91,18 +100,24 @@
         */
         private function changeUserMail($user) {
             $message="";
+            $idUtente = $user->getUserId();
             if($_POST["newmail"]!="") {
                 $stmt = self::$db->getConnection()->prepare("UPDATE Utenze
                                                             SET Mail = ?
-                                                            WHERE IdUtente = ".$user->getUserId());
-                $stmt->bind_param("s", $_POST['newmail']);
-                $result = self::$db->runQuery($stmt);
+                                                            WHERE IdUtente = " . $idUtente);
+                $newMail = $_POST['newmail'];
+                $stmt->bind_param("s", $newMail);
+                $result = self::$db->runStatement($stmt);
                 $stmt->close();
+
+                $message .= "Mail cambiata correttamente!";
+                /*
                 if($result) {
                     $message .= "Mail cambiata correttamente!";
                 } else {
                     $message .= "SQL error during email change";
                 }
+                */
             } else {
                 $message .= "Mail NON modificata";
             }
@@ -115,20 +130,26 @@
         */
         private function changeUserPhone($user) {
             $message="";
+            $idUtente = $user->getUserId();
             if($_POST["newphone"]!="") {
                 $stmt = self::$db->getConnection()->prepare("UPDATE Utenze
                                                             SET Telefono = ?
-                                                            WHERE IdUtente = ".$user->getUserId());
-                $stmt->bind_param("i", $_POST['newphone']);
-                $result = self::$db->runQuery($stmt);
+                                                            WHERE IdUtente = " . $idUtente);
+                $newPhone = $_POST['newphone'];
+                $stmt->bind_param("i", $newPhone);
+                $result = self::$db->runStatement($stmt);
                 $stmt->close();
+
+                $message .= "Telefono cambiato correttamente!";
+                /*
                 if($result) {
                     $message .= "Telefono cambiato correttamente!";
                 } else {
                     $message .= "SQL error during phone change";
                 }
+                */
             } else {
-                $message .= "Telefono NON modificata";
+                $message .= "Telefono NON modificato";
             }
             return $message."<br>";
         }
