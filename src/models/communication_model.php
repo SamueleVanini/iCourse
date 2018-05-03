@@ -38,8 +38,7 @@
             } //switch
         } //getUserCommunication
 
-        public function insertCommunication($user, $idEvento, $titolo, $testo) {
-            $idAlleg = null;
+        public function insertCommunication($user, $idEvento, $titolo, $testo, $idAlleg = null) {
             /*
             if ($file != null && $nomeFile != null) {
                 $sql = "INSERT INTO Allegati (File, NomeAllegato) VALUES (".$file.", ".$nomeFile.");";
@@ -47,9 +46,10 @@
                 $idAlleg = self::$db->getConnection()->$insert_id;
             }
             */
-            $stmt = self::$db->getConnection()->prepare("INSERT INTO Comunicazioni (IdEvento, Data, Ora, IdUtenteCreatore, Titolo, Testo, IdAllegato) VALUES (".$idEvento.", ".date("Y-m-d").", ".date("H:m:s").", ".$user->getUserId().", "?", "?", ".$idAlleg.");");
+            $idAlleg = !empty($idAlleg) ? $idAlleg : "NULL";
+            $stmt = self::$db->getConnection()->prepare("INSERT INTO Comunicazioni (IdEvento, Data, Ora, IdUtenteCreatore, Titolo, Testo, IdAllegato) VALUES (".$idEvento.", '".date("Y-m-d")."', '".date("H:m:s")."', ".$user->getUserId().", "?", "?", ".$idAlleg.");");
             $stmt->bind_param("ss", $titolo, $testo);
-            $result = self::$db->runQuery($stmt);
+            $result = self::$db->runStatement($stmt);
             $stmt->close();
             if($result)
                 return true;
