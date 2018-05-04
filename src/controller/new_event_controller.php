@@ -16,12 +16,6 @@
         $events = $events_searcher->insertEvent($user, $_REQUEST["nomeEvento"], $_REQUEST["descr"], $dataInizioEvento, $scartoFineEvento, $_REQUEST["luogo"],
                                                 $_REQUEST["oraInizioEvento"], $_REQUEST["oraFineEvento"], $_REQUEST["ripetizione"], $_REQUEST["fineRipetizione"]);
         echo $events;
-        //variabili per debug
-        /*if($events)
-            echo "true";
-        else
-            echo "false";
-        */
     }
     else
     {

@@ -92,6 +92,34 @@
             }
         }
 
+        /**
+         * @param userToAdd utente da aggiungere ai momenti dell'evento
+         * @param idEvento evento in cui aggiungere lo studente
+         */
+        public function addStudentToEvent($userToAdd, $idEvento)
+        {
+            $userId = $userToAdd->getUserId();
+            $conn = self::$db->getConnection();
+            $stmt = $conn->prepare("SELECT IdMomento FROM MomentiEventi WHERE IdEvento = ?");
+            $stmt->bind_param("i", $idEvento);
+            $result = self::$db->runStatement($stmt);
+            $result_array = $result->fetch_all(MYSQLI_ASSOC);
+            $conn->autocommit(false);
+            foreach($result_array["IdMomento"] as $IdMomento)
+            {
+                $stmt = $conn->prepare("INSERT INTO Partecipanti (IdPartecipante, IdMomento) VALUES(?, ?)");
+                $stmt->bind_param("ii", $userId, $idMomento);
+                if(!$stmt->execute())
+                {
+                    $conn->rollback();
+                    return false;
+                }
+            }
+            $conn->commit();
+            $conn->autocommit(true);
+            return true;
+        }
+
         /** Metodo per l'iserimento di un evento nel db
          * @param user utente che effettua l'inserimento
          * @param nome nome dell'evento
