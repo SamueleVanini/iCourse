@@ -292,3 +292,13 @@ function resetFormCom(){
     document.getElementById('testoComunicazione').value = "";
 }//resetFormEventi
 
+function createUserPage(list){
+    var i = 0;
+    var riga1 = '<tr><td scope="row">'S3027987A'</td><td>'Giovanni'</td><td>'Pinotto'</td><td>'5IC'</td></tr>';
+    var riga2 = '</td><td>';
+    var riga3 = '</td></tr>';
+    foreach(usr in list){
+        document.getElementById('listaUtenti').innerHTML += riga1 + usr[i].Matricola + riga2 + usr[i].Nome + riga2 + usr[i].Cognome + riga2 + usr[i].Classe + riga3;
+        i++
+    }//foreach
+}//createUserPage

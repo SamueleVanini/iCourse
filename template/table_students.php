@@ -46,7 +46,7 @@
     										</th>
     									</tr>
     								</thead>
-    								<tbody>
+    								<tbody id="listaUtenti">
     									<tr>
     										<td scope="row">S3027987A</td>
     										<td>Giovanni</td>
@@ -111,4 +111,16 @@
     span_event.onclick = function() {
         modal_event.style.display = "none";
     }
+
+    var activity = [];
+	var callback_activity = (err, res)=>{
+		if(err){
+			console.log("Errore: " + err);
+		}else{
+			res = JSON.parse(res);
+			createUserPage(res);
+		}//if-else
+	}//callback_get
+	var requestActivity = new Request("/iCourse/src/controller/activity_controller.php", "", [], callback_activity);
+	requestActivity.send();
 </script>
