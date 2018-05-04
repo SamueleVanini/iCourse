@@ -52,35 +52,30 @@
         {
             return self::$db->error_list;
         } //getErrorList
+    }
 
-        /**
-         * Recupera la lista dei corsi di un utente
-         */
-        public function get_course_list() {}
+    class UserSearcher
+    {
+        protected static $db;
 
-        /**
-         * Rcupera la lista delle classi a cui si appartiene (1 se studente, 1+ se professore)
-         */
-        public function get_class() {}
+        /** Costruttore di default */
+        public function __construct()
+        {
+            self::$db = new Db();
+        }
 
-        /**
-         * Setta la lista dei corsi di un utente
-         */
-        public function add_course() {}
-
-        /**
-         * Setta la lista dei corsi di un utente
-         */
-        public function remove_course() {}
-
-        /**
-         * Setta la lista delle classi a cui si appartiene (1 se studente, 1+ se professore)
-         */
-        public function add_class() {}
-
-        /**
-         * Setta la lista delle classi a cui si appartiene (1 se studente, 1+ se professore)
-         */
-        public function remove_class() {}
+        public function getAllUser($return_format = null)
+        {
+            $sql = "SELECT Nome, Cognome, Matricola FROM Utenze as u join Classi as c on u.IdClasse = c.IdClasse";
+            $result = self::$db->runQuery($sql);
+            switch ($return_format) {
+                case 1:
+                    $result_array = $result->fetch_all(MYSQLI_ASSOC);
+                    return $result_array;
+                default:
+                    $result_array = $result->fetch_all(MYSQLI_ASSOC);
+                    return json_encode($result_array);
+            }
+        }
     }
 ?>
