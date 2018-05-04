@@ -49,27 +49,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="listaUtenti">
-                                        <tr>
-                                            <td scope="row">S3027987A</td>
-                                            <td>Giovanni</td>
-                                            <td>Pinotto</td>
-                                            <td>5IC</td>
-                                            <td><button type="submit" class="btn btn-primary btn-accedi">Aggiungi</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row">S3027987B</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>5IC</td>
-                                            <td><button type="submit" class="btn btn-primary btn-accedi">Aggiungi</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row">S3027987C</td>
-                                            <td>Larry</td>
-                                            <td>Bird</td>
-                                            <td>4EA</td>
-                                            <td><button type="submit" class="btn btn-primary btn-accedi">Aggiungi</button></td>
-                                        </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -126,6 +106,7 @@
             createUserPage(res);
         }//if-else
     }//callback_get
-    var requestActivity = new Request("/iCourse/src/controller/activity_controller.php", "", [], callback_activity);
+    var requestActivity = new Request("/iCourse/src/controller/get_user_controller.php", "POST", [], callback_activity);
     requestActivity.send();
+    
 </script>

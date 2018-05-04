@@ -310,13 +310,31 @@ function resetFormCom(){
     document.getElementById('testoComunicazione').value = "";
 }//resetFormEventi
 
-/*function createUserPage(list){
-    var i = 0;
-    var riga1 = '<tr><td scope="row">'S3027987A'</td><td>'Giovanni'</td><td>'Pinotto'</td><td>'5IC'</td></tr>';
+function createUserPage(list){
     var riga2 = '</td><td>';
     var riga3 = '</td></tr>';
-    foreach(usr in list){
-        document.getElementById('listaUtenti').innerHTML += riga1 + usr[i].Matricola + riga2 + usr[i].Nome + riga2 + usr[i].Cognome + riga2 + usr[i].Classe + riga3;
-        i++
-    }//foreach
-}//createUserPage*/
+    var riga4 = '<td><button type="submit" class="btn btn-primary btn-accedi">Aggiungi</button></td>';
+    for(var i=0; i<list.length; i++){
+        document.getElementById('listaUtenti').innerHTML += '<tr><td scope="row" id="utente-' + i + '">' + list[i].Matricola + riga2 + list[i].Nome + riga2 + list[i].Cognome + riga2 + list[i].Anno + list[i].Corso + list[i].Sezione + riga2 + '<button type="submit" class="btn btn-primary btn-accedi" id="bott-' + i + '" onclick="subscribeCourse(this.id)">Aggiungi</button>' + riga3;
+    }//for
+}//createUserPage
+
+function subscribeCourse(id){
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var id_a = url.searchParams.get("activity_id");
+    var id_u = id.split("-")[1];
+    var matr = document.getElementById('utente-' + id_u).innerText;
+    
+    var callback_sub = (err, res)=>{
+        if(err){
+            console.log("Errore: " + err + "; status: " + res);
+            showMSG(0);
+        }else{
+            showMSG(1);
+        }//if
+    }
+    
+    var requestActivity = new Request("/iCourse/src/controller/insert_student_controller.php", "POST", [{"name":"Matricola","value":matr},{"name":"activityId","value":id_a}], callback_sub);
+    requestActivity.send();
+}//subscribeCourse

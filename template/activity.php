@@ -64,6 +64,12 @@
 						<div class="col-md-1"></div>
 					</div>
 				</div>
+				<div class="alert alert-success" role="alert" id="successo">
+                    Creazione avvenuta con successo.
+                </div>
+                <div class="alert alert-danger" role="alert" id="errore">
+                    Errore nella creazione.
+                </div>
 				<?php
 				$path = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/models/priviliged_user_model.php";
 				require_once($path);
