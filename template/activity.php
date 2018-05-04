@@ -64,7 +64,20 @@
 						<div class="col-md-1"></div>
 					</div>
 				</div>
-				<?php include('table_students.php'); ?>
+				<?php
+				$path = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/models/priviliged_user_model.php";
+				require_once($path);
+				
+				if(isset($_SESSION["user"]))
+				{
+					$user = unserialize($_SESSION["user"]);
+					if($user->hasPrivilege(2))
+					{
+						include('table_students.php'); 
+					}
+				}
+				
+				?>
 	    </main>
 		<script>
 			var activity = [];
