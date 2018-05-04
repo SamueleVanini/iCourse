@@ -6,9 +6,17 @@ function createActivityBox(eventi){
     var intActivty1 = '<h4>I tuoi corsi</h4><ul>';
     var intActivty2 = '<h4>Altri corsi</h4><ul>';
     var activity = '';
+    var corsi = [];
+    var j = 0;
     for(i=0; i<eventi.length; i++){
-        activity += '<li><a href="activity.php?activity_id=' + eventi[i].id + '">' + eventi[i].title + '</a></li>';
+        if(eventi[i].title){
+            
+            corsi[j].
+            j++;
+        }
     }//for
+    activity += '<li><a href="activity.php?activity_id=' + eventi[i].id + '">' + eventi[i].title + '</a></li>';
+    
     activity += '</ul>';
 
    document.getElementById('activity-box').innerHTML = intActivty1 + activity;
@@ -292,7 +300,7 @@ function resetFormCom(){
     document.getElementById('testoComunicazione').value = "";
 }//resetFormEventi
 
-function createUserPage(list){
+/*function createUserPage(list){
     var i = 0;
     var riga1 = '<tr><td scope="row">'S3027987A'</td><td>'Giovanni'</td><td>'Pinotto'</td><td>'5IC'</td></tr>';
     var riga2 = '</td><td>';
@@ -301,4 +309,4 @@ function createUserPage(list){
         document.getElementById('listaUtenti').innerHTML += riga1 + usr[i].Matricola + riga2 + usr[i].Nome + riga2 + usr[i].Cognome + riga2 + usr[i].Classe + riga3;
         i++
     }//foreach
-}//createUserPage
+}//createUserPage*/
