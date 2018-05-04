@@ -66,7 +66,8 @@
 
         public function getAllUser($return_format = null)
         {
-            $sql = "SELECT Nome, Cognome, Matricola FROM Utenze as u join Classi as c on u.IdClasse = c.IdClasse";
+            $sql = "SELECT Nome, Cognome, Matricola, Anno, Corso, Sezione FROM Utenze as u join Classi as c on u.IdClasse = c.IdClasse join RuoloUtente as ru on u.IdUtente = ru.IdUtente
+                    WHERE ru.IdRuolo=3";
             $result = self::$db->runQuery($sql);
             switch ($return_format) {
                 case 1:
