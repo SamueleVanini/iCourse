@@ -335,25 +335,3 @@ footer p {
 	align: center;
 	display: none;
 }
-
-#btn-event{
-    border-radius: 50%;
-    background-color: white;
-    border: 0px;
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    right: 4px;
-    top: 4px;
-}
-
-#btn-communication{
-    border-radius: 50%;
-    background-color: white;
-    border: 0px;
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    right: 4px;
-    top: 4px;
-}

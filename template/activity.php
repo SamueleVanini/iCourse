@@ -55,40 +55,16 @@
 						</div>
 						<div class="col-md-1"></div>
 					</div>
-					<div class="row">
+					<div class="row" id="materiali">
 						<div class="col-md-1"></div>
 						<div class="col-md-10 container-new">
 							<div> <h4> Materiali online </h4> </div>
-							<table class="table table-hover" id="tabellaFile">
-							  <thead>
-								<tr>
-								  <th scope="col">#</th>
-								  <th scope="col">Nome file</th>
-								  <th scope="col">Data aggiunta</th>
-								</tr>
-							  </thead>
-							  <tbody>
-								<tr>
-								  <th scope="row">1</th>
-								  <td>materiale1.pdf</td>
-								  <td>2/02/2018</td>
-								</tr>
-								<tr>
-								  <th scope="row">1</th>
-								  <td>materiale2.pdf</td>
-								  <td>2/02/2018</td>
-								</tr>
-								<tr>
-								  <th scope="row">1</th>
-								  <td>materiale3.pdf</td>
-								  <td>2/02/2018</td>
-								</tr>
-							  </tbody>
-							</table>
+							<div id="divTabellaFile"></div>
 						</div>
 						<div class="col-md-1"></div>
 					</div>
 				</div>
+				<?php include('table_students.php'); ?>
 	    </main>
 		<script>
 			var activity = [];
