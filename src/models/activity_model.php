@@ -18,11 +18,12 @@ class activityModel {
     */
     private function getActivityInformation($activity_id)
     {
-        $sql = "select E.Nome as NomeCorso, E.Descrizione
-                from Eventi as E
-                where E.IdEvento=$activity_id
-                "; //ritorna le informazioni sull'evento avente id $activity_id
-        $result=self::$db->runQuery($sql);
+        $conn = self::$db->getConnection();
+        $stmt = $conn->prepare("select E.Nome as NomeCorso, E.Descrizione
+                                from Eventi as E
+                                where E.IdEvento=?");//ritorna le informazioni sull'evento avente id $activity_id
+        $stmt->bind_param("i", $activity_id);
+        $result = self::$db->runStatement($stmt);
         return $result->fetch_all(MYSQLI_ASSOC);
     } //getActivityInformation
 
@@ -31,11 +32,12 @@ class activityModel {
     * @return immagine di anteprima del corso in base 64
     */
     private function getActivityImage($activity_id){
-        $sql = "select E.ImmAnteprima
-                from Eventi as E
-                where E.IdEvento=$activity_id
-                "; //ritorna le informazioni sull'evento avente id $activity_id
-        $result=self::$db->runQuery($sql);
+        $conn = self::$db->getConnection();
+        $stmt = $conn->prepare("select E.ImmAnteprima
+                                from Eventi as E
+                                where E.IdEvento=?");//ritorna le informazioni sull'evento avente id $activity_id
+        $stmt->bind_param("i", $activity_id);
+        $result = self::$db->runStatement($stmt);
         $row=$result->fetch_assoc();
         return base64_encode($row["ImmAnteprima"]);
     } //getActivityImage
@@ -46,11 +48,12 @@ class activityModel {
     */
     private function getActivityMoments($activity_id)
     {
-        $sql = "select *
-                from MomentiEventi as ME
-                where ME.IdEvento=$activity_id
-                "; //ritorna gli eventi dell'evento avente id $activity_id
-        $result=self::$db->runQuery($sql);
+        $conn = self::$db->getConnection();
+        $stmt = $conn->prepare("select *
+                                from MomentiEventi as ME
+                                where ME.IdEvento=?");//ritorna le informazioni sull'evento avente id $activity_id
+        $stmt->bind_param("i", $activity_id);
+        $result = self::$db->runStatement($stmt);
         return $result->fetch_all(MYSQLI_ASSOC);
     } //getActivityInformation
 
@@ -59,12 +62,13 @@ class activityModel {
     * @return array associativo con le specifiche del corso
     */
     private function getActivitySpec($activity_id)
-    {
-        $sql = "select U.Nome, U.Cognome
-                from GestioneEventi as GE join Utenze as U on GE.IdInsegnante = U.IdUtente
-                where GE.IdEvento=$activity_id
-                "; //ritorna i gestori dell'evento avente id $activity_id
-        $result=self::$db->runQuery($sql);
+    { 
+        $conn = self::$db->getConnection();
+        $stmt = $conn->prepare("select U.Nome, U.Cognome
+                                from GestioneEventi as GE join Utenze as U on GE.IdInsegnante = U.IdUtente
+                                where GE.IdEvento=?");//ritorna le informazioni sull'evento avente id $activity_id
+        $stmt->bind_param("i", $activity_id);
+        $result = self::$db->runStatement($stmt);
         return $result->fetch_all(MYSQLI_ASSOC);
     } //getActivitySpec
 
@@ -74,10 +78,12 @@ class activityModel {
     */
     public function getActivityMaterials($activity_id)
     {
-        $sql = "SELECT M.NomeMateriale, M.DataAggiunta
-                FROM MaterialiEventi as ME JOIN Materiali as M ON ME.IdMateriale = M.IdMateriale
-                WHERE ME.IdEvento = $activity_id"; //ritorna i materiali dell'evento avente id $activity_id
-        $result=self::$db->runQuery($sql);
+        $conn = self::$db->getConnection();
+        $stmt = $conn->prepare("SELECT M.NomeMateriale, M.DataAggiunta
+                                FROM MaterialiEventi as ME JOIN Materiali as M ON ME.IdMateriale = M.IdMateriale
+                                WHERE ME.IdEvento=?");//ritorna i materiali dell'evento avente id $activity_id
+        $stmt->bind_param("i", $activity_id);
+        $result = self::$db->runStatement($stmt);        
         return $result->fetch_all(MYSQLI_ASSOC);
     } //getActivityMaterials
 
