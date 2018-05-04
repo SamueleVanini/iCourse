@@ -357,3 +357,45 @@ footer p {
     right: 4px;
     top: 4px;
 }
+
+.btn-outline-success-new {
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+    color:#fff !important;
+    outline: none;
+}
+
+.btn-outline-success-new:hover {
+    border-color: #007bff !important;
+    color: #007bff !important;
+    background-color: #fff !important;
+    outline: none !important;
+}
+
+.btn-outline-success-new:onclick{
+    background-color: #fff !important;
+    outline-color: none !important;
+}
+
+#tabella-studenti{
+    overflow: auto;
+}
+
+.bg-light-new{
+    background-color: transparent !important;
+}
+
+.thead-dark-new th{
+    background-color: #343a40 !important;
+}
+
+#foot{
+    color: black;
+    position: relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    z-index:-1;
+}
