@@ -1,5 +1,7 @@
 <!-- frame form creazione comunicazione -->
-<button type="button" class="btn btn-primary btn-lg btn-dark float-right creazione-comunicazione" id="btn-communication">Crea comunicazione</button>
+<script>
+    showButtonComunicazioni();
+</script>
 <div class="modal" id="form-communication">
     <div class="modal-content">
         <span class="close" id="chiudiComunicazione">&times;</span>

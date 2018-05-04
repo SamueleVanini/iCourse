@@ -88,6 +88,20 @@ function createActivityPage(informazioni){
     document.getElementById('tabellaFile').innerHTML = testo;
 }//createActivityPage
 
+/** showButtonCorsi
+ * Funzione che aggiunge alla box dei corsi un bottone per ggiungere un nuovo corso o una nuova comunicazione
+*/
+function showButtonCorsi(){
+    document.getElementById("bannerBoxCorsi").innerHTML+='<button id="btn-event">+</button>';
+} //showButtonsCorsiComunicazioni
+
+/** showButtonComunicazioni
+ * Funzione che aggiunge alla box delle comunicazioni un bottone per ggiungere un nuovo corso o una nuova comunicazione
+*/
+function showButtonComunicazioni(){
+    document.getElementById("bannerBoxComunicazioni").innerHTML+='<button id="btn-communication">+</button>';
+} //showButtonComunicazioni
+
 /**
  * Funzione che mostra o nasconde il form di inserimento eventi.
 */
