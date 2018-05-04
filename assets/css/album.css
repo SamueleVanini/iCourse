@@ -200,8 +200,7 @@ footer p {
     position: fixed;
     bottom: 25px; /**** Position of button ****/
     right: 25px;  /**** Position of button ****/
-    background: rgb(0, 0, 0);        /**** Color of button ****/
-    background: rgba(0, 0, 0, 0.7);  /**** Color of button ****/
+    background: rgba(42, 33, 33, 0.5);  /**** Color of button ****/
     width: 50px;  /**** Size of button ****/
     height: 50px; /**** Size of button ****/
     display: block;
@@ -230,7 +229,7 @@ footer p {
     transition: all 0.3s ease;
 }
 #return-to-top:hover {
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(42, 33, 33, 0.64);
 }
 #return-to-top:hover i {
     color: red !important;
@@ -389,13 +388,18 @@ footer p {
     background-color: #343a40 !important;
 }
 
+.footer {
+  position: absolute;
+  width: 100%;
+  top: 100%;
+}
+
 #foot{
-    color: black;
+    color: dark;
     position: relative;
     left: 0;
     bottom: 0;
     width: 100%;
-    text-align: center;
     overflow: hidden;
     z-index:-1;
 }
