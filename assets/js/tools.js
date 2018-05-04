@@ -4,23 +4,33 @@
 */
 function createActivityBox(eventi){
     var intActivty1 = '<h4>I tuoi corsi</h4><ul>';
-    var intActivty2 = '<h4>Altri corsi</h4><ul>';
     var activity = '';
     var corsi = [];
-    var j = 0;
-    for(i=0; i<eventi.length; i++){
-        if(eventi[i].title){
-            
-            corsi[j].
-            j++;
-        }
+    for(var i=0; i<eventi.length; i++){
+        if(!isPresente(eventi[i].id, corsi)){
+            var corso = new Object();
+            corso.id = eventi[i].id;
+            corso.title = eventi[i].title;
+            corsi.push(corso);
+        }//if
     }//for
-    activity += '<li><a href="activity.php?activity_id=' + eventi[i].id + '">' + eventi[i].title + '</a></li>';
-    
+    for(var i=0; i<corsi.length; i++){
+        activity += '<li><a href="activity.php?activity_id=' + corsi[i]['id'] + '">' + corsi[i]['title'] + '</a></li>';
+    }
     activity += '</ul>';
 
    document.getElementById('activity-box').innerHTML = intActivty1 + activity;
 }//createActivityBox
+
+function isPresente(elem, arr){
+    for(var i=0; i<arr.length; i++){
+        console.log(elem);
+        if(arr[i].id == elem){
+            return true;
+        }
+    }
+    return false;
+}//controllaPresenza
 
 /**
  * Funzione che inserisce le attività nella social-box.
