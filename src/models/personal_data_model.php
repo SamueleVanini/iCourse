@@ -18,7 +18,7 @@
         */
         public function viewUserData($user, $return_format = null) {
             $idUtente = $user->getUserId();
-            $sql = "SELECT u.Nome, u.Cognome, u.DataDiNascita, u.Matricola, c.Anno, c.Corso, c.Sezione, u.Mail, u.Telefono
+            $sql = "SELECT u.Username, u.Nome, u.Cognome, u.DataDiNascita, u.Matricola, c.Anno, c.Corso, c.Sezione, u.Mail, u.Telefono
                     FROM Utenze as u left join Classi as c on (u.IdClasse = c.IdClasse)
                     WHERE u.IdUtente = ".$idUtente.";";
             $result = self::$db->runQuery($sql);

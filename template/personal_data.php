@@ -53,12 +53,14 @@
                                                         response_data = JSON.parse(response_data);
                                                         for(i=0; i<response_data.length; i++){
                                                             var dato = new Object(); //NON GUARDARE TI PREGO
+                                                            dato.username = response_data[i].Username;
                                                             dato.name = response_data[i].Nome;
                                                             dato.surname = response_data[i].Cognome;
                                                             dato.bornDate = response_data[i].DataDiNascita;
                                                             dato.classYear = response_data[i].Anno;
                                                             dato.classCourse = response_data[i].Corso;
                                                             dato.classSection = response_data[i].Sezione;
+                                                            dato.studentId = response_data[i].Matricola;
                                                             dato.mail = response_data[i].Mail;
                                                             dato.phone = response_data[i].Telefono;
                                                             dati.push(dato);
