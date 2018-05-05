@@ -96,7 +96,11 @@
     span_event.onclick = function() {
         modal_event.style.display = "none";
     }
-
+    
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var id_a = url.searchParams.get("activity_id");
+    
     var activity = [];
     var callback_activity = (err, res)=>{
         if(err){
@@ -106,7 +110,7 @@
             createUserPage(res);
         }//if-else
     }//callback_get
-    var requestActivity = new Request("/iCourse/src/controller/get_user_controller.php", "POST", [], callback_activity);
+    var requestActivity = new Request("/iCourse/src/controller/get_user_controller.php", "POST", [{"name":"activityId","value":id_a], callback_activity);
     requestActivity.send();
     
 </script>
