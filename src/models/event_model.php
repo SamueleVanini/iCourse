@@ -98,8 +98,14 @@
          */
         public function addStudentToEvent($userToAdd, $idEvento)
         {
-            $userId = $userToAdd->getUserId();
             $conn = self::$db->getConnection();
+            //Query per avere id utente dalla mtricola
+            $stmt = $conn->prepare("SELECT IdUtente FROM Utenze WHERE Matricola=?");
+            $stmt->bind_param("s", $userToAdd);
+            $result = self::$db->runStatement($stmt);
+            $result_array = $result->fetch_all(MYSQLI_ASSOC);
+            $userId = $result_array["IdUtente"];
+            //Query oer avere IdMomento dell'evento
             $stmt = $conn->prepare("SELECT IdMomento FROM MomentiEventi WHERE IdEvento = ?");
             $stmt->bind_param("i", $idEvento);
             $result = self::$db->runStatement($stmt);

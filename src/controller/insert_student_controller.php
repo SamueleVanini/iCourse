@@ -7,7 +7,7 @@
     require_once($path2);
     require_once($path3);
 
-    if(isset($_REQUEST["matricola"]) && isset($_REQUEST["idEvento"]))
+    if(isset($_REQUEST["Matricola"]) && isset($_REQUEST["activityId"]))
     {
         if(!checkSession())
         {
@@ -18,7 +18,7 @@
         {
             $events_searcher = new EventModel();
             $user = unserialize($_SESSION["user"]);
-            if(!($user->getUser()->hasPrivilege(2)))
+            if(!($user->hasPrivilege(2)))
             {
                 header("Refresh: 3; url = /iCourse/template", true, 301);
                 echo "Non hai i privilegi per effettuare questa operazione, redirect in 3 secondi...";
@@ -26,7 +26,7 @@
             }
             else
             {
-                $events = $events_searcher->addStudentToEvent($_POST["matricola"], $_REQUEST["idEvento"]);
+                $events = $events_searcher->addStudentToEvent($_POST["Matricola"], $_REQUEST["activityId"]);
                 echo $events;
             }
         }
