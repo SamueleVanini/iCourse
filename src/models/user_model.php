@@ -67,8 +67,8 @@
         public function getAllUser($eventId, $return_format = null)
         {
             $sql = "SELECT Nome, Cognome, Matricola, Anno, Corso, Sezione FROM Utenze as u join Classi as c on u.IdClasse = c.IdClasse join RuoloUtente as ru on u.IdUtente = ru.IdUtente
-                    WHERE ru.IdRuolo=3 and where u.IdUtente not in 
-                    Select p.IdPartecipante from Partecipanti as p join MomentiEventi as me on p.IdMomento=me.IdMomento WHERE me.IdEvento=$eventId";
+                    WHERE ru.IdRuolo=3 and u.IdUtente not in 
+                    (Select p.IdPartecipante from Partecipanti as p join MomentiEventi as me on p.IdMomento=me.IdMomento WHERE me.IdEvento=$eventId)";
             $result = self::$db->runQuery($sql);
             switch ($return_format) {
                 case 1:
