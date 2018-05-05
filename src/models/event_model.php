@@ -104,17 +104,17 @@
             $stmt->bind_param("s", $userToAdd);
             $result = self::$db->runStatement($stmt);
             $result_array = $result->fetch_all(MYSQLI_ASSOC);
-            $userId = $result_array["IdUtente"];
+            $userId = $result_array[0]["IdUtente"];
             //Query oer avere IdMomento dell'evento
             $stmt = $conn->prepare("SELECT IdMomento FROM MomentiEventi WHERE IdEvento = ?");
             $stmt->bind_param("i", $idEvento);
             $result = self::$db->runStatement($stmt);
             $result_array = $result->fetch_all(MYSQLI_ASSOC);
             $conn->autocommit(false);
-            foreach($result_array["IdMomento"] as $IdMomento)
+            foreach($result_array as $idMomento)
             {
                 $stmt = $conn->prepare("INSERT INTO Partecipanti (IdPartecipante, IdMomento) VALUES(?, ?)");
-                $stmt->bind_param("ii", $userId, $idMomento);
+                $stmt->bind_param("ii", $userId, $idMomento["IdMomento"]);
                 if(!$stmt->execute())
                 {
                     $conn->rollback();
