@@ -26,7 +26,7 @@
                         SELECT e.IdEvento
                         FROM Eventi as e left join MomentiEventi as me on (e.IdEvento = me.IdEvento) left join Partecipanti as p on (p.IdMomento = me.IdMomento) left join GestioneEventi as ge on (ge.IdEvento = e.IdEvento)
                         WHERE ge.IdInsegnante =".$idUtente." or p.IdPartecipante =".$idUtente.")
-                    ORDER BY c.Data, c.Ora
+                    ORDER BY c.Data DESC, c.Ora DESC
                     LIMIT 5"; //ritorna le ultime 5 comunicazioni più recenti per lo specifico user
             $result = self::$db->runQuery($sql);
             switch ($return_format) {
