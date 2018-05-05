@@ -110,7 +110,7 @@
             createUserPage(res);
         }//if-else
     }//callback_get
-    var requestActivity = new Request("/iCourse/src/controller/get_user_controller.php", "POST", [{"name":"activityId","value":id_a], callback_activity);
+    var requestActivity = new Request("/iCourse/src/controller/get_user_controller.php", "POST", [{"name":"activityId","value":id_a}], callback_activity);
     requestActivity.send();
     
 </script>
