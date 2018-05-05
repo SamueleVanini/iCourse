@@ -27,11 +27,6 @@
   max-width: 40rem;
 }
 
-footer {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
 footer p {
   margin-bottom: .25rem;
 }
@@ -214,6 +209,7 @@ footer p {
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
+    z-index: 9000;
 }
 #return-to-top i {
     color: red !important; /**** Color of Arrow ****/
@@ -341,7 +337,7 @@ footer p {
 
 #btn-event{
     border-radius: 50%;
-    background-color: white;
+    background-color: transparent;
     border: 0px;
     width: 40px;
     height: 40px;
@@ -350,15 +346,23 @@ footer p {
     top: 4px;
 }
 
+#btn-event:hover{
+	cursor: pointer;
+}
+
 #btn-communication{
     border-radius: 50%;
-    background-color: white;
+    background-color: transparent;
     border: 0px;
     width: 40px;
     height: 40px;
     position: absolute;
     right: 4px;
     top: 4px;
+}
+
+#btn-communication:hover{
+    cursor: pointer;
 }
 
 .btn-outline-success-new {
@@ -408,4 +412,3 @@ footer p {
     z-index:0;
     background-color: #343a40;
 }
-
