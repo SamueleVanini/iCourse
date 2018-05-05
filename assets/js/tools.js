@@ -70,10 +70,12 @@ function createViewPersonalData(dati){
 
     var data = "";
     for(i=0; i<dati.length; i++){
+        data += 'Username: ' + '<i>' + dati[i].username + '</i><br>';
         data += 'Nome: ' + '<i>' + dati[i].name + '</i><br>';
         data += 'Cognome: ' + '<i>' + dati[i].surname + '</i><br>';
         data += 'Data di Nascita: ' + '<i>' + dati[i].bornDate + '</i><br>';
         data += 'Classe: ' + '<i>' + dati[i].classYear + dati[i].classCourse + dati[i].classSection + '</i><br>';
+        data += 'Matricola: ' + '<i>' + dati[i].studentId + '</i><br>';
         data += 'Mail: ' + '<i>' + dati[i].mail + '</i><br>';
         data += 'Telefono: ' + '<i>' + dati[i].phone + '</i><br>';
     }//for
@@ -333,7 +335,7 @@ function subscribeCourse(id){
     var id_a = url.searchParams.get("activity_id");
     var id_u = id.split("-")[1];
     var matr = document.getElementById('utente-' + id_u).innerText;
-    
+
     var callback_sub = (err, res)=>{
         if(err){
             console.log("Errore: " + err + "; status: " + res);
@@ -346,7 +348,7 @@ function subscribeCourse(id){
             }//if
         }//if
     }//callback_sub
-    
+
     var requestActivity = new Request("/iCourse/src/controller/insert_student_controller.php", "POST", [{"name":"Matricola","value":matr},{"name":"activityId","value":id_a}], callback_sub);
     requestActivity.send();
 }//subscribeCourse
