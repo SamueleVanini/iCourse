@@ -74,7 +74,8 @@ function createViewPersonalData(dati){
         data += 'Nome: ' + '<i>' + dati[i].name + '</i><br>';
         data += 'Cognome: ' + '<i>' + dati[i].surname + '</i><br>';
         data += 'Data di Nascita: ' + '<i>' + dati[i].bornDate + '</i><br>';
-        data += 'Classe: ' + '<i>' + dati[i].classYear + dati[i].classCourse + dati[i].classSection + '</i><br>';
+        if(dati[i].classYear != null)
+            data += 'Classe: ' + '<i>' + dati[i].classYear + dati[i].classCourse + dati[i].classSection + '</i><br>';
         data += 'Matricola: ' + '<i>' + dati[i].studentId + '</i><br>';
         data += 'Mail: ' + '<i>' + dati[i].mail + '</i><br>';
         data += 'Telefono: ' + '<i>' + dati[i].phone + '</i><br>';
