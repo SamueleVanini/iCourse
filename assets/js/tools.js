@@ -220,8 +220,12 @@ function sendDatiCorso(){
             showMSG(0);
         }else{
             console.log("bella");
-            showMSG(1);
-            resetFormEventi();
+            if(res){
+                showMSG(1);
+                resetFormEventi();
+            }else{
+                showMSG(0);
+            }
         }
     }//callback
 
@@ -271,8 +275,12 @@ function sendDatiComunicazione(){
             showMSG(0);
         }else{
             console.log("bella");
-            showMSG(1);
-            resetFormCom();
+            if(res){
+                showMSG(1);
+                resetFormCom();
+            }else{
+                showMSG(0);
+            }
         }//if
     }//callback
 
@@ -333,9 +341,13 @@ function subscribeCourse(id){
             console.log("Errore: " + err + "; status: " + res);
             showMSG(0);
         }else{
-            showMSG(1);
+            if(res){
+                showMSG(1);
+            }else{
+                showMSG(0);
+            }//if
         }//if
-    }
+    }//callback_sub
 
     var requestActivity = new Request("/iCourse/src/controller/insert_student_controller.php", "POST", [{"name":"Matricola","value":matr},{"name":"activityId","value":id_a}], callback_sub);
     requestActivity.send();

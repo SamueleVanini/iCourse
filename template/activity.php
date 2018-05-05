@@ -65,10 +65,10 @@
 					</div>
 				</div>
 				<div class="alert alert-success" role="alert" id="successo">
-                    Creazione avvenuta con successo.
+                    Inserimento avvenuto con successo.
                 </div>
                 <div class="alert alert-danger" role="alert" id="errore">
-                    Errore nella creazione.
+                    Errore nell'inserimento.
                 </div>
 				<?php
 				$path = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/models/priviliged_user_model.php";
