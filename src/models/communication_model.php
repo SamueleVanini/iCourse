@@ -20,7 +20,7 @@
         public function getUserCommunications($user, $return_format = null)
         {
             $idUtente = $user->getUserId();
-            $sql = "SELECT e.Nome, c.Titolo
+            $sql = "SELECT e.Nome, c.Titolo, c.IdComunicazione
                     FROM Comunicazioni as c join Eventi as e on c.IdEvento = e.IdEvento
                     WHERE c.IdEvento in (
                         SELECT e.IdEvento

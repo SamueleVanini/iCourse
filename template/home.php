@@ -123,6 +123,7 @@
                                 var comunicazione = new Object(); //NON GUARDARE TI PREGO
                                 comunicazione.name = response_communication[i].Nome;
                                 comunicazione.title = response_communication[i].Titolo;
+                                comunicazione.id = response_communication[i].IdComunicazione;
                                 comunicazioni.push(comunicazione);
                             }//for
                             createSocialBox(comunicazioni);

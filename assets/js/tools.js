@@ -41,7 +41,7 @@ function createSocialBox(comunicazioni){
     var intSocial2 = '<h4>Altre comunicazioni</h4><ul>';
     var social = '';
     for(i=0; i<comunicazioni.length; i++){
-        social += '<li>' + comunicazioni[i].title + '</li>';
+        social += '<li><a href="communication.php?communication_id=' + comunicazioni[i].id + '">' + comunicazioni[i].title + '</a></li>';
     }//for
     social += '</ul>';
 
