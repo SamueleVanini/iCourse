@@ -1,5 +1,5 @@
 <footer class="text-muted">
-    <div class="container">
+    <div class="container-fluid">
         <p class="float-right">
             <a href="#" id="return-to-top">
                 <i class="fa fa-chevron-up">
@@ -13,9 +13,17 @@
 
         <div class="container-new row">
             <div class="col-md-12" id="foot">
-                    <p>Autori: Samuele Vanini, Manuel Barusco, Riccardo Bonavigo, Andrea Tessari, Mattia Berin, Antonio Varotto, Andrea Paccagnella, Leonardo Serrentino, Alberto Grosselle</p>
-                    <p>Istituto Tecnico Industriale "Francesco Severi" Via Luigi Pettinati, 46 - 35129 - Padova  </p>
+				<div style="margin-left:20%; margin-top:15px;">
+					<h3>Autori:</h3>
+                    <p>Samuele Vanini<br>Manuel Barusco<br>Riccardo Bonavigo<br>Andrea Tessari<br>Mattia Berin<br>Antonio Varotto<br>Andrea Paccagnella<br>Leonardo Serrentino<br>Alberto Grosselle</p>
+				</div>	
+				<hr>
+					<center style="margin-bottom: 20px">
+						<p>Istituto Tecnico Industriale "Francesco Severi" Via Luigi Pettinati, 46 - 35129 - Padova  </p>
+						<a href="https://www.itiseveripadova.gov.it/" style="text-decoration:none;">Sito della scuola</a>
+					</center>				
             </div>
         </div>
     </div>
 </footer>
+
