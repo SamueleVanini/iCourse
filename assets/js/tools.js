@@ -113,6 +113,25 @@ function createActivityPage(informazioni){
     }
 }//createActivityPage
 
+/**
+ * Funzione che compila la pagina della Comunicazione
+ * @param informazioni oggetto json con le informazioni della comunicazione
+*/
+function createCommunicationPage(informazioni){
+    if(informazioni.length!=0){
+        document.getElementById("communicationTitle").innerHTML+=":"+informazioni[0].Titolo;
+        document.getElementById("communicationCode").innerHTML+=":"+informazioni[0].IdComunicazione;
+        document.getElementById("communicationTeacher").innerHTML+=informazioni[0].Username;
+        document.getElementById("communicationCourse").innerHTML+=informazioni[0].Nome;
+        document.getElementById("communicationDescription").innerHTML=informazioni[0].Testo;
+    } else {
+        document.getElementById("communicationBody").innerHTML="";
+        showMSG(0);
+        setInterval(()=>{window.location.href = "home.php";}, 5000);
+    }
+} //createCommunicationPage
+
+
 /** showButtonCorsi
  * Funzione che aggiunge alla box dei corsi un bottone per ggiungere un nuovo corso o una nuova comunicazione
 */

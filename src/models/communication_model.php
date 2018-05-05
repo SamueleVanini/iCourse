@@ -39,6 +39,31 @@
             } //switch
         } //getUserCommunication
 
+        /** getCommunication
+        * @param $user id dell'utente
+        * @param $id id della comunicazione che si vuole visualizzare
+        * @param $return_format indicazione del formato dei dati di output
+        * @return file json o array associativo contenente le informazioni relative alla comunicazione avente id $id e posseduta dall'utente $user o un file json in caso di errore
+        */
+        public function getCommunication($user,$id, $return_format = null){
+            $sql = "SELECT e.Nome, c.Titolo, u.Username, c.IdComunicazione, c.Testo
+                    FROM Comunicazioni as c join Eventi as e on c.IdEvento = e.IdEvento join Utenze as u on u.IdUtente = c.IdUtenteCreatore left join Allegati as a on c.IdAllegato = a.IdAllegato
+                    WHERE c.IdComunicazione=$id and c.IdEvento in (
+                        SELECT m.IdEvento
+                        FROM MomentiEventi as m join Partecipanti as p on (m.IdMomento = p.IdMomento)
+                        WHERE p.IdPartecipante =". $user->getUserId().")
+                    ";
+            $result = self::$db->runQuery($sql);
+            switch ($return_format) {
+                case 1:
+                    $result_array = $result->fetch_all(MYSQLI_ASSOC);
+                    return $result_array;
+                default:
+                    $result_array = $result->fetch_all(MYSQLI_ASSOC);
+                    return json_encode($result_array);
+            } //switch
+        } //getCommunication
+
         public function insertFile($files) {
             $file = $files['file'];
             $nome = $files['file']['name'];
