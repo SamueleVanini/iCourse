@@ -62,7 +62,6 @@
 							  </tbody>
 							</table>
 						</div>
-						<!--<?php include('caricaFile.php'); /* se si è loggati come docente, sarà possibile caricare dei materiali */ ?>-->
 					</div>
 				</div>
 	    </main>
