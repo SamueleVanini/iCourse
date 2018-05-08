@@ -58,12 +58,7 @@
 								</tr>
 							  </thead>
 							  <tbody id="tabellaAllegati">
-								<tr>
-								  <th scope="row">1</th>
-								  <td>materiale1.pdf</td>
-								  <td>2/02/2018</td>
-								  <td><button type="submit" class="btn btn-primary btn-accedi btn-download">Download</button></td>
-								</tr>
+								
 							  </tbody>
 							</table>
 						</div>
