@@ -94,6 +94,7 @@
             </main>
 
                 <script>
+                    function loadBox(){
                     var eventi = [];
                     var callback_event = (err, response_event)=>{
                         if(err){
@@ -129,14 +130,16 @@
                             createSocialBox(comunicazioni);
                         }//if-else
                     }//callback_get
-                    function loadBox(){
+                    
                         var requestEvent = new Request("/iCourse/src/controller/event_controller.php", "POST", [], callback_event); //inizialize the Request object
                         var requestCommunication = new Request("/iCourse/src/controller/communication_controller.php", "POST", [], callback_communication);
                         requestEvent.send();
                         requestCommunication.send();
+
+                        return eventi;
                     }
 
-                    loadBox();
+                    var eventi = loadBox();
                     
                     function calendario(){
                         $('#calendar').fullCalendar({
