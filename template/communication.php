@@ -50,12 +50,7 @@
 							<div> <h4> Allegati della comunicazione </h4> </div>
 							<table class="table table-hover">
 							  <thead>
-								<tr>
-								  <th scope="col">#</th>
-								  <th scope="col">Nome file</th>
-								  <th scope="col">Data aggiunta</th>
-								  <th scope="col"></th>
-								</tr>
+								
 							  </thead>
 							  <tbody id="tabellaAllegati">
 								
