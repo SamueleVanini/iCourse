@@ -75,13 +75,16 @@
 
         public function insertCommunication($user, $idEvento, $titolo, $testo, $idAlleg = null) {
             $idAlleg = !empty($idAlleg) ? $idAlleg : "NULL";
-            $stmt = self::$db->getConnection()->prepare("INSERT INTO Comunicazioni (IdEvento, Data, Ora, IdUtenteCreatore, Titolo, Testo, IdAllegato) VALUES (".$idEvento.", '".date("Y-m-d")."', '".date("H:m:s")."', ".$user->getUserId().", ?, ?, ".$idAlleg.");");
-            $stmt->bind_param("ss", $titolo, $testo);
-            $result = self::$db->runStatement($stmt);
-            $stmt->close();
-            if($result)
-                return true;
-            return false;
+            $dataCreazine = date("Y-m-d");
+            $oraCreazione = date("H:m:s");
+            $userId = $user->getUserId();
+            $conn = self::$db->getConnection();
+            $stmt = $conn->prepare("INSERT INTO Comunicazioni (IdEvento, Data, Ora, IdUtenteCreatore, Titolo, Testo) VALUES (?, ?, ?, ?, ?, ?);");
+            $stmt->bind_param("ississ", $idEvento, $dataCreazine, $oraCreazione, $userId, $titolo, $testo);
+            //$stmt->close();
+            if(!$stmt->execute())
+                return false;
+            return true;
         }
 
         public function getAllNomeEventiGestiti($user, $return_format = null) {
