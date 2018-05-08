@@ -129,12 +129,15 @@
                             createSocialBox(comunicazioni);
                         }//if-else
                     }//callback_get
+                    function loadBox(){
+                        var requestEvent = new Request("/iCourse/src/controller/event_controller.php", "POST", [], callback_event); //inizialize the Request object
+                        var requestCommunication = new Request("/iCourse/src/controller/communication_controller.php", "POST", [], callback_communication);
+                        requestEvent.send();
+                        requestCommunication.send();
+                    }
 
-                    var requestEvent = new Request("/iCourse/src/controller/event_controller.php", "POST", [], callback_event); //inizialize the Request object
-                    var requestCommunication = new Request("/iCourse/src/controller/communication_controller.php", "POST", [], callback_communication);
-                    requestEvent.send();
-                    requestCommunication.send();
-
+                    loadBox();
+                    
                     function calendario(){
                         $('#calendar').fullCalendar({
                             defaultDate: new Date(),

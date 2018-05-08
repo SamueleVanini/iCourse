@@ -251,6 +251,7 @@ function sendDatiCorso(){
             if(res){
                 showMSG(1);
                 resetFormEventi();
+                loadBox();
             }else{
                 showMSG(0);
             }
@@ -306,6 +307,7 @@ function sendDatiComunicazione(){
             if(res){
                 showMSG(1);
                 resetFormCom();
+                loadBox();
             }else{
                 showMSG(0);
             }
