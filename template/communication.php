@@ -26,8 +26,9 @@
 								<p id="communicationCode" style="line-height:5px">Codice della Comunicazione</p><br>
 							</div>
 							<div>
-								<h5><b>Docente referente</b> : <p id="communicationTeacher"><p> </h5>
-								<h5><b>Corso</b> : <p id="communicationCourse"></h5>
+								<h5 id="communicationTeacher"><b>Docente referente</b> : </h5>
+								<h5 id="communicationCourse"><b>Corso</b> : </h5>
+								<h5 id="communicationDate"><b>Data di pubblicazione</b> : </h5>
 							</div>
 						</div>
 					</div>
@@ -47,7 +48,7 @@
 						<div class="col-xl-1 container-new"></div>
 						<div id="Allegati" class="col-xl-10 container-new"> <?php /* se si è loggati come studente, col-md deve avere il valore di 10 */ ?>
 							<div> <h4> Allegati della comunicazione </h4> </div>
-							<table id="tabellaAllegati" class="table table-hover">
+							<table class="table table-hover">
 							  <thead>
 								<tr>
 								  <th scope="col">#</th>
@@ -56,22 +57,10 @@
 								  <th scope="col"></th>
 								</tr>
 							  </thead>
-							  <tbody>
+							  <tbody id="tabellaAllegati">
 								<tr>
 								  <th scope="row">1</th>
 								  <td>materiale1.pdf</td>
-								  <td>2/02/2018</td>
-								  <td><button type="submit" class="btn btn-primary btn-accedi btn-download">Download</button></td>
-								</tr>
-								<tr>
-								  <th scope="row">2</th>
-								  <td>materiale2.pdf</td>
-								  <td>2/02/2018</td>
-								  <td><button type="submit" class="btn btn-primary btn-accedi btn-download">Download</button></td>
-								</tr>
-								<tr>
-								  <th scope="row">3</th>
-								  <td>materiale3.pdf</td>
 								  <td>2/02/2018</td>
 								  <td><button type="submit" class="btn btn-primary btn-accedi btn-download">Download</button></td>
 								</tr>

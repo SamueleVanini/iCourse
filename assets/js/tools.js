@@ -124,11 +124,19 @@ function createCommunicationPage(informazioni){
         document.getElementById("communicationTeacher").innerHTML+=informazioni[0].Username;
         document.getElementById("communicationCourse").innerHTML+=informazioni[0].Nome;
         document.getElementById("communicationDescription").innerHTML=informazioni[0].Testo;
+        document.getElementById("communicationDate").innerHTML+=informazioni[0].Data;
+        if(informazioni[0]["NomeAllegato"]){
+            var allegati="";
+            for(i=0;i<informazioni.length;i++)
+                allegati+='<tr><th>'+(i+1)+'</th><td>'+informazioni[i].NomeAllegato+'</td><td>'+informazioni[i].DataAggiunta+'</td><td><button type="submit" class="btn btn-primary btn-accedi btn-download">Download</button></td></tr>';
+            document.getElementById("tabellaAllegati").innerHTML=allegati;
+        } else
+            document.getElementById("Allegati").innerHTML="";
     } else {
         document.getElementById("communicationBody").innerHTML="";
         showMSG(0);
         setInterval(()=>{window.location.href = "home.php";}, 5000);
-    }
+    } //if-else
 } //createCommunicationPage
 
 

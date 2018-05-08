@@ -46,8 +46,8 @@
         * @return file json o array associativo contenente le informazioni relative alla comunicazione avente id $id e posseduta dall'utente $user o un file json in caso di errore
         */
         public function getCommunication($user,$id, $return_format = null){
-            $sql = "SELECT e.Nome, c.Titolo, u.Username, c.IdComunicazione, c.Testo
-                    FROM Comunicazioni as c join Eventi as e on c.IdEvento = e.IdEvento join Utenze as u on u.IdUtente = c.IdUtenteCreatore left join Allegati as a on c.IdAllegato = a.IdAllegato
+            $sql = "SELECT c.Titolo, c.IdComunicazione, c.Testo, e.Nome, u.Username, c.Data, a.NomeAllegato, a.DataAggiunta
+                    FROM Comunicazioni as c join Eventi as e on c.IdEvento = e.IdEvento join Utenze as u on u.IdUtente = c.IdUtenteCreatore left join AllegatiComunicazioni as ac on ac.IdComunicazione = c.IdComunicazione left join Allegati as a on a.IdAllegato = ac.IdAllegato
                     WHERE c.IdComunicazione=$id and c.IdEvento in (
                         SELECT m.IdEvento
                         FROM MomentiEventi as m join Partecipanti as p on (m.IdMomento = p.IdMomento)
