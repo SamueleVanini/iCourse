@@ -18,8 +18,9 @@ function createActivityBox(eventi){
         activity += '<li><a href="activity.php?activity_id=' + corsi[i]['id'] + '">' + corsi[i]['title'] + '</a></li>';
     }
     activity += '</ul>';
-
-   document.getElementById('activity-box').innerHTML = intActivty1 + activity;
+    
+    document.getElementById('activity-box').innerHTML = "";
+    document.getElementById('activity-box').innerHTML = intActivty1 + activity;
 }//createActivityBox
 
 function isPresente(elem, arr){
@@ -44,8 +45,7 @@ function createSocialBox(comunicazioni){
         social += '<li><a href="communication.php?communication_id=' + comunicazioni[i].id + '">' + comunicazioni[i].title + '</a></li>';
     }//for
     social += '</ul>';
-
-   document.getElementById('social-box').innerHTML = intSocial1 + social;
+    document.getElementById('social-box').innerHTML = intSocial1 + social;
 }//createSocialBox
 
 /**
@@ -354,6 +354,7 @@ function createUserPage(list){
     var riga2 = '</td><td>';
     var riga3 = '</td></tr>';
     var riga4 = '<td><button type="submit" class="btn btn-primary btn-accedi">Aggiungi</button></td>';
+    document.getElementById('listaUtenti').innerHTML = "";
     for(var i=0; i<list.length; i++){
         document.getElementById('listaUtenti').innerHTML += '<tr><td scope="row" id="utente-' + i + '">' + list[i].Matricola + riga2 + list[i].Nome + riga2 + list[i].Cognome + riga2 + list[i].Anno + list[i].Corso + list[i].Sezione + riga2 + '<button type="submit" class="btn btn-primary btn-accedi" id="bott-' + i + '" onclick="subscribeCourse(this.id)">Aggiungi</button>' + riga3;
     }//for
@@ -373,6 +374,7 @@ function subscribeCourse(id){
         }else{
             if(res){
                 showMSG(1);
+                caricaUtenti();
             }else{
                 showMSG(0);
             }//if

@@ -109,7 +109,8 @@
                                 evento.end = response_event[i].Data + 'T' + response_event[i].OraFine;
                                 eventi.push(evento);
                             }//for
-                            calendario();
+                            calendario(eventi);
+                            console.log(eventi);
                             createActivityBox(eventi);
                         }//if-else
                     }//callback_get
@@ -136,12 +137,11 @@
                         requestEvent.send();
                         requestCommunication.send();
 
-                        return eventi;
                     }
 
-                    var eventi = loadBox();
+                    loadBox();
                     
-                    function calendario(){
+                    function calendario(eventi){
                         $('#calendar').fullCalendar({
                             defaultDate: new Date(),
                             theme: true,
