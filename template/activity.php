@@ -16,7 +16,7 @@
     <body>
 		<?php include('header.php'); ?>
 	    <main role="main">
-				<div class="container container-new">
+				<div id="mainDiv" class="container container-new">
 					<div class="row">
 						<div class="col-md-1"></div>
 						<div class="col-md-5">
@@ -73,16 +73,16 @@
 				<?php
 				$path = $_SERVER['DOCUMENT_ROOT']."/iCourse/src/models/priviliged_user_model.php";
 				require_once($path);
-				
+
 				if(isset($_SESSION["user"]))
 				{
 					$user = unserialize($_SESSION["user"]);
 					if($user->hasPrivilege(2))
 					{
-						include('table_students.php'); 
+						include('table_students.php');
 					}
 				}
-				
+
 				?>
 	    </main>
 		<script>

@@ -19,15 +19,15 @@ class DownloadModel {
     public function downloadAllegato($idAllegato){
         $sql="SELECT a.File, a.NomeAllegato
               FROM Allegati as a
-              WHERE a.IdAllegato = $idAllegato
-             ";
-        $result=self::$db->runQuery($sql);
+              WHERE a.IdAllegato = $idAllegato";
+        $result = self::$db->runQuery($sql);
         $row=$result->fetch_assoc();
+        header("Content-Type: PDF");
         header("Content-Disposition: attachment; filename=".$row["NomeAllegato"]);
         ob_clean();
         flush();
-        echo $row["File"];
-    } //downloadAllegato
+        return $row["File"];
+    }//downloadAllegato
 
     /** downloadMateriale
     * @param $idMateriale id del materiale che si vuole scaricare
@@ -44,6 +44,6 @@ class DownloadModel {
         ob_clean();
         flush();
         echo $row["Materiale"];
-    } //downloadAllegato
+    } //downloadMateriale
 } //DownloadModel
 ?>

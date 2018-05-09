@@ -15,12 +15,10 @@
     }
     else
     {
-        echo $_GET["type"];
-        echo $_GET["id"];
-        /*$downloadSearcher=new DownloadModel();
+        $downloadSearcher=new DownloadModel();
         if($_GET["type"]=="materiale")
             $downloadSearcher->downloadMateriale($_GET["id"]);
         else if($_GET["type"]=="allegato")
-            $downloadSearcher->downloadAllegato($_GET["id"]);*/
-    }
+            $downloadSearcher->downloadAllegato($_GET["id"]);
+    } //if-else*/
 ?>

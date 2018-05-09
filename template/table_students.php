@@ -1,4 +1,6 @@
-<button type="button" class="btn btn-primary btn-lg btn-dark float-left creazione-corso" id="btn-utenti">Gestione utenti</button>
+<script>
+    showButtonAggiungiStudenti();
+</script>
     <div class="modal" id="gestioneUtenti">
         <div class="modal-content">
             <span class="close" id="chiudiUtenti">&times;</span>
@@ -96,6 +98,7 @@
     span_event.onclick = function() {
         modal_event.style.display = "none";
     }
+<<<<<<< Updated upstream
     
     function caricaUtenti(){
         var url_string = window.location.href;
@@ -117,4 +120,23 @@
     }//caricaUtenti
     
     caricaUtenti();
+=======
+
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var id_a = url.searchParams.get("activity_id");
+
+    var activity = [];
+    var callback_activity = (err, res)=>{
+        if(err){
+            console.log("Errore: " + err);
+        }else{
+            res = JSON.parse(res);
+            createUserPage(res);
+        }//if-else
+    }//callback_get
+    var requestActivity = new Request("/iCourse/src/controller/get_user_controller.php", "POST", [{"name":"activityId","value":id_a}], callback_activity);
+    requestActivity.send();
+
+>>>>>>> Stashed changes
 </script>
