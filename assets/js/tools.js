@@ -103,13 +103,13 @@ function createActivityPage(informazioni){
         testo+="<li>"+informazioni[2][i].Nome+" "+informazioni[2][i].Cognome+"</li>";
     testo+="</ul>";
     document.getElementById('activity_spec').innerHTML = testo;
-    if(informazioni[3][0]["NomeMateriale"]){
+    if(informazioni[3].length>0){
         testo='<table class="table table-hover" id="tabellaFile"><thead><tr><th scope="col">#</th><th scope="col">Nome file</th><th scope="col">Data aggiunta</th></tr></thead>';
         for(var i=0;i<informazioni[3].length;i++)
             testo+="<tr><th>"+(i+1)+"</th><td>"+informazioni[3][i].NomeMateriale+"</td><td>"+informazioni[3][i].DataAggiunta+"</td></tr>";
         document.getElementById('divTabellaFile').innerHTML = testo + '</table>';
     }else{
-        document.getElementById('materiali').innerHTML = "";
+        document.getElementById('materiali').style.display= "none";
     }
 }//createActivityPage
 
